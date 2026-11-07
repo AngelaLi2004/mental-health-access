@@ -3532,13 +3532,14 @@ display(html`<div class="main-row">${mapCard}${detailCard}</div>`);
 return {PAGE,needle,shown,providerCard,renderList,miniTable,clearButton,detailCard,miniNational};
 }});
 
-define({id: "965a6b1c", inputs: ["area","level","states","countySet","metric","d3","Plot","percent","minutes","whole","service","html","display","SERVICE_SHORT","areaRow","resize"], outputs: ["comparing","places","groupWord","sorted","zeroCount","count","low","high","rankChart","gaps","gapChart","gapLegend"], body: (area,level,states,countySet,metric,d3,Plot,percent,minutes,whole,service,html,display,SERVICE_SHORT,areaRow,resize) => {
+define({id: "b414504b", inputs: ["area","level","states","countySet","metric","d3","Plot","percent","minutes","whole","service","html","display","SERVICE_SHORT","areaRow","resize"], outputs: ["comparing","places","groupWord","countWord","sorted","zeroCount","count","low","high","rankChart","gaps","gapChart","gapLegend"], body: (area,level,states,countySet,metric,d3,Plot,percent,minutes,whole,service,html,display,SERVICE_SHORT,areaRow,resize) => {
 // Charts compare places one level up from a block group, because a single block group is simply in reach or not.
 const comparing = area ? "county" : level === "state" ? "state" : level === "county" ? "county" : "state";
 const places = (comparing === "state" ? states : countySet)
   .filter((d) => d[metric] != null && d.pop > 0)
   .map((d) => ({...d, label: comparing === "state" ? d.name : area ? d.name : `${d.name}, ${d.abbr}`}));
 const groupWord = comparing === "state" ? "states" : "counties";
+const countWord = (n) => (n === 1 ? (comparing === "state" ? "state" : "county") : groupWord);
 const sorted = d3.sort(places, (d) => d[metric], (d) => -d.pop);
 const zeroCount = places.filter((d) => d[metric] === 0).length;
 const count = Math.min(8, Math.floor(sorted.length / 2));
@@ -3580,10 +3581,10 @@ function gapChart(width) {
 const gapLegend = html`<div class="legend"><span class="item"><span class="dot" style="background:#2a78d6"></span>15 minutes</span><span class="item"><span class="dot"></span>30 minutes</span><span>Number shows the gain in percentage points.</span></div>`;
 
 display(html`<div class="charts-2">
-  <div class="card"><h2>Lowest access</h2><h3>${SERVICE_SHORT[service]}, within ${minutes} minutes. The ${count} ${groupWord} with the smallest share of people in reach${area ? ` in ${areaRow.name}` : ""}.${zeroCount > count ? ` ${whole(zeroCount)} ${groupWord} are tied at 0%; these are the most populated.` : ""}</h3>${resize((w) => rankChart(low, w))}</div>
-  <div class="card"><h2>Highest access</h2><h3>${SERVICE_SHORT[service]}, within ${minutes} minutes. The ${count} ${groupWord} with the largest share in reach${area ? ` in ${areaRow.name}` : ""}.</h3>${resize((w) => rankChart(high, w))}</div>
+  <div class="card"><h2>Lowest access</h2><h3>${SERVICE_SHORT[service]}, within ${minutes} minutes. The ${count} ${countWord(count)} with the smallest share of people in reach${area ? ` in ${areaRow.name}` : ""}.${zeroCount > count ? ` ${whole(zeroCount)} ${groupWord} are tied at 0%; these are the most populated.` : ""}</h3>${resize((w) => rankChart(low, w))}</div>
+  <div class="card"><h2>Highest access</h2><h3>${SERVICE_SHORT[service]}, within ${minutes} minutes. The ${count} ${countWord(count)} with the largest share in reach${area ? ` in ${areaRow.name}` : ""}.</h3>${resize((w) => rankChart(high, w))}</div>
 </div>`);
-return {comparing,places,groupWord,sorted,zeroCount,count,low,high,rankChart,gaps,gapChart,gapLegend};
+return {comparing,places,groupWord,countWord,sorted,zeroCount,count,low,high,rankChart,gaps,gapChart,gapLegend};
 }});
 
 define({id: "cc7cb6cf", inputs: ["display","html","SERVICE_SHORT","service","groupWord","comparing","gapLegend","resize","gapChart"], body: (display,html,SERVICE_SHORT,service,groupWord,comparing,gapLegend,resize,gapChart) => {
@@ -3825,7 +3826,7 @@ return {fmtPct};
 <div class="observablehq observablehq--block"><!--:3ebd7663:--></div>
 <div class="observablehq observablehq--block"><!--:03daa6c4:--></div>
 <div class="observablehq observablehq--block"><!--:4fc03bf5:--></div>
-<div class="observablehq observablehq--block"><!--:965a6b1c:--></div>
+<div class="observablehq observablehq--block"><!--:b414504b:--></div>
 <div class="observablehq observablehq--block"><!--:cc7cb6cf:--></div>
 <div class="observablehq observablehq--block"><!--:bfa65dae:--></div>
 <div class="observablehq observablehq--block"><!--:d975b223:--></div>
