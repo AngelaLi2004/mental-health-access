@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="generator" content="Observable Framework v1.13.4">
-<title>Mental Health Access</title>
+<title>Mental Health Access Map</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
-<link rel="preload" as="style" href="./_import/style.556ceb61.css">
+<link rel="preload" as="style" href="./_import/style.36f9d9ff.css">
 <link rel="preload" as="style" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
-<link rel="stylesheet" type="text/css" href="./_import/style.556ceb61.css">
+<link rel="stylesheet" type="text/css" href="./_import/style.36f9d9ff.css">
 <link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
 <link rel="modulepreload" href="./_observablehq/client.8e48e80b.js">
 <link rel="modulepreload" href="./_observablehq/runtime.13bc3751.js">
@@ -18,11 +18,11 @@
 <link rel="modulepreload" href="./_npm/topojson-client@3.1.0/7fb99109.js">
 <link rel="modulepreload" href="./_import/components/map.f28cc7a7.js">
 <link rel="modulepreload" href="./_import/components/assistant.09adc92b.js">
+<link rel="modulepreload" href="./_import/components/ai-config.580e1806.js">
 <link rel="modulepreload" href="./_import/components/data.15e2e638.js">
 <link rel="modulepreload" href="./_npm/d3@7.9.2/172963d6.js">
 <link rel="modulepreload" href="./_npm/htl@1.0.0/11521f02.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.a43d632f.js">
-<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.19/2e9f152c.js">
 <link rel="modulepreload" href="./_npm/maplibre-gl@5.24.0/ad5fb69e.js">
 <link rel="modulepreload" href="./_import/components/files.4d5206cc.js">
 <link rel="modulepreload" href="./_npm/d3-dsv@3.0.2/4a4147a2.js">
@@ -3071,8 +3071,8 @@ registerFile("./data/shapes/56.json", {"name":"./data/shapes/56.json","mimeType"
 registerFile("./data/states.csv", {"name":"./data/states.csv","mimeType":"text/csv","path":"./_file/data/states.d4999400.csv","lastModified":1793989732142,"size":9228});
 registerFile("./data/states.topo.json", {"name":"./data/states.topo.json","mimeType":"application/json","path":"./_file/data/states.topo.77b4a353.json","lastModified":1793989747677,"size":142647});
 
-define({id: "51da38f2", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","SERVICES","SERVICE_SHORT","SERVICE_TEXT","compact","downloadCsv","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateById","REGION_STATES","regionOf","regionBorders","regionRows","countyById","blues","NO_PROVIDER","NO_DATA","PERCENT_BREAKS","percentColor","COUNT_BREAKS","countColor","selected","select","landing","tableState"], body: async (d3,FileAttachment,Mutable) => {
-const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {SERVICES, SERVICE_SHORT, SERVICE_TEXT, compact, downloadCsv, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.f28cc7a7.js"), import("./_import/components/assistant.09adc92b.js"), import("./_import/components/data.15e2e638.js")]);
+define({id: "93a7c7c5", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","AI_ENDPOINT","SERVICES","SERVICE_SHORT","compact","downloadCsv","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateById","countyById","REGION_STATES","regionOf","regionBorders","regionRows","blues","NO_PROVIDER","NO_DATA","percentColor","countColor","selected","select","landing","tableState","rankState"], body: async (d3,FileAttachment,Mutable) => {
+const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.f28cc7a7.js"), import("./_import/components/assistant.09adc92b.js"), import("./_import/components/ai-config.580e1806.js"), import("./_import/components/data.15e2e638.js")]);
 
 const states = d3.csvParse(await FileAttachment("./data/states.csv").text(), typed);
 const counties = d3.csvParse(await FileAttachment("./data/counties.csv").text(), typed);
@@ -3086,6 +3086,7 @@ const withId = (features) => features.map((f) => ({...f, id: f.properties.GEOID}
 const stateFeatures = withId(topojson.feature(stateTopo, stateObject).features);
 const countyFeatures = withId(topojson.feature(countyTopo, countyObject).features);
 const stateById = new Map(states.map((d) => [d.state_fips, d]));
+const countyById = new Map(counties.map((d) => [d.county_fips, d]));
 
 // The four US Census Bureau regions.
 const REGION_STATES = {
@@ -3114,35 +3115,107 @@ const regionRows = Object.keys(REGION_STATES).map((region) => {
   }
   return out;
 });
-const countyById = new Map(counties.map((d) => [d.county_fips, d]));
 
 const blues = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#1c5cab", "#0d366b"];
 const NO_PROVIDER = "#ded9cd";
 const NO_DATA = "#f6f5f1";
-const PERCENT_BREAKS = [50, 65, 80, 90, 97];
-const percentColor = d3.scaleThreshold(PERCENT_BREAKS, blues);
-const COUNT_BREAKS = [2, 4, 8, 16];
-const countColor = d3.scaleThreshold(COUNT_BREAKS, blues.slice(1));
+const percentColor = d3.scaleThreshold([50, 65, 80, 90, 97], blues);
+const countColor = d3.scaleThreshold([2, 4, 8, 16], blues.slice(1));
 
 const selected = Mutable(null);
 const select = (place) => (selected.value = place);
 // Where "find my area" wants to land once the view and area have switched.
 const landing = {place: null, zoom: null};
-// Remembers how the places table is sorted and searched while the page updates around it.
+// Remembers table and ranking settings while the page updates around them.
 const tableState = {};
-return {topojson,createMap,pinIcon,createAssistant,EXAMPLES,SERVICES,SERVICE_SHORT,SERVICE_TEXT,compact,downloadCsv,isEmergency,loadBlockgroups,loadShapes,offersService,percent,providersFor,safeWebsite,tractLabel,typed,whole,states,counties,qa,stateTopo,countyTopo,stateObject,countyObject,withId,stateFeatures,countyFeatures,stateById,REGION_STATES,regionOf,regionBorders,regionRows,countyById,blues,NO_PROVIDER,NO_DATA,PERCENT_BREAKS,percentColor,COUNT_BREAKS,countColor,selected,select,landing,tableState};
+const rankState = {mode: "low"};
+return {topojson,createMap,pinIcon,createAssistant,EXAMPLES,AI_ENDPOINT,SERVICES,SERVICE_SHORT,compact,downloadCsv,isEmergency,loadBlockgroups,loadShapes,offersService,percent,providersFor,safeWebsite,tractLabel,typed,whole,states,counties,qa,stateTopo,countyTopo,stateObject,countyObject,withId,stateFeatures,countyFeatures,stateById,countyById,REGION_STATES,regionOf,regionBorders,regionRows,blues,NO_PROVIDER,NO_DATA,percentColor,countColor,selected,select,landing,tableState,rankState};
 }});
 
-define({id: "e080e88c", inputs: ["html","counties","landing","levelInput","areaInput","select","Event","d3","countyFeatures","loadShapes","withId","topojson","countyById","display"], outputs: ["locateButton","countyLabels","countyBox","countyOptions","finderStatus","goTo","featureContaining","goToCoordinates","pickCounty"], body: (html,counties,landing,levelInput,areaInput,select,Event,d3,countyFeatures,loadShapes,withId,topojson,countyById,display) => {
-// "Find my area": everything is worked out in the browser from shapes already on the page.
-const locateButton = html`<button class="locate" type="button">Use my location</button>`;
+define({id: "dff62a77", inputs: ["html","display"], outputs: ["ui","TABS","tabButtons","showTab","aboutDialog","openAbout"], body: (html,display) => {
+// The page is one screen: a header, the map, and a side panel with tabs. Later code fills these slots.
+const ui = {
+  header: html`<header class="app-header"></header>`,
+  mapSlot: html`<div class="map-slot"></div>`,
+  mapOverlay: html`<div class="map-overlay"></div>`,
+  stats: html`<div class="side-stats"></div>`,
+  panes: {
+    providers: html`<div class="pane" role="tabpanel" id="pane-providers"></div>`,
+    rankings: html`<div class="pane" role="tabpanel" id="pane-rankings" hidden></div>`,
+    places: html`<div class="pane" role="tabpanel" id="pane-places" hidden></div>`
+  },
+  chat: html`<div class="chat-slot"></div>`
+};
+const TABS = [["providers", "Providers"], ["rankings", "Rankings"], ["places", "All places"]];
+const tabButtons = new Map(TABS.map(([key, label]) => {
+  const button = html`<button type="button" role="tab" id=${`tab-${key}`} aria-controls=${`pane-${key}`} aria-selected=${key === "providers" ? "true" : "false"}>${label}</button>`;
+  button.onclick = () => showTab(key);
+  return [key, button];
+}));
+function showTab(key) {
+  for (const [name, button] of tabButtons) {
+    button.setAttribute("aria-selected", String(name === key));
+    ui.panes[name].hidden = name !== key;
+  }
+}
+const aboutDialog = html`<dialog class="about"></dialog>`;
+const openAbout = () => aboutDialog.showModal();
+display(html`<div class="app">
+  ${ui.header}
+  <div class="app-body">
+    <section class="app-map" aria-label="Map">${ui.mapSlot}${ui.mapOverlay}</section>
+    <aside class="app-side" aria-label="Details">
+      ${ui.stats}
+      <div class="side-tabs" role="tablist">${[...tabButtons.values()]}</div>
+      <div class="panes">${Object.values(ui.panes)}</div>
+      <div class="side-foot">
+        ${Object.assign(html`<button type="button" class="link-button">About this map</button>`, {onclick: openAbout})}
+        · Listings: <a href="https://www.samhsa.gov" target="_blank" rel="noopener noreferrer">SAMHSA</a>
+        · <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>
+      </div>
+    </aside>
+  </div>
+  ${ui.chat}
+  ${aboutDialog}
+</div>`);
+return {ui,TABS,tabButtons,showTab,aboutDialog,openAbout};
+}});
+
+define({id: "5d485a8f", inputs: ["Inputs","SERVICES","d3","states","Generators","Event","html","counties","landing","showTab","select","countyFeatures","loadShapes","withId","topojson","countyById","ui","openAbout"], outputs: ["serviceInput","minutesInput","levelInput","areaInput","service","minutes","level","area","setArea","locateButton","countyLabels","countyBox","countyOptions","finderStatus","statusTimer","say","goTo","featureContaining","goToCoordinates","pickCounty"], body: (Inputs,SERVICES,d3,states,Generators,Event,html,counties,landing,showTab,select,countyFeatures,loadShapes,withId,topojson,countyById,ui,openAbout) => {
+// Header: title, crisis line, find-your-area and the filters.
+const serviceInput = Inputs.select(SERVICES, {label: "Service", value: "any"});
+const minutesInput = Inputs.radio(new Map([["15 min", 15], ["30 min", 30]]), {label: "Drive", value: 15});
+const levelInput = Inputs.radio(new Map([["State", "state"], ["County", "county"], ["Neighborhood", "blockgroup"]]), {label: "View", value: "state"});
+const areaInput = Inputs.select(
+  new Map([["United States", null], ...d3.sort(states, (d) => d.name).map((d) => [d.name, d.state_fips])]),
+  {label: "Area", value: null}
+);
+for (const input of [minutesInput, levelInput]) input.classList.add("segmented");
+const service = Generators.input(serviceInput);
+const minutes = Generators.input(minutesInput);
+const level = Generators.input(levelInput);
+const area = Generators.input(areaInput);
+const setArea = (fips) => {
+  areaInput.value = fips;
+  areaInput.dispatchEvent(new Event("input", {bubbles: true}));
+};
+
+const locateButton = html`<button class="locate" type="button" title="Your location stays in your browser">${Object.assign(document.createElement("span"), {innerHTML: '<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm9 3h-2.07A7 7 0 0 0 13 5.07V3h-2v2.07A7 7 0 0 0 5.07 11H3v2h2.07A7 7 0 0 0 11 18.93V21h2v-2.07A7 7 0 0 0 18.93 13H21v-2Zm-9 6a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/></svg>'})}<span>Near me</span></button>`;
 const countyLabels = new Map(counties.map((d) => [`${d.name}, ${d.abbr}`, d.county_fips]));
-const countyBox = html`<input type="text" id="county-search" list="county-options" placeholder="Type your county" autocomplete="off">`;
+const countyBox = html`<input type="search" id="county-search" list="county-options" placeholder="Search a county" autocomplete="off" aria-label="Search a county">`;
 const countyOptions = html`<datalist id="county-options">${[...countyLabels.keys()].sort().map((label) => html`<option value=${label}>`)}</datalist>`;
-const finderStatus = html`<span class="finder-status" role="status" aria-live="polite"></span>`;
+const finderStatus = html`<div class="finder-status" role="status" aria-live="polite"></div>`;
+let statusTimer;
+function say(text) {
+  finderStatus.textContent = text;
+  finderStatus.classList.toggle("show", Boolean(text));
+  clearTimeout(statusTimer);
+  if (text) statusTimer = setTimeout(() => finderStatus.classList.remove("show"), 5000);
+}
 
 function goTo(place) {
   landing.zoom = place.id;
+  showTab("providers");
   const fips = place.id.slice(0, 2);
   if (levelInput.value === place.level && areaInput.value === fips) {
     select(place);
@@ -3153,7 +3226,6 @@ function goTo(place) {
     areaInput.value = fips;
     areaInput.dispatchEvent(new Event("input", {bubbles: true}));
   }
-  document.querySelector(".main-row")?.scrollIntoView({behavior: "smooth", block: "start"});
 }
 
 // Map shapes are simplified, so a point on a coast can fall just outside. Try close by before giving up.
@@ -3171,44 +3243,30 @@ function featureContaining(features, longitude, latitude) {
 
 async function goToCoordinates(longitude, latitude) {
   const county = featureContaining(countyFeatures, longitude, latitude);
-  if (!county) {
-    finderStatus.textContent = "That location is outside this map, which covers the 50 states and DC.";
-    return;
-  }
-  const fips = county.id.slice(0, 2);
-  const topo = await loadShapes(fips);
+  if (!county) return say("That location is outside this map (50 states and DC).");
+  const topo = await loadShapes(county.id.slice(0, 2));
   const object = topo.objects[Object.keys(topo.objects)[0]];
   const local = withId(topojson.feature(topo, object).features).filter((f) => f.id.startsWith(county.id));
   const blockgroup = featureContaining(local, longitude, latitude);
-  if (blockgroup) {
-    finderStatus.textContent = `Showing your neighborhood in ${countyById.get(county.id)?.name ?? "your county"}.`;
-    goTo({level: "blockgroup", id: blockgroup.id});
-  } else {
-    finderStatus.textContent = `Showing ${countyById.get(county.id)?.name ?? "your county"}. Your exact neighborhood could not be matched.`;
-    goTo({level: "county", id: county.id});
-  }
+  say(`Showing your area in ${countyById.get(county.id)?.name ?? "your county"}.`);
+  goTo(blockgroup ? {level: "blockgroup", id: blockgroup.id} : {level: "county", id: county.id});
 }
 
 locateButton.onclick = () => {
-  if (!navigator.geolocation) {
-    finderStatus.textContent = "This browser can't share a location. Type your county instead.";
-    return;
-  }
+  if (!navigator.geolocation) return say("This browser can't share a location. Search a county instead.");
   locateButton.disabled = true;
-  finderStatus.textContent = "Finding your location…";
+  say("Finding your location…");
   navigator.geolocation.getCurrentPosition(
     async ({coords}) => {
       try {
         await goToCoordinates(coords.longitude, coords.latitude);
       } catch {
-        finderStatus.textContent = "Something went wrong loading your area. Type your county instead.";
+        say("Something went wrong. Search a county instead.");
       }
       locateButton.disabled = false;
     },
     (error) => {
-      finderStatus.textContent = error.code === 1
-        ? "Location access is off, so nothing was shared. Type your county instead."
-        : "Your location couldn't be found. Type your county instead.";
+      say(error.code === 1 ? "Location is off, so nothing was shared. Search a county instead." : "Your location couldn't be found. Search a county instead.");
       locateButton.disabled = false;
     },
     {enableHighAccuracy: false, timeout: 12000, maximumAge: 300000}
@@ -3218,49 +3276,33 @@ locateButton.onclick = () => {
 function pickCounty() {
   const fips = countyLabels.get(countyBox.value.trim());
   if (!fips) return false;
-  finderStatus.textContent = `Showing ${countyBox.value.trim()}.`;
   goTo({level: "county", id: fips});
+  countyBox.blur();
   return true;
 }
 countyBox.addEventListener("input", pickCounty);
 countyBox.addEventListener("keydown", (event) => {
   if (event.key !== "Enter") return;
   event.preventDefault();
-  if (!pickCounty()) finderStatus.textContent = "Pick a county from the list, for example Cook County, IL.";
+  if (!pickCounty()) say("Pick a county from the list, for example Cook County, IL.");
 });
 
-display(html`<div class="finder">
-  <div class="finder-row">
-    <strong>Find your area</strong>
-    ${locateButton}
-    <span class="finder-or">or</span>
-    <label class="sr-only" for="county-search">Type your county</label>
-    ${countyBox}${countyOptions}
-    ${finderStatus}
+ui.header.replaceChildren(html`<div class="header-top">
+    <div class="brand">
+      <h1>Mental Health Access Map</h1>
+      <p>Who lives within a short drive of mental health care</p>
+    </div>
+    <div class="header-actions">
+      <a class="crisis-chip" href="https://988lifeline.org" target="_blank" rel="noopener noreferrer"><strong>Crisis?</strong> Call or text 988</a>
+      ${Object.assign(html`<button type="button" class="ghost-button">About</button>`, {onclick: openAbout})}
+    </div>
   </div>
-  <div class="finder-note">Your exact location stays in your browser and is never saved or sent. The page then downloads the data for your county, so the website host could tell which county was opened.</div>
-</div>`);
-return {locateButton,countyLabels,countyBox,countyOptions,finderStatus,goTo,featureContaining,goToCoordinates,pickCounty};
-}});
-
-define({id: "b49e08e2", inputs: ["Inputs","SERVICES","d3","states","Generators","Event","display","html"], outputs: ["serviceInput","minutesInput","levelInput","areaInput","service","minutes","level","area","setArea"], body: (Inputs,SERVICES,d3,states,Generators,Event,display,html) => {
-const serviceInput = Inputs.select(SERVICES, {label: "Service", value: "any"});
-const minutesInput = Inputs.radio(new Map([["15 minutes", 15], ["30 minutes", 30]]), {label: "Drive time", value: 15});
-const levelInput = Inputs.radio(new Map([["State", "state"], ["County", "county"], ["Neighborhood", "blockgroup"]]), {label: "View by", value: "state"});
-const areaInput = Inputs.select(
-  new Map([["United States", null], ...d3.sort(states, (d) => d.name).map((d) => [d.name, d.state_fips])]),
-  {label: "Area", value: null}
-);
-const service = Generators.input(serviceInput);
-const minutes = Generators.input(minutesInput);
-const level = Generators.input(levelInput);
-const area = Generators.input(areaInput);
-const setArea = (fips) => {
-  areaInput.value = fips;
-  areaInput.dispatchEvent(new Event("input", {bubbles: true}));
-};
-display(html`<div class="controls">${serviceInput}${minutesInput}${levelInput}${areaInput}</div>`);
-return {serviceInput,minutesInput,levelInput,areaInput,service,minutes,level,area,setArea};
+  <div class="header-filters">
+    <div class="finder">${locateButton}${countyBox}${countyOptions}</div>
+    <div class="filters">${serviceInput}${minutesInput}${levelInput}${areaInput}</div>
+  </div>
+  ${finderStatus}`);
+return {serviceInput,minutesInput,levelInput,areaInput,service,minutes,level,area,setArea,locateButton,countyLabels,countyBox,countyOptions,finderStatus,statusTimer,say,goTo,featureContaining,goToCoordinates,pickCounty};
 }});
 
 define({id: "57253337", inputs: ["landing","level","area","select"], outputs: ["arriving"], body: (landing,level,area,select) => {
@@ -3275,11 +3317,11 @@ if (arriving && arriving.level === level && arriving.id.slice(0, 2) === area) {
 return {arriving};
 }});
 
-define({id: "70541b89", inputs: ["service","minutes","area","stateById","selected","level","loadBlockgroups","counties","countyById","tractLabel","display","html","SERVICE_TEXT"], outputs: ["metric","areaRow","focus","blockgroups","blockgroupById","countySet","focusRow","placeName"], body: async (service,minutes,area,stateById,selected,level,loadBlockgroups,counties,countyById,tractLabel,display,html,SERVICE_TEXT) => {
+define({id: "3b8c5bae", inputs: ["service","minutes","area","stateById","selected","level","loadBlockgroups","counties","countyById","tractLabel"], outputs: ["metric","areaRow","focus","blockgroups","blockgroupById","countySet","focusRow","placeName"], body: async (service,minutes,area,stateById,selected,level,loadBlockgroups,counties,countyById,tractLabel) => {
 const metric = `${service}_${minutes}`;
 const areaRow = area ? stateById.get(area) : null;
-// The place all the numbers on the page describe: what was clicked, or else the chosen area.
-const focus = selected ?? (areaRow ? {level: "state", id: area, name: areaRow.name} : null);
+// The place all the numbers describe: what was clicked, or else the chosen area.
+const focus = selected ?? (areaRow ? {level: "state", id: area} : null);
 const blockgroups = area && level === "blockgroup" ? await loadBlockgroups(area) : [];
 const blockgroupById = new Map(blockgroups.map((d) => [d.id, d]));
 const countySet = area ? counties.filter((d) => d.state_fips === area) : counties;
@@ -3290,36 +3332,35 @@ const focusRow = !focus ? null
 const placeName = (place) => {
   if (!place) return "United States";
   if (place.level === "state") return stateById.get(place.id)?.name;
-  if (place.level === "county") {
-    const row = countyById.get(place.id);
-    return `${row?.name}, ${row?.abbr}`;
-  }
   const row = countyById.get(place.id.slice(0, 5));
+  if (place.level === "county") return `${row?.name}, ${row?.abbr}`;
   return `${tractLabel(place.id)}, ${row?.name}, ${row?.abbr}`;
 };
-display(html`<p class="defn">Showing the share of people within ${minutes} minutes of ${SERVICE_TEXT[service]}.${service === "cit" ? " A crisis intervention team is a partnership between police and mental health services, so reaching the facility is not the same as a team coming to you." : ""}${service === "wi" ? " These services are for people in a psychiatric crisis who come in person." : ""}${level === "blockgroup" ? " Neighborhoods here are census block groups, and most hold about 500 to 2,700 people." : ""}</p>`);
 return {metric,areaRow,focus,blockgroups,blockgroupById,countySet,focusRow,placeName};
 }});
 
-define({id: "a63b0a8c", inputs: ["focus","focusRow","metric","percent","qa","html","display","placeName","minutes","compact","whole"], outputs: ["summary","numbers","tile"], body: (focus,focusRow,metric,percent,qa,html,display,placeName,minutes,compact,whole) => {
-// Headline numbers for the current place.
+define({id: "629d727b", inputs: ["focus","focusRow","metric","percent","qa","html","ui","placeName","SERVICE_SHORT","service","minutes","whole","compact"], outputs: ["summary","numbers","tile"], body: (focus,focusRow,metric,percent,qa,html,ui,placeName,SERVICE_SHORT,service,minutes,whole,compact) => {
+// Headline numbers for the place in focus.
 function summary() {
   if (focus?.level === "blockgroup") {
     if (!focusRow) return null;
     const count = focusRow[`n_${metric}`];
     const reached = !focusRow.has_iso ? null : count > 0;
-    return {share: reached == null ? "No data" : reached ? "Yes" : "No", shareLabel: "Within reach of a provider", reach: reached ? focusRow.pop : 0, pop: focusRow.pop, measured: focusRow.has_iso ? focusRow.pop : 0, providers: count};
+    return {share: reached == null ? "No data" : reached ? "Yes" : "No", shareLabel: "Provider in reach?", reach: reached ? focusRow.pop : 0, pop: focusRow.pop, measured: focusRow.has_iso ? focusRow.pop : 0, providers: count};
   }
-  if (focusRow) return {share: percent(focusRow[metric]), shareLabel: "People within reach", reach: focusRow[`reach_${metric}`], pop: focusRow.pop, measured: focusRow.pop_measured, providers: focusRow[`p_${metric}`]};
-  return {share: percent(qa.national[metric]), shareLabel: "People within reach", reach: qa.national_reach[metric], pop: qa.population, measured: qa.population - qa.population_no_drive_time_data, providers: qa.national_providers[metric]};
+  if (focusRow) return {share: percent(focusRow[metric]), shareLabel: "People in reach", reach: focusRow[`reach_${metric}`], pop: focusRow.pop, measured: focusRow.pop_measured, providers: focusRow[`p_${metric}`]};
+  return {share: percent(qa.national[metric]), shareLabel: "People in reach", reach: qa.national_reach[metric], pop: qa.population, measured: qa.population - qa.population_no_drive_time_data, providers: qa.national_providers[metric]};
 }
 const numbers = summary();
-const tile = (label, value, note) => html`<div class="card stat"><div class="label">${label}</div><div class="value">${value}</div><div class="note">${note}</div></div>`;
-display(numbers ? html`<div class="stats">
-  ${tile(numbers.shareLabel, numbers.share, `${placeName(focus)}, ${minutes} min`)}
-  ${tile("People with a provider in reach", compact(numbers.reach), `of ${whole(numbers.pop)} residents`)}
-  ${tile("People without one", compact(Math.max(0, numbers.measured - numbers.reach)), "no listed provider within that drive")}
-  ${tile("Providers in reach", whole(numbers.providers), focus?.level === "blockgroup" ? "from this neighborhood" : "from anywhere in this place")}
+const tile = (label, value, accent = false) => html`<div class=${accent ? "stat accent" : "stat"}><div class="value">${value}</div><div class="label">${label}</div></div>`;
+ui.stats.replaceChildren(numbers ? html`<div>
+  <div class="stats-place">${placeName(focus)} <span>· ${SERVICE_SHORT[service]}, ${minutes} min drive</span></div>
+  <div class="stats-grid">
+    ${tile(numbers.shareLabel, numbers.share, true)}
+    ${tile("Providers in reach", whole(numbers.providers))}
+    ${tile("People in reach", compact(numbers.reach))}
+    ${tile("People without", compact(Math.max(0, numbers.measured - numbers.reach)))}
+  </div>
 </div>` : html``);
 return {summary,numbers,tile};
 }});
@@ -3343,10 +3384,10 @@ const shapes = await (async () => {
 return {geography,shapes};
 }});
 
-define({id: "4cc7a4d9", inputs: ["tractLabel","whole","stateById","countyById","percent","regionOf","createMap","shapes","invalidation"], outputs: ["tipFor","tipContext","mapView","mapClick","pinDetails"], body: (tractLabel,whole,stateById,countyById,percent,regionOf,createMap,shapes,invalidation) => {
+define({id: "f9d5ee14", inputs: ["tractLabel","whole","stateById","countyById","percent","createMap","shapes","ui","invalidation"], outputs: ["tipFor","tipContext","mapClick","pinDetails","mapView"], body: (tractLabel,whole,stateById,countyById,percent,createMap,shapes,ui,invalidation) => {
 function tipFor(point, feature) {
   const line = (text, tag = "div") => Object.assign(document.createElement(tag), {textContent: text});
-  if (point) return [line(point.name1, "strong"), line(`${point.city ?? ""}, ${point.state ?? ""}`)];
+  if (point) return [line(point.name1, "strong"), line(`${point.city ?? ""}, ${point.state ?? ""} · click for details`)];
   const id = feature.id;
   const {metric: m, kind, bgs} = tipContext.current;
   if (kind === "blockgroup") {
@@ -3357,9 +3398,12 @@ function tipFor(point, feature) {
   }
   const row = kind === "state" ? stateById.get(id) : countyById.get(id);
   if (!row) return [line("No data", "strong"), line(feature.properties.NAME ?? feature.properties.NAMELSAD ?? "")];
-  return [line(percent(row[m]), "strong"), line(kind === "state" ? row.name : `${row.name}, ${row.abbr}`), line(`${whole(row[`reach_${m}`])} of ${whole(row.pop)} people`), line(`${regionOf.get(id.slice(0, 2))} region`)];
+  return [line(percent(row[m]), "strong"), line(kind === "state" ? row.name : `${row.name}, ${row.abbr}`), line(`${whole(row[`reach_${m}`])} of ${whole(row.pop)} people`)];
 }
 const tipContext = {current: {metric: "any_15", kind: "state", bgs: new Map()}};
+const mapClick = {current: () => {}};
+// Filled in by the provider list, which knows how to describe a provider.
+const pinDetails = {current: () => document.createElement("div")};
 const mapView = createMap({
   features: shapes.features,
   boundaries: shapes.boundaries,
@@ -3368,14 +3412,12 @@ const mapView = createMap({
   pointDetails: (point) => pinDetails.current(point),
   onSelect: (feature) => mapClick.current(feature)
 });
-const mapClick = {current: () => {}};
-// Filled in by the provider list below, which knows how to describe a provider.
-const pinDetails = {current: () => document.createElement("div")};
+ui.mapSlot.replaceChildren(mapView);
 invalidation.then(() => mapView.dispose());
-return {tipFor,tipContext,mapView,mapClick,pinDetails};
+return {tipFor,tipContext,mapClick,pinDetails,mapView};
 }});
 
-define({id: "d7a111f7", inputs: ["geography","tipContext","metric","blockgroupById","mapClick","setArea","area","selected","select","mapView","landing","mapProviders","NO_DATA","NO_PROVIDER","countColor","stateById","countyById","percentColor","stateFeatures","countyFeatures","focus"], outputs: ["kind","fill","spotlight"], body: (geography,tipContext,metric,blockgroupById,mapClick,setArea,area,selected,select,mapView,landing,mapProviders,NO_DATA,NO_PROVIDER,countColor,stateById,countyById,percentColor,stateFeatures,countyFeatures,focus) => {
+define({id: "70db31f9", inputs: ["geography","tipContext","metric","blockgroupById","mapClick","setArea","area","selected","select","showTab","mapView","landing","mapProviders","NO_DATA","NO_PROVIDER","countColor","stateById","countyById","percentColor","stateFeatures","countyFeatures","focus"], outputs: ["kind","fill","spotlight"], body: (geography,tipContext,metric,blockgroupById,mapClick,setArea,area,selected,select,showTab,mapView,landing,mapProviders,NO_DATA,NO_PROVIDER,countColor,stateById,countyById,percentColor,stateFeatures,countyFeatures,focus) => {
 // Paint the current measure and wire up clicks. This never rebuilds the map.
 const kind = geography.startsWith("county") ? "county" : geography.startsWith("blockgroup") ? "blockgroup" : "state";
 tipContext.current = {metric, kind, bgs: blockgroupById};
@@ -3384,13 +3426,14 @@ mapClick.current = (feature) => {
   if (kind === "state") return setArea(feature.id === area ? null : feature.id);
   const picking = selected?.id !== feature.id;
   select(picking ? {level: kind, id: feature.id} : null);
+  if (picking) showTab("providers");
   if (picking && kind === "county") mapView.zoomToSelected(feature.id);
 };
 if (kind === "state" && area && mapView.zoomedTo !== area) {
   mapView.zoomedTo = area;
   mapView.zoomToSelected(area);
 }
-// Frame a place "find my area" just landed on, with its providers in view.
+// Frame a place that "find my area", a ranking or the assistant just landed on, with its providers in view.
 if (landing.zoom && selected?.id === landing.zoom) {
   mapView.zoomToSelected(landing.zoom, mapProviders);
   landing.zoom = null;
@@ -3415,7 +3458,7 @@ mapView.update({
   spotlight,
   selected: kind === "blockgroup" ? selected?.id ?? null : null,
   points: focus && focus.level !== "state" ? mapProviders : [],
-  prompt: geography === "state-pick" ? "Click a state to see its neighborhoods." : kind === "state" && !area ? "Click a state to see its providers." : kind !== "state" && !selected ? "Click a place to see its providers." : null
+  prompt: geography === "state-pick" ? "Click a state to see its neighborhoods" : kind === "state" && !area ? "Click a state" : kind !== "state" && !selected ? "Click a place to see providers" : null
 });
 return {kind,fill,spotlight};
 }});
@@ -3427,38 +3470,29 @@ const mapProviders = matching;
 return {reachable,matching,mapProviders};
 }});
 
-define({id: "3ebd7663", inputs: ["pinIcon","html","blues","NO_DATA","NO_PROVIDER","focus","kind","shapes","minutes","SERVICE_SHORT","service","area","stateById","mapView"], outputs: ["pinElement","swatch","percentLegend","countLegend","showDots","legend","mapTitle","mapCard"], body: (pinIcon,html,blues,NO_DATA,NO_PROVIDER,focus,kind,shapes,minutes,SERVICE_SHORT,service,area,stateById,mapView) => {
-// The pin icon is a fixed SVG string from the map module, not data, so it is safe to insert as markup.
-const pinElement = () => Object.assign(document.createElement("span"), {innerHTML: pinIcon(16)});
+define({id: "75f1c177", inputs: ["pinIcon","html","kind","NO_PROVIDER","blues","ui","minutes","focus","shapes"], outputs: ["pinElement","swatch","legendItems"], body: (pinIcon,html,kind,NO_PROVIDER,blues,ui,minutes,focus,shapes) => {
+// The legend floats on the map.
+const pinElement = () => Object.assign(document.createElement("span"), {innerHTML: pinIcon(15)});
 const swatch = (color, text) => html`<span class="item"><span class="swatch" style="background:${color}"></span>${text}</span>`;
-const percentLegend = () => [
-  swatch(blues[0], "Under 50%"), swatch(blues[1], "50–65%"), swatch(blues[2], "65–80%"),
-  swatch(blues[3], "80–90%"), swatch(blues[4], "90–97%"), swatch(blues[5], "97%+"), swatch(NO_DATA, "No data")
-];
-const countLegend = () => [
-  swatch(NO_PROVIDER, "No provider"), swatch(blues[1], "1"), swatch(blues[2], "2–3"), swatch(blues[3], "4–7"),
-  swatch(blues[4], "8–15"), swatch(blues[5], "16+"), swatch(NO_DATA, "No residents or no data")
-];
-const showDots = focus && focus.level !== "state";
-const legend = html`<div class="legend">${kind === "blockgroup" ? countLegend() : percentLegend()}${shapes.regions ? html`<span class="item"><span class="region-key"></span>Region border</span>` : ""}${showDots ? html`<span class="item">${pinElement()}Provider in reach</span>` : ""}</div>`;
-const mapTitle = kind === "blockgroup" ? `Providers within ${minutes} minutes, by neighborhood`
-  : `People within ${minutes} minutes, by ${kind}`;
-const mapCard = html`<div class="card">
-  <h2>${mapTitle}</h2>
-  <h3>${SERVICE_SHORT[service]}. ${area ? stateById.get(area).name : "United States"}.</h3>
-  ${legend}
-  ${mapView}
-</div>`;
-return {pinElement,swatch,percentLegend,countLegend,showDots,legend,mapTitle,mapCard};
+const legendItems = kind === "blockgroup"
+  ? [swatch(NO_PROVIDER, "0"), swatch(blues[1], "1"), swatch(blues[2], "2–3"), swatch(blues[3], "4–7"), swatch(blues[4], "8–15"), swatch(blues[5], "16+")]
+  : [swatch(blues[0], "<50%"), swatch(blues[1], "50"), swatch(blues[2], "65"), swatch(blues[3], "80"), swatch(blues[4], "90"), swatch(blues[5], "97%+")];
+ui.mapOverlay.replaceChildren(html`<div class="map-legend">
+  <div class="legend-title">${kind === "blockgroup" ? `Providers within ${minutes} min` : `Share of people within ${minutes} min`}</div>
+  <div class="legend">${legendItems}</div>
+  ${focus && focus.level !== "state" ? html`<div class="legend"><span class="item">${pinElement()}Provider</span>${shapes.regions ? html`<span class="item"><span class="region-key"></span>Region</span>` : ""}</div>` : shapes.regions ? html`<div class="legend"><span class="item"><span class="region-key"></span>Census region</span></div>` : ""}
+</div>`);
+return {pinElement,swatch,legendItems};
 }});
 
-define({id: "03daa6c4", inputs: ["html","Generators"], outputs: ["searchBox","searchText"], body: (html,Generators) => {
-const searchBox = html`<input type="search" placeholder="Search name, city or service" aria-label="Search providers">`;
+define({id: "af775de0", inputs: ["html","Generators"], outputs: ["searchBox","searchText"], body: (html,Generators) => {
+const searchBox = html`<input type="search" class="pane-search" placeholder="Search providers" aria-label="Search providers">`;
 const searchText = Generators.input(searchBox);
 return {searchBox,searchText};
 }});
 
-define({id: "4fc03bf5", inputs: ["searchText","d3","matching","reachable","safeWebsite","html","mapView","focus","stateById","isEmergency","pinDetails","whole","SERVICES","focusRow","percent","service","SERVICE_SHORT","selected","select","placeName","searchBox","minutes","qa","regionRows","display","mapCard"], outputs: ["PAGE","needle","shown","providerCard","renderList","miniTable","clearButton","detailCard","miniNational"], body: (searchText,d3,matching,reachable,safeWebsite,html,mapView,focus,stateById,isEmergency,pinDetails,whole,SERVICES,focusRow,percent,service,SERVICE_SHORT,selected,select,placeName,searchBox,minutes,qa,regionRows,display,mapCard) => {
+define({id: "2f2d53cd", inputs: ["searchText","d3","matching","reachable","safeWebsite","focus","stateById","isEmergency","html","mapView","pinDetails","whole","SERVICES","service","SERVICE_SHORT","selected","select","ui","placeName","focusRow","percent","kind","searchBox","minutes","qa","regionRows"], outputs: ["PAGE","needle","shown","providerCard","renderList","serviceTable","clearButton"], body: (searchText,d3,matching,reachable,safeWebsite,focus,stateById,isEmergency,html,mapView,pinDetails,whole,SERVICES,service,SERVICE_SHORT,selected,select,ui,placeName,focusRow,percent,kind,searchBox,minutes,qa,regionRows) => {
+// Providers tab: the place, its numbers by service, and the providers in reach.
 const PAGE = 30;
 const needle = searchText.trim().toLowerCase();
 const shown = d3.sort(matching.filter((p) => !needle
@@ -3467,250 +3501,159 @@ const shown = d3.sort(matching.filter((p) => !needle
 
 function providerCard(p, inMap = false) {
   const website = safeWebsite(p.website);
-  const showOnMap = Object.assign(html`<button class="link-button" type="button">Show on map</button>`, {onclick: () => mapView.showPoint(p.pid)});
   const inOtherState = focus && p.state !== stateById.get(focus.id.slice(0, 2))?.abbr;
   const emergency = p.services.filter(isEmergency);
   const others = p.services.filter((s) => !isEmergency(s));
-  return html`<div class=${inMap ? "provider in-map" : "provider"}>
+  const card = html`<div class=${inMap ? "provider in-map" : "provider"} tabindex=${inMap ? null : "0"}>
     <div class="name">${p.name1}</div>
-    ${p.name2 ? html`<div class="meta">${p.name2}</div>` : ""}
     <div class="meta">${p.street1 && !/^[-\s]*$/.test(p.street1) ? `${p.street1}, ` : ""}${p.city ?? ""}, ${p.state ?? ""}</div>
-    <div class="meta">Within ${p.m} min${p.phone ? html` · <a href="tel:${String(p.phone).replace(/[^\d+]/g, "")}">${p.phone}</a>` : ""}${website ? html` · <a href="${website}" target="_blank" rel="noopener noreferrer">Website</a>` : ""}</div>
+    <div class="meta"><span class="minutes">${p.m} min</span>${p.phone ? html` · <a href="tel:${String(p.phone).replace(/[^\d+]/g, "")}">${p.phone}</a>` : ""}${website ? html` · <a href="${website}" target="_blank" rel="noopener noreferrer">Website</a>` : ""}</div>
     <div class="tags">
       ${inOtherState ? html`<span class="tag note">Other state</span>` : ""}
-      ${p.source?.startsWith("National") ? html`<span class="tag note">Oct 2024 listing</span>` : ""}
       ${emergency.map((s) => html`<span class="tag emergency">${reachable.labels[s]}</span>`)}
-      ${others.map((s) => html`<span class="tag">${reachable.labels[s]}</span>`)}
+      ${(inMap ? others : others.slice(0, 3)).map((s) => html`<span class="tag">${reachable.labels[s]}</span>`)}
+      ${!inMap && others.length > 3 ? html`<span class="tag more">+${others.length - 3}</span>` : ""}
     </div>
-    ${inMap ? html`<div class="meta call-first">Call to confirm services, openings and insurance.</div>` : html`<div class="provider-actions">${showOnMap}</div>`}
+    ${inMap ? html`<div class="meta call-first">Call to confirm services and openings.</div>` : ""}
   </div>`;
+  if (!inMap) {
+    // The whole card opens the provider on the map, except its own links.
+    card.onclick = (event) => {
+      if (!event.target.closest("a")) mapView.showPoint(p.pid);
+    };
+    card.onkeydown = (event) => {
+      if (event.key === "Enter") mapView.showPoint(p.pid);
+    };
+    card.title = "Show on map";
+  }
+  return card;
 }
 pinDetails.current = (p) => providerCard(p, true);
 
 function renderList() {
-  const box = html`<div class="provider-list" tabindex="0" aria-label="Providers"></div>`;
+  const box = html`<div class="provider-list" aria-label="Providers"></div>`;
   let count = 0;
   const more = html`<button class="show-more" type="button"></button>`;
   const addPage = () => {
-    shown.slice(count, count + PAGE).forEach((p) => box.append(providerCard(p)));
+    shown.slice(count, count + PAGE).forEach((p) => more.before(providerCard(p)));
     count = Math.min(shown.length, count + PAGE);
-    more.textContent = `Show more (${whole(shown.length - count)} left)`;
+    more.textContent = `Show more (${whole(shown.length - count)})`;
     more.style.display = count < shown.length ? "block" : "none";
   };
+  box.append(more);
   more.onclick = addPage;
   addPage();
-  box.append(more);
   return box;
 }
 
-function miniTable() {
-  const rows = [...SERVICES.values()];
-  const cell = (s, m) => focus.level === "blockgroup" ? (focusRow?.[`n_${s}_${m}`] ?? "–") : percent(focusRow?.[`${s}_${m}`]);
+function serviceTable(get) {
   return html`<table class="mini">
-    <thead><tr><th>${focus.level === "blockgroup" ? "Providers" : "People within reach"}</th><th>15 min</th><th>30 min</th></tr></thead>
-    <tbody>${rows.map((s) => html`<tr class=${s === service ? "current" : ""}><td>${SERVICE_SHORT[s]}</td><td>${cell(s, 15)}</td><td>${cell(s, 30)}</td></tr>`)}</tbody>
+    <thead><tr><th></th><th>15 min</th><th>30 min</th></tr></thead>
+    <tbody>${[...SERVICES.values()].map((s) => html`<tr class=${s === service ? "current" : ""}><td>${SERVICE_SHORT[s]}</td><td>${get(s, 15)}</td><td>${get(s, 30)}</td></tr>`)}</tbody>
   </table>`;
 }
 
 const clearButton = selected ? Object.assign(html`<button class="link-button" type="button">Clear</button>`, {onclick: () => select(null)}) : "";
-const detailCard = focus
-  ? html`<div class="card detail">
-      <div class="detail-top"><div><h2>${placeName(focus)}</h2></div>${clearButton}</div>
-      ${miniTable()}
+ui.panes.providers.replaceChildren(focus
+  ? html`<div>
+      <div class="pane-head"><h2>${placeName(focus)}</h2>${clearButton}</div>
+      ${serviceTable((s, m) => focus.level === "blockgroup" ? (focusRow?.[`n_${s}_${m}`] ?? "–") : percent(focusRow?.[`${s}_${m}`]))}
+      ${focus.level === "state" && kind === "state" ? html`<p class="hint">Switch <strong>View</strong> to County or Neighborhood, or search a county, to see providers on the map.</p>` : ""}
       ${searchBox}
-      <div class="list-count">${whole(shown.length)} ${shown.length === 1 ? "provider" : "providers"}: ${SERVICE_SHORT[service].toLowerCase()}, within ${minutes} min. Call to confirm services, openings and insurance.</div>
-      ${shown.length ? renderList() : html`<div class="empty">No provider matches at this drive time. Try 30 minutes or another service.</div>`}
+      <div class="list-count">${whole(shown.length)} ${shown.length === 1 ? "provider" : "providers"} within ${minutes} min · click one to see it on the map</div>
+      ${shown.length ? renderList() : html`<div class="empty">None within ${minutes} minutes. Try 30 min or another service.</div>`}
     </div>`
-  : html`<div class="card detail">
-      <h2>Providers</h2>
-      <p class="empty">Click a state on the map, or choose an area above, to list the providers within reach and the services each offers.</p>
-      ${miniNational()}
-    </div>`;
-function miniNational() {
-  return html`<table class="mini">
-    <thead><tr><th>United States</th><th>15 min</th><th>30 min</th></tr></thead>
-    <tbody>${[...SERVICES.values()].map((s) => html`<tr class=${s === service ? "current" : ""}><td>${SERVICE_SHORT[s]}</td><td>${percent(qa.national[`${s}_15`])}</td><td>${percent(qa.national[`${s}_30`])}</td></tr>`)}</tbody>
-  </table>
-  <table class="mini">
-    <thead><tr><th>By region: ${SERVICE_SHORT[service].toLowerCase()}</th><th>15 min</th><th>30 min</th></tr></thead>
-    <tbody>${regionRows.map((r) => html`<tr><td>${r.region}</td><td>${percent(r[`${service}_15`])}</td><td>${percent(r[`${service}_30`])}</td></tr>`)}</tbody>
-  </table>`;
-}
-display(html`<div class="main-row">${mapCard}${detailCard}</div>`);
-return {PAGE,needle,shown,providerCard,renderList,miniTable,clearButton,detailCard,miniNational};
+  : html`<div>
+      <div class="pane-head"><h2>United States</h2></div>
+      ${serviceTable((s, m) => percent(qa.national[`${s}_${m}`]))}
+      <p class="hint">Click a state, use <strong>Near me</strong>, or search a county to see providers.</p>
+      <table class="mini">
+        <thead><tr><th>Census region</th><th>15 min</th><th>30 min</th></tr></thead>
+        <tbody>${regionRows.map((r) => html`<tr><td>${r.region}</td><td>${percent(r[`${service}_15`])}</td><td>${percent(r[`${service}_30`])}</td></tr>`)}</tbody>
+      </table>
+    </div>`);
+return {PAGE,needle,shown,providerCard,renderList,serviceTable,clearButton};
 }});
 
-define({id: "b84ce377", inputs: ["createAssistant","states","counties","stateById","countyById","qa","regionRows","html","EXAMPLES","serviceInput","minutesInput","percent","whole","goTo","display"], outputs: ["answerQuestion","chatLog","chatInput","chatSend","bubble","exampleChips","ask"], body: (createAssistant,states,counties,stateById,countyById,qa,regionRows,html,EXAMPLES,serviceInput,minutesInput,percent,whole,goTo,display) => {
-const answerQuestion = createAssistant({states, counties, stateById, countyById, qa, regionRows});
-const chatLog = html`<div class="chat-log" aria-live="polite"></div>`;
-const chatInput = html`<input type="text" class="chat-input" placeholder="Ask about a place or a ranking, e.g. lowest crisis team access in Texas" aria-label="Ask a question about the data" maxlength="200">`;
-const chatSend = html`<button type="button" class="chat-send">Ask</button>`;
-
-function bubble(role, children) {
-  const box = html`<div class=${`chat-bubble ${role}`}></div>`;
-  box.append(...children);
-  chatLog.append(box);
-  chatLog.scrollTop = chatLog.scrollHeight;
+define({id: "9a46ca19", inputs: ["area","level","states","countySet","metric","rankState","html","percent","setArea","goTo","ui","areaRow","minutes","SERVICE_SHORT","service","whole"], outputs: ["comparing","rankable","renderRankings"], body: (area,level,states,countySet,metric,rankState,html,percent,setArea,goTo,ui,areaRow,minutes,SERVICE_SHORT,service,whole) => {
+// Rankings tab: the lowest or highest places, each one clickable.
+const comparing = area ? "county" : level === "state" ? "state" : "county";
+const rankable = (comparing === "state" ? states : countySet).filter((d) => d[metric] != null && d.pop > 0);
+function renderRankings() {
+  const sign = rankState.mode === "low" ? 1 : -1;
+  const rows = [...rankable].sort((a, b) => sign * (a[metric] - b[metric]) || b.pop - a.pop).slice(0, 15);
+  const toggle = html`<div class="segmented-buttons" role="group" aria-label="Order">${[["low", "Lowest"], ["high", "Highest"]].map(([mode, label]) => {
+    const button = html`<button type="button" aria-pressed=${String(rankState.mode === mode)}>${label}</button>`;
+    button.onclick = () => {
+      rankState.mode = mode;
+      renderRankings();
+    };
+    return button;
+  })}</div>`;
+  const list = html`<ol class="rank-list">${rows.map((d) => {
+    const label = comparing === "state" ? d.name : area ? d.name : `${d.name}, ${d.abbr}`;
+    const item = html`<li><button type="button" class="rank-row" title="Show on map">
+      <span class="rank-name">${label}</span>
+      <span class="rank-bar"><span style=${`width:${Math.max(0, d[metric])}%`}></span></span>
+      <span class="rank-value">${percent(d[metric])}</span>
+    </button></li>`;
+    item.querySelector("button").onclick = () => (comparing === "state" ? setArea(d.state_fips) : goTo({level: "county", id: d.county_fips}));
+    return item;
+  })}</ol>`;
+  const tied = rankState.mode === "low" ? rankable.filter((d) => d[metric] === 0).length : 0;
+  ui.panes.rankings.replaceChildren(html`<div>
+    <div class="pane-head"><h2>${comparing === "state" ? "States" : `Counties${area ? ` in ${areaRow.name}` : ""}`}</h2>${toggle}</div>
+    <p class="hint">Share of people within ${minutes} min · ${SERVICE_SHORT[service].toLowerCase()}${tied > 15 ? ` · ${whole(tied)} tied at 0%, largest shown` : ""}</p>
+    ${list}
+  </div>`);
 }
-
-function exampleChips() {
-  return html`<div class="chat-chips">${EXAMPLES.map((example) => Object.assign(html`<button type="button" class="chat-chip"></button>`, {textContent: example, onclick: () => ask(example)}))}</div>`;
-}
-
-function ask(question) {
-  const text = question.trim();
-  if (!text) return;
-  bubble("user", [Object.assign(document.createElement("p"), {textContent: text})]);
-  const result = answerQuestion(text, {service: serviceInput.value, minutes: minutesInput.value}, {percent, whole});
-  const parts = [Object.assign(document.createElement("p"), {textContent: result.text})];
-  if (result.items?.length) {
-    const list = document.createElement(result.ordered ? "ol" : "ul");
-    for (const item of result.items) {
-      const li = document.createElement("li");
-      if (item.place) {
-        const button = Object.assign(document.createElement("button"), {type: "button", className: "chat-place", textContent: item.label});
-        button.title = "Show on the map";
-        button.onclick = () => goTo(item.place);
-        li.append(button);
-      } else {
-        li.append(Object.assign(document.createElement("strong"), {textContent: item.label}));
-      }
-      if (item.value) li.append(document.createTextNode(` ${item.value}`));
-      list.append(li);
-    }
-    parts.push(list);
-  }
-  if (result.suggestions) parts.push(exampleChips());
-  bubble("bot", parts);
-  chatInput.value = "";
-}
-
-chatSend.onclick = () => ask(chatInput.value);
-chatInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") ask(chatInput.value);
-});
-bubble("bot", [
-  Object.assign(document.createElement("p"), {textContent: "Ask me about access in a state or county, or for the places with the lowest or highest access. Click a place in my answer to see it on the map."}),
-  exampleChips()
-]);
-display(html`<div class="card chat" style="margin-bottom:14px">
-  <h2>Ask about the data</h2>
-  <h3>This assistant looks up the figures on this page using fixed rules. It is not an AI model, can't give medical advice, and nothing you type leaves your browser.</h3>
-  ${chatLog}
-  <div class="chat-row">${chatInput}${chatSend}</div>
-</div>`);
-return {answerQuestion,chatLog,chatInput,chatSend,bubble,exampleChips,ask};
+renderRankings();
+return {comparing,rankable,renderRankings};
 }});
 
-define({id: "b414504b", inputs: ["area","level","states","countySet","metric","d3","Plot","percent","minutes","whole","service","html","display","SERVICE_SHORT","areaRow","resize"], outputs: ["comparing","places","groupWord","countWord","sorted","zeroCount","count","low","high","rankChart","gaps","gapChart","gapLegend"], body: (area,level,states,countySet,metric,d3,Plot,percent,minutes,whole,service,html,display,SERVICE_SHORT,areaRow,resize) => {
-// Charts compare places one level up from a block group, because a single block group is simply in reach or not.
-const comparing = area ? "county" : level === "state" ? "state" : level === "county" ? "county" : "state";
-const places = (comparing === "state" ? states : countySet)
-  .filter((d) => d[metric] != null && d.pop > 0)
-  .map((d) => ({...d, label: comparing === "state" ? d.name : area ? d.name : `${d.name}, ${d.abbr}`}));
-const groupWord = comparing === "state" ? "states" : "counties";
-const countWord = (n) => (n === 1 ? (comparing === "state" ? "state" : "county") : groupWord);
-const sorted = d3.sort(places, (d) => d[metric], (d) => -d.pop);
-const zeroCount = places.filter((d) => d[metric] === 0).length;
-const count = Math.min(8, Math.floor(sorted.length / 2));
-const low = sorted.slice(0, count);
-const high = sorted.slice(-count).reverse();
-
-function rankChart(data, width) {
-  return Plot.plot({
-    width, height: Math.max(100, data.length * 31 + 34), marginLeft: Math.min(200, width * 0.44), marginRight: 56,
-    style: {fontSize: "13px"},
-    x: {domain: [0, 100], label: null, ticks: 4, tickFormat: (d) => `${d}%`},
-    y: {domain: data.map((d) => d.label), label: null, tickSize: 0},
-    marks: [
-      Plot.gridX({stroke: "#e1e0d9", strokeOpacity: 1, ticks: 4}),
-      Plot.barX(data, {x: metric, y: "label", fill: "#2a78d6", insetTop: 5, insetBottom: 5, rx: 2}),
-      Plot.text(data, {x: metric, y: "label", text: (d) => percent(d[metric]), dx: 5, textAnchor: "start", fill: "#0b0b0b", fontSize: 13}),
-      Plot.tip(data, Plot.pointerY({x: metric, y: "label", title: (d) => `${d.label}\n${percent(d[metric])} within ${minutes} min\n${whole(d[`reach_${metric}`])} of ${whole(d.pop)} people`}))
-    ]
-  });
-}
-
-const gaps = d3.sort(places.filter((d) => d.pop >= (comparing === "county" ? 5000 : 0)), (d) => -(d[`${service}_30`] - d[`${service}_15`]), (d) => -d.pop).slice(0, 10);
-function gapChart(width) {
-  return Plot.plot({
-    width, height: gaps.length * 31 + 40, marginLeft: Math.min(220, width * 0.3), marginRight: 60,
-    style: {fontSize: "13px"},
-    x: {domain: [0, 100], label: null, ticks: 4, tickFormat: (d) => `${d}%`},
-    y: {domain: gaps.map((d) => d.label), label: null, tickSize: 0},
-    marks: [
-      Plot.gridX({stroke: "#e1e0d9", strokeOpacity: 1, ticks: 4}),
-      Plot.link(gaps, {x1: `${service}_15`, x2: `${service}_30`, y1: "label", y2: "label", stroke: "#c3c2b7", strokeWidth: 2}),
-      Plot.dot(gaps, {x: `${service}_15`, y: "label", fill: "#2a78d6", r: 5, stroke: "#fcfcfb", strokeWidth: 1.5}),
-      Plot.dot(gaps, {x: `${service}_30`, y: "label", fill: "#eb6834", r: 5, stroke: "#fcfcfb", strokeWidth: 1.5}),
-      Plot.text(gaps, {x: `${service}_30`, y: "label", text: (d) => `+${d3.format(".1f")(d[`${service}_30`] - d[`${service}_15`])}`, dx: 10, textAnchor: "start", fill: "#0b0b0b", fontSize: 13}),
-      Plot.tip(gaps, Plot.pointerY({x: `${service}_30`, y: "label", title: (d) => `${d.label}\n15 min: ${percent(d[`${service}_15`])}\n30 min: ${percent(d[`${service}_30`])}`}))
-    ]
-  });
-}
-const gapLegend = html`<div class="legend"><span class="item"><span class="dot" style="background:#2a78d6"></span>15 minutes</span><span class="item"><span class="dot"></span>30 minutes</span><span>Number shows the gain in percentage points.</span></div>`;
-
-display(html`<div class="charts-2">
-  <div class="card"><h2>Lowest access</h2><h3>${SERVICE_SHORT[service]}, within ${minutes} minutes. The ${count} ${countWord(count)} with the smallest share of people in reach${area ? ` in ${areaRow.name}` : ""}.${zeroCount > count ? ` ${whole(zeroCount)} ${groupWord} are tied at 0%; these are the most populated.` : ""}</h3>${resize((w) => rankChart(low, w))}</div>
-  <div class="card"><h2>Highest access</h2><h3>${SERVICE_SHORT[service]}, within ${minutes} minutes. The ${count} ${countWord(count)} with the largest share in reach${area ? ` in ${areaRow.name}` : ""}.</h3>${resize((w) => rankChart(high, w))}</div>
-</div>`);
-return {comparing,places,groupWord,countWord,sorted,zeroCount,count,low,high,rankChart,gaps,gapChart,gapLegend};
-}});
-
-define({id: "cc7cb6cf", inputs: ["display","html","SERVICE_SHORT","service","groupWord","comparing","gapLegend","resize","gapChart"], body: (display,html,SERVICE_SHORT,service,groupWord,comparing,gapLegend,resize,gapChart) => {
-display(html`<div class="card" style="margin-bottom:14px"><h2>Where 15 more minutes helps most</h2><h3>${SERVICE_SHORT[service]}. The ${groupWord} with the largest gain from a 15 to a 30 minute drive${comparing === "county" ? ", with at least 5,000 residents" : ""}.</h3>${gapLegend}${resize(gapChart)}</div>`);
-}});
-
-define({id: "73f78f0f", inputs: ["kind","blockgroups","tractLabel","countyById","metric","states","countySet","regionOf"], outputs: ["tableRows"], body: (kind,blockgroups,tractLabel,countyById,metric,states,countySet,regionOf) => {
+define({id: "837c2932", inputs: ["kind","blockgroups","tractLabel","countyById","metric","states","countySet","area"], outputs: ["tableRows"], body: (kind,blockgroups,tractLabel,countyById,metric,states,countySet,area) => {
 const tableRows = kind === "blockgroup"
   ? blockgroups.map((d) => ({
       Place: tractLabel(d.id),
       County: countyById.get(d.county_fips)?.name ?? "",
       Population: d.pop,
       Providers: d[`n_${metric}`],
-      Status: !d.has_iso ? "No data" : d.pop === 0 ? "No residents" : d[`n_${metric}`] > 0 ? "In reach" : "No provider",
+      Status: !d.has_iso ? "No data" : d.pop === 0 ? "No residents" : d[`n_${metric}`] > 0 ? "In reach" : "None",
       GEOID: d.id
     }))
   : (kind === "state" ? states : countySet).map((d) => ({
       Place: d.name,
-      ...(kind === "county" ? {State: d.abbr} : {Region: regionOf.get(d.state_fips)}),
+      ...(kind === "county" && !area ? {State: d.abbr} : {}),
       Population: d.pop,
-      "Share in reach": d[metric],
+      "In reach": d[metric],
       "People in reach": d[`reach_${metric}`],
-      "People without": d.pop_measured - d[`reach_${metric}`],
+      Without: d.pop_measured - d[`reach_${metric}`],
       Providers: d[`p_${metric}`],
       FIPS: kind === "state" ? d.state_fips : d.county_fips
     }));
 return {tableRows};
 }});
 
-define({id: "ca6c395d", inputs: ["kind","whole","percent","tableState","area","selected","tableRows","setArea","select","mapView","html","downloadCsv","service","minutes","FileAttachment","display","SERVICE_SHORT"], outputs: ["COLUMNS","idColumn","pickedId","sortedRows","pickRow","tableWrap","tableCount","tableMore","tableSearchBox","renderTable","downloadButton","factorsLink"], body: (kind,whole,percent,tableState,area,selected,tableRows,setArea,select,mapView,html,downloadCsv,service,minutes,FileAttachment,display,SERVICE_SHORT) => {
+define({id: "32b0139e", inputs: ["kind","whole","area","percent","compact","tableState","selected","tableRows","setArea","select","mapView","html","downloadCsv","service","minutes","FileAttachment","ui","areaRow"], outputs: ["COLUMNS","idColumn","pickedId","sortedRows","pickRow","tableWrap","tableMore","tableSearchBox","tableCount","renderTable","downloadButton","factorsLink"], body: (kind,whole,area,percent,compact,tableState,selected,tableRows,setArea,select,mapView,html,downloadCsv,service,minutes,FileAttachment,ui,areaRow) => {
+// All places tab: a compact table. Click a row to go there; click a column to sort.
 const COLUMNS = kind === "blockgroup"
-  ? [
-      {key: "Place", label: "Neighborhood"},
-      {key: "County", label: "County"},
-      {key: "Population", label: "Population", num: true, format: whole},
-      {key: "Providers", label: "Providers in reach", num: true, format: whole},
-      {key: "Status", label: "Status"}
-    ]
+  ? [{key: "Place", label: "Neighborhood"}, {key: "Providers", label: "Providers", num: true, format: whole}, {key: "Status", label: "Status"}]
   : [
       {key: "Place", label: kind === "state" ? "State" : "County"},
-      kind === "county" ? {key: "State", label: "State"} : {key: "Region", label: "Region"},
-      {key: "Share in reach", label: "Share in reach", num: true, format: percent},
-      {key: "People without", label: "People without", num: true, format: whole},
-      {key: "People in reach", label: "People in reach", num: true, format: whole},
-      {key: "Population", label: "Population", num: true, format: whole},
-      {key: "Providers", label: "Providers in reach", num: true, format: whole}
+      ...(kind === "county" && !area ? [{key: "State", label: ""}] : []),
+      {key: "In reach", label: "In reach", num: true, format: percent},
+      {key: "Without", label: "Without", num: true, format: compact},
+      {key: "Providers", label: "Providers", num: true, format: whole}
     ];
 const idColumn = kind === "blockgroup" ? "GEOID" : "FIPS";
 if (tableState.kind !== kind || tableState.area !== area) {
-  Object.assign(tableState, {kind, area, sort: kind === "blockgroup" ? "Population" : "Share in reach", dir: kind === "blockgroup" ? -1 : 1, query: "", shown: 25});
+  Object.assign(tableState, {kind, area, sort: kind === "blockgroup" ? "Providers" : "In reach", dir: kind === "blockgroup" ? 1 : 1, query: "", shown: 40});
 }
 const pickedId = kind === "state" ? area : selected?.id ?? null;
 
 function sortedRows() {
   const query = tableState.query.trim().toLowerCase();
-  const rows = query ? tableRows.filter((d) => `${d.Place} ${d.County ?? ""} ${d.State ?? ""} ${d.Region ?? ""}`.toLowerCase().includes(query)) : tableRows;
+  const rows = query ? tableRows.filter((d) => `${d.Place} ${d.County ?? ""} ${d.State ?? ""}`.toLowerCase().includes(query)) : tableRows;
   const column = COLUMNS.find((c) => c.key === tableState.sort);
   return [...rows].sort((a, b) => {
     const x = a[tableState.sort], y = b[tableState.sort];
@@ -3725,32 +3668,30 @@ function pickRow(row) {
   if (kind === "state") return setArea(row.FIPS);
   select({level: kind, id: row[idColumn]});
   mapView.zoomToSelected(row[idColumn]);
-  document.querySelector(".main-row")?.scrollIntoView({behavior: "smooth", block: "start"});
 }
 
 const tableWrap = html`<div class="place-table-wrap"></div>`;
-const tableCount = html`<span class="table-count" aria-live="polite"></span>`;
 const tableMore = html`<button class="show-more" type="button"></button>`;
-const tableSearchBox = html`<input type="search" class="table-search" placeholder=${`Search ${kind === "blockgroup" ? "neighborhoods" : kind === "state" ? "states" : "counties"}`} aria-label="Search places">`;
+const tableSearchBox = html`<input type="search" class="pane-search" placeholder=${`Search ${kind === "blockgroup" ? "neighborhoods" : kind === "state" ? "states" : "counties"}`} aria-label="Search places">`;
 tableSearchBox.value = tableState.query;
+const tableCount = html`<span></span>`;
 
 function renderTable() {
   const rows = sortedRows();
-  tableCount.textContent = `${whole(rows.length)} ${rows.length === 1 ? "place" : "places"}`;
+  tableCount.textContent = `${whole(rows.length)} places`;
   const headers = COLUMNS.map((c) => {
     const active = c.key === tableState.sort;
-    const th = html`<th class=${c.num ? "num" : ""} aria-sort=${active ? (tableState.dir > 0 ? "ascending" : "descending") : "none"}><button type="button">${c.label}<span class="sort-mark" aria-hidden="true">${active ? (tableState.dir > 0 ? "▲" : "▼") : "↕"}</span></button></th>`;
+    const th = html`<th class=${c.num ? "num" : ""} aria-sort=${active ? (tableState.dir > 0 ? "ascending" : "descending") : "none"}><button type="button">${c.label}<span class="sort-mark" aria-hidden="true">${active ? (tableState.dir > 0 ? "▲" : "▼") : ""}</span></button></th>`;
     th.querySelector("button").onclick = () => {
       if (tableState.sort === c.key) tableState.dir *= -1;
       else Object.assign(tableState, {sort: c.key, dir: c.num ? -1 : 1});
-      tableState.shown = 25;
       renderTable();
     };
     return th;
   });
   const body = html`<tbody></tbody>`;
   for (const row of rows.slice(0, tableState.shown)) {
-    const tr = html`<tr tabindex="0" class=${row[idColumn] === pickedId ? "picked" : ""} title="Show on the map">${COLUMNS.map((c) => html`<td class=${c.num ? "num" : ""}>${c.format ? c.format(row[c.key]) : row[c.key] ?? ""}</td>`)}</tr>`;
+    const tr = html`<tr tabindex="0" class=${row[idColumn] === pickedId ? "picked" : ""}>${COLUMNS.map((c) => html`<td class=${c.num ? "num" : ""}>${c.format ? c.format(row[c.key]) : row[c.key] ?? ""}</td>`)}</tr>`;
     tr.onclick = () => pickRow(row);
     tr.onkeydown = (event) => {
       if (event.key === "Enter" || event.key === " ") {
@@ -3762,64 +3703,160 @@ function renderTable() {
   }
   tableWrap.replaceChildren(html`<table class="place-table"><thead><tr>${headers}</tr></thead>${body}</table>`);
   const left = rows.length - tableState.shown;
-  tableMore.textContent = `Show ${whole(Math.min(50, left))} more`;
+  tableMore.textContent = `Show more (${whole(left)})`;
   tableMore.style.display = left > 0 ? "block" : "none";
 }
 tableMore.onclick = () => {
-  tableState.shown += 50;
+  tableState.shown += 60;
   renderTable();
 };
 tableSearchBox.oninput = () => {
   tableState.query = tableSearchBox.value;
-  tableState.shown = 25;
+  tableState.shown = 40;
   renderTable();
 };
 renderTable();
 
-const downloadButton = Object.assign(html`<button class="download" type="button">Download this table</button>`, {
+const downloadButton = Object.assign(html`<button class="small-button" type="button">↓ This table</button>`, {
   onclick: () => downloadCsv(sortedRows(), `mental-health-access-${kind}-${area ?? "us"}-${service}-${minutes}min.csv`)
 });
-const factorsLink = html`<a class="download" href=${FileAttachment("./data/county_factors.csv").href} download="county_social_demographic_factors.csv">County social and demographic factors</a>`;
-display(html`<div class="card" style="margin-bottom:14px">
-  <div class="table-head">
-    <div><h2>All places in this view</h2><h3>${SERVICE_SHORT[service]}, within ${minutes} minutes. Click a row to see that place on the map and list its providers. Click a column name to sort.</h3></div>
-    <div class="table-downloads">${downloadButton}${factorsLink}</div>
-  </div>
-  <div class="table-tools">${tableSearchBox}${tableCount}</div>
+const factorsLink = html`<a class="small-button" href=${FileAttachment("./data/county_factors.csv").href} download="county_social_demographic_factors.csv" title="Income, education, employment, race and density by county, with access figures">↓ County factors</a>`;
+ui.panes.places.replaceChildren(html`<div>
+  <div class="pane-head"><h2>${kind === "state" ? "States" : kind === "county" ? "Counties" : "Neighborhoods"}${area ? ` in ${areaRow.name}` : ""}</h2>${tableCount}</div>
+  <div class="pane-tools">${tableSearchBox}${downloadButton}${factorsLink}</div>
   ${tableWrap}
   ${tableMore}
-  <p class="small">The county factors file has median household income, education, employment, race and population density from the American Community Survey, next to each county's access figures.</p>
 </div>`);
-return {COLUMNS,idColumn,pickedId,sortedRows,pickRow,tableWrap,tableCount,tableMore,tableSearchBox,renderTable,downloadButton,factorsLink};
+return {COLUMNS,idColumn,pickedId,sortedRows,pickRow,tableWrap,tableMore,tableSearchBox,tableCount,renderTable,downloadButton,factorsLink};
 }});
 
-define({id: "6cc354ec", inputs: ["d3","display","html","whole","qa"], outputs: ["fmtPct"], body: (d3,display,html,whole,qa) => {
-const fmtPct = d3.format(".1f");
-display(html`<div class="card notes">
-  <h2>About these numbers</h2>
-  <p><strong>How access is measured.</strong> A neighborhood (a census block group) counts as within reach when at least one provider sits inside the area you can drive to from it in 15 or 30 minutes. A county or state figure is the share of its residents living in those neighborhoods, so all three levels agree. Providers across a state line count.</p>
-  <p><strong>What is listed.</strong> ${whole(qa.providers.rows_kept)} facilities from SAMHSA listings, after removing ${whole(qa.providers.duplicates_removed)} exact duplicates. These are facilities, not individual doctors, so a listing will not tell you who works there. "Emergency services" means a crisis intervention team or psychiatric emergency walk-in services. Mobile crisis services are shown on each provider but are not used in the map, because they come to you.</p>
-  <details>
-    <summary>Limits to keep in mind</summary>
-    <ul>
-      <li>A place showing 0% has no listed provider in reach, which is not proof that no care exists there. Listings can be incomplete: the Hawaii file, for example, has no provider on Kauai and one in Maui County.</li>
-      <li>A listing does not show whether a provider has capacity, takes your insurance or serves your age group. Some providers, such as VA facilities, mainly serve particular groups.</li>
-      <li>State listings date from March 2025. DC listings come from an October 2024 file, because no later DC file was available.</li>
-      <li>Puerto Rico and other territories are not shown, because drive-time areas were not available.</li>
-      <li>People without a car, or who rely on public transit, may be much further from care than these drive times suggest.</li>
-      <li>${whole(qa.block_groups_no_drive_time_data)} remote Alaska neighborhoods (${whole(qa.population_no_drive_time_data)} people) have no drive-time area. They show as no data and are left out of percentages.</li>
-      <li>Population totals ${whole(qa.population)} people across the 50 states and DC.</li>
-      <li>Telehealth is listed on each provider but is not counted as access, since this measures driving distance.</li>
-    </ul>
-  </details>
-  <h2 style="margin-top:18px">Sources</h2>
-  <ul class="sources">
-    <li><strong>Provider listings:</strong> Substance Abuse and Mental Health Services Administration (SAMHSA). Search current listings at <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>, or learn more at <a href="https://www.samhsa.gov" target="_blank" rel="noopener noreferrer">samhsa.gov</a>.</li>
-    <li><strong>Crisis support:</strong> <a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988 Suicide &amp; Crisis Lifeline</a>. Call or text 988.</li>
-    <li><strong>Community factors:</strong> U.S. Census Bureau, <a href="https://www.census.gov/programs-surveys/acs" target="_blank" rel="noopener noreferrer">American Community Survey</a>.</li>
-  </ul>
+define({id: "1e90d0df", inputs: ["aboutDialog","html","whole","qa"], body: (aboutDialog,html,whole,qa) => {
+// About: method, limits and sources, kept out of the way.
+aboutDialog.replaceChildren(html`<div class="about-body">
+  <button type="button" class="about-close" aria-label="Close">×</button>
+  <h2>About this map</h2>
+  <p><strong>What it shows.</strong> For each neighborhood (census block group), whether a mental health provider listed by SAMHSA is within a 15 or 30 minute drive. County and state figures are the share of residents in those neighborhoods. Providers across a state line count.</p>
+  <p><strong>Services.</strong> “Emergency services” means a crisis intervention team or psychiatric emergency walk-in services. A crisis intervention team works with police; reaching the facility is not the same as a team coming to you.</p>
+  <p><strong>Keep in mind.</strong> Listings date from March 2025 (DC: October 2024), so call before you go. A listing doesn't show capacity, insurance or eligibility. 0% means no listed provider in reach, not proof no care exists. Drive times assume a car. Puerto Rico and other territories are not shown. ${whole(qa.block_groups_no_drive_time_data)} remote Alaska neighborhoods have no drive-time data.</p>
+  <p><strong>Your location.</strong> “Near me” works in your browser and is never saved or sent; the page then loads data for your county.</p>
+  <p><strong>Sources.</strong> Provider listings: <a href="https://www.samhsa.gov" target="_blank" rel="noopener noreferrer">SAMHSA</a>, current search at <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>. Crisis support: <a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988 Lifeline</a>. County factors: <a href="https://www.census.gov/programs-surveys/acs" target="_blank" rel="noopener noreferrer">American Community Survey</a>. Map: OpenFreeMap, OpenStreetMap.</p>
+  <p class="small">${whole(qa.providers.rows_kept)} facilities · ${whole(qa.population)} people · not medical advice.</p>
 </div>`);
-return {fmtPct};
+aboutDialog.querySelector(".about-close").onclick = () => aboutDialog.close();
+aboutDialog.onclick = (event) => {
+  if (event.target === aboutDialog) aboutDialog.close();
+};
+}});
+
+define({id: "74bfd8e6", inputs: ["createAssistant","states","counties","stateById","countyById","qa","regionRows","html","AI_ENDPOINT","setArea","showTab","goTo","SERVICE_SHORT","serviceInput","minutesInput","areaInput","SERVICES","percent","whole","EXAMPLES","AbortSignal","ui"], outputs: ["answerQuestion","CRISIS","chatLog","chatInput","chatSend","chatPanel","chatButton","toggleChat","textP","bubble","chips","placeList","factsFor","ask"], body: (createAssistant,states,counties,stateById,countyById,qa,regionRows,html,AI_ENDPOINT,setArea,showTab,goTo,SERVICE_SHORT,serviceInput,minutesInput,areaInput,SERVICES,percent,whole,EXAMPLES,AbortSignal,ui) => {
+// The chat: a button in the corner that opens a small assistant panel.
+const answerQuestion = createAssistant({states, counties, stateById, countyById, qa, regionRows});
+const CRISIS = /suicid|kill (myself|me)|end my life|self[- ]?harm|hurt myself|want to die|自杀|轻生|伤害自己|不想活/i;
+const chatLog = html`<div class="chat-log" aria-live="polite"></div>`;
+const chatInput = html`<input type="text" class="chat-input" placeholder="Ask about a place…" aria-label="Ask a question" maxlength="300">`;
+const chatSend = html`<button type="button" class="chat-send" aria-label="Send">➤</button>`;
+const chatPanel = html`<div class="chat-panel" role="dialog" aria-label="Ask about the data" hidden>
+  <div class="chat-head">
+    <div><strong>Ask about the data</strong><span>${AI_ENDPOINT ? "AI answers from this map's data" : "Answers from this map's data"}</span></div>
+    ${Object.assign(html`<button type="button" class="chat-close" aria-label="Close">×</button>`, {onclick: () => toggleChat(false)})}
+  </div>
+  ${chatLog}
+  <div class="chat-row">${chatInput}${chatSend}</div>
+  <div class="chat-foot">${AI_ENDPOINT ? "Questions go to an AI service to write the answer. Not medical advice." : "Not medical advice."} In a crisis, call or text 988.</div>
+</div>`;
+const chatButton = html`<button type="button" class="chat-fab" aria-label="Ask about the data"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm3 6.5a1.5 1.5 0 1 0 0 .01Zm5 0a1.5 1.5 0 1 0 0 .01Zm5 0a1.5 1.5 0 1 0 0 .01Z"/></svg><span>Ask</span></button>`;
+function toggleChat(open = chatPanel.hidden) {
+  chatPanel.hidden = !open;
+  chatButton.hidden = open;
+  if (open) chatInput.focus();
+}
+chatButton.onclick = () => toggleChat(true);
+
+const textP = (text) => Object.assign(document.createElement("p"), {textContent: text});
+function bubble(role, children) {
+  const box = html`<div class=${`chat-bubble ${role}`}></div>`;
+  box.append(...children);
+  chatLog.append(box);
+  chatLog.scrollTop = chatLog.scrollHeight;
+  return box;
+}
+function chips(list) {
+  return html`<div class="chat-chips">${list.map((example) => Object.assign(html`<button type="button" class="chat-chip"></button>`, {textContent: example, onclick: () => ask(example)}))}</div>`;
+}
+function placeList(result) {
+  if (!result.items?.length) return [];
+  const list = document.createElement(result.ordered ? "ol" : "ul");
+  for (const item of result.items) {
+    const li = document.createElement("li");
+    if (item.place) {
+      const button = Object.assign(document.createElement("button"), {type: "button", className: "chat-place", textContent: item.label});
+      // A state opens as its own area; a county opens zoomed in with its providers.
+      button.onclick = item.place.level === "state"
+        ? () => {
+            setArea(item.place.id);
+            showTab("providers");
+          }
+        : () => goTo(item.place);
+      li.append(button);
+    } else {
+      li.append(Object.assign(document.createElement("strong"), {textContent: item.label}));
+    }
+    if (item.value) li.append(document.createTextNode(` ${item.value}`));
+    list.append(li);
+  }
+  return [list];
+}
+
+// Facts the AI may use: the lookup's own answer, plus the current view. It is told to use nothing else.
+function factsFor(result) {
+  const lines = [`Map view: ${SERVICE_SHORT[serviceInput.value]}, ${minutesInput.value} minute drive, area: ${areaInput.value ? stateById.get(areaInput.value).name : "United States"}.`];
+  lines.push(`Lookup result: ${result.text}`);
+  for (const item of result.items ?? []) lines.push(`- ${item.label}: ${item.value}`);
+  for (const s of SERVICES.values()) lines.push(`US ${SERVICE_SHORT[s]}: ${percent(qa.national[`${s}_15`])} within 15 min, ${percent(qa.national[`${s}_30`])} within 30 min.`);
+  return lines.join("\n").slice(0, 3500);
+}
+
+async function ask(question) {
+  const text = question.trim();
+  if (!text) return;
+  chatInput.value = "";
+  bubble("user", [textP(text)]);
+  if (CRISIS.test(text)) {
+    return bubble("bot crisis", [
+      textP("If you're thinking about suicide or hurting yourself, please reach out now. Call or text 988 (Suicide & Crisis Lifeline), any time. If you're in immediate danger, call 911."),
+      Object.assign(html`<a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988lifeline.org</a>`)
+    ]);
+  }
+  const result = answerQuestion(text, {service: serviceInput.value, minutes: minutesInput.value}, {percent, whole});
+  if (!AI_ENDPOINT) return bubble("bot", [textP(result.text), ...placeList(result), ...(result.suggestions ? [chips(EXAMPLES.slice(0, 4))] : [])]);
+  const pending = bubble("bot", [textP("…")]);
+  try {
+    const response = await fetch(AI_ENDPOINT, {
+      method: "POST",
+      headers: {"content-type": "application/json"},
+      body: JSON.stringify({question: text, facts: factsFor(result)}),
+      signal: AbortSignal.timeout(20000)
+    });
+    if (!response.ok) throw new Error(String(response.status));
+    const {answer} = await response.json();
+    pending.replaceChildren(textP(answer || result.text), ...placeList(result));
+  } catch {
+    // If the AI is busy or out of its free daily allowance, fall back to the lookup.
+    pending.replaceChildren(textP(result.text), ...placeList(result), ...(result.suggestions ? [chips(EXAMPLES.slice(0, 4))] : []));
+  }
+  chatLog.scrollTop = chatLog.scrollHeight;
+}
+
+chatSend.onclick = () => ask(chatInput.value);
+chatInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") ask(chatInput.value);
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !chatPanel.hidden) toggleChat(false);
+});
+bubble("bot", [textP("Hi! Ask about access in a state or county, or which places have the lowest access."), chips(EXAMPLES.slice(0, 4))]);
+ui.chat.replaceChildren(chatButton, chatPanel);
+return {answerQuestion,CRISIS,chatLog,chatInput,chatSend,chatPanel,chatButton,toggleChat,textP,bubble,chips,placeList,factsFor,ask};
 }});
 
 </script>
@@ -3828,31 +3865,25 @@ return {fmtPct};
 <div id="observablehq-center">
 <main id="observablehq-main" class="observablehq">
 <link rel="stylesheet" href="./_npm/maplibre-gl@5.24.0/dist/maplibre-gl.css">
-<div class="observablehq observablehq--block"><!--:51da38f2:--></div>
-<div class="intro">
-  <h1>Who can reach mental health care nearby?</h1>
-  <p>The share of people within a 15 or 30 minute drive of a mental health provider. Explore by state, county or neighborhood, then click a place to see which providers and services are within reach. Provider listings come from SAMHSA, the federal agency for mental health and substance use services.</p>
-</div>
-<div class="crisis"><strong>Need help now?</strong> <span>Call or text 988, the Suicide &amp; Crisis Lifeline. If someone is in immediate danger, call 911. Listings here date from March 2025, so call a provider before you go, or check current listings at <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>.</span></div>
-<div class="page-loading">Loading the map and data…</div>
-<div class="observablehq observablehq--block"><!--:e080e88c:--></div>
-<div class="observablehq observablehq--block"><!--:b49e08e2:--></div>
+<div class="page-loading">Loading the map…</div>
+<div class="observablehq observablehq--block"><!--:93a7c7c5:--></div>
+<div class="observablehq observablehq--block"><!--:dff62a77:--></div>
+<div class="observablehq observablehq--block"><!--:5d485a8f:--></div>
 <div class="observablehq observablehq--block"><!--:57253337:--></div>
-<div class="observablehq observablehq--block"><!--:70541b89:--></div>
-<div class="observablehq observablehq--block"><!--:a63b0a8c:--></div>
+<div class="observablehq observablehq--block"><!--:3b8c5bae:--></div>
+<div class="observablehq observablehq--block"><!--:629d727b:--></div>
 <div class="observablehq observablehq--block"><!--:65600792:--></div>
-<div class="observablehq observablehq--block"><!--:4cc7a4d9:--></div>
-<div class="observablehq observablehq--block"><!--:d7a111f7:--></div>
+<div class="observablehq observablehq--block"><!--:f9d5ee14:--></div>
+<div class="observablehq observablehq--block"><!--:70db31f9:--></div>
 <div class="observablehq observablehq--block"><!--:a6d00c5b:--></div>
-<div class="observablehq observablehq--block"><!--:3ebd7663:--></div>
-<div class="observablehq observablehq--block"><!--:03daa6c4:--></div>
-<div class="observablehq observablehq--block"><!--:4fc03bf5:--></div>
-<div class="observablehq observablehq--block"><!--:b84ce377:--></div>
-<div class="observablehq observablehq--block"><!--:b414504b:--></div>
-<div class="observablehq observablehq--block"><!--:cc7cb6cf:--></div>
-<div class="observablehq observablehq--block"><!--:73f78f0f:--></div>
-<div class="observablehq observablehq--block"><!--:ca6c395d:--></div>
-<div class="observablehq observablehq--block"><!--:6cc354ec:--></div>
+<div class="observablehq observablehq--block"><!--:75f1c177:--></div>
+<div class="observablehq observablehq--block"><!--:af775de0:--></div>
+<div class="observablehq observablehq--block"><!--:2f2d53cd:--></div>
+<div class="observablehq observablehq--block"><!--:9a46ca19:--></div>
+<div class="observablehq observablehq--block"><!--:837c2932:--></div>
+<div class="observablehq observablehq--block"><!--:32b0139e:--></div>
+<div class="observablehq observablehq--block"><!--:1e90d0df:--></div>
+<div class="observablehq observablehq--block"><!--:74bfd8e6:--></div>
 </main>
 <footer id="observablehq-footer">
 <div>Provider listings from <a href="https://www.samhsa.gov" target="_blank" rel="noopener noreferrer">SAMHSA</a>. Check current listings at <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>. In a crisis, call or text <a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988</a>. Not medical advice.</div>
