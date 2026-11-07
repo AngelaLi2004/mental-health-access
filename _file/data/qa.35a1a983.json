@@ -1,0 +1,57 @@
+{
+ "providers": {
+  "rows_read": 13458,
+  "rows_kept": 13266,
+  "duplicates_removed": 192,
+  "missing_coordinates": 0,
+  "workbooks": 50,
+  "dc_rows": 16,
+  "states": null
+ },
+ "pairs": 9743696,
+ "population": 331097593,
+ "block_groups": 239321,
+ "block_groups_zero_pop": 1639,
+ "pair_block_groups_not_in_population_file": 318,
+ "population_no_drive_time_data": 13214,
+ "block_groups_no_drive_time_data": 11,
+ "national": {
+  "cit_15": 68.95,
+  "cit_30": 91.66,
+  "wi_15": 57.47,
+  "wi_30": 86.53,
+  "emg_15": 71.73,
+  "emg_30": 92.79,
+  "any_15": 81.26,
+  "any_30": 95.14
+ },
+ "national_reach": {
+  "cit_15": 228287331,
+  "cit_30": 303472183,
+  "wi_15": 190279385,
+  "wi_30": 286494151,
+  "emg_15": 237488523,
+  "emg_30": 307216074,
+  "any_15": 269038612,
+  "any_30": 314992609
+ },
+ "national_providers": {
+  "cit_15": 5341,
+  "cit_30": 5382,
+  "wi_15": 3088,
+  "wi_30": 3105,
+  "emg_15": 6032,
+  "emg_30": 6075,
+  "any_15": 13141,
+  "any_30": 13216
+ },
+ "nesting_violations_15_exceeds_30": {
+  "cit": 0,
+  "wi": 0,
+  "emg": 0,
+  "any": 0
+ },
+ "county_sum_matches_state": true,
+ "percent_over_100": 0,
+ "isochrone_folders": 51
+}
