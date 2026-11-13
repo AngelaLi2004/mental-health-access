@@ -7,18 +7,18 @@
 <title>Mental Health Access Map</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
-<link rel="preload" as="style" href="./_import/style.36f9d9ff.css">
+<link rel="preload" as="style" href="./_import/style.ee4e0a76.css">
 <link rel="preload" as="style" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
-<link rel="stylesheet" type="text/css" href="./_import/style.36f9d9ff.css">
+<link rel="stylesheet" type="text/css" href="./_import/style.ee4e0a76.css">
 <link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
 <link rel="modulepreload" href="./_observablehq/client.8e48e80b.js">
 <link rel="modulepreload" href="./_observablehq/runtime.13bc3751.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.3a5bae2b.js">
 <link rel="modulepreload" href="./_npm/topojson-client@3.1.0/7fb99109.js">
-<link rel="modulepreload" href="./_import/components/map.f28cc7a7.js">
+<link rel="modulepreload" href="./_import/components/map.42c46386.js">
 <link rel="modulepreload" href="./_import/components/assistant.09adc92b.js">
-<link rel="modulepreload" href="./_import/components/ai-config.580e1806.js">
+<link rel="modulepreload" href="./_import/components/ai-config.a127f554.js">
 <link rel="modulepreload" href="./_import/components/data.15e2e638.js">
 <link rel="modulepreload" href="./_npm/d3@7.9.2/172963d6.js">
 <link rel="modulepreload" href="./_npm/htl@1.0.0/11521f02.js">
@@ -56,7 +56,7 @@
 <link rel="modulepreload" href="./_npm/d3-timer@3.0.2/ea7e7cf7.js">
 <link rel="modulepreload" href="./_npm/d3-transition@3.0.2/f861168f.js">
 <link rel="modulepreload" href="./_npm/d3-zoom@3.0.1/c1f09323.js">
-<meta name="description" content="Who can reach mental health care within a 15 or 30 minute drive, by state, county and block group.">
+<meta name="description" content="Who can reach mental health care within a 15 or 30 minute drive, by state, county and block group. Virginia Tech Carillon School of Medicine."><meta name="author" content="Virginia Tech Carillon School of Medicine"><meta name="theme-color" content="#861F41">
 <script type="module">
 
 import {define} from "./_observablehq/client.8e48e80b.js";
@@ -3071,8 +3071,8 @@ registerFile("./data/shapes/56.json", {"name":"./data/shapes/56.json","mimeType"
 registerFile("./data/states.csv", {"name":"./data/states.csv","mimeType":"text/csv","path":"./_file/data/states.d4999400.csv","lastModified":1793989732142,"size":9228});
 registerFile("./data/states.topo.json", {"name":"./data/states.topo.json","mimeType":"application/json","path":"./_file/data/states.topo.77b4a353.json","lastModified":1793989747677,"size":142647});
 
-define({id: "93a7c7c5", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","AI_ENDPOINT","SERVICES","SERVICE_SHORT","compact","downloadCsv","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateById","countyById","REGION_STATES","regionOf","regionBorders","regionRows","blues","NO_PROVIDER","NO_DATA","percentColor","countColor","selected","select","landing","tableState","rankState"], body: async (d3,FileAttachment,Mutable) => {
-const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.f28cc7a7.js"), import("./_import/components/assistant.09adc92b.js"), import("./_import/components/ai-config.580e1806.js"), import("./_import/components/data.15e2e638.js")]);
+define({id: "1b51854e", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","AI_ENDPOINT","SERVICES","SERVICE_SHORT","compact","downloadCsv","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateById","countyById","REGION_STATES","regionOf","regionBorders","regionRows","blues","NO_PROVIDER","NO_DATA","percentColor","countColor","selected","select","landing","tableState","rankState"], body: async (d3,FileAttachment,Mutable) => {
+const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.42c46386.js"), import("./_import/components/assistant.09adc92b.js"), import("./_import/components/ai-config.a127f554.js"), import("./_import/components/data.15e2e638.js")]);
 
 const states = d3.csvParse(await FileAttachment("./data/states.csv").text(), typed);
 const counties = d3.csvParse(await FileAttachment("./data/counties.csv").text(), typed);
@@ -3116,7 +3116,8 @@ const regionRows = Object.keys(REGION_STATES).map((region) => {
   return out;
 });
 
-const blues = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#1c5cab", "#0d366b"];
+// Light to Virginia Tech Chicago Maroon: more people in reach is darker.
+const blues = ["#f6e4ea", "#ebc3cf", "#d996ab", "#bd6383", "#861F41", "#55102a"];
 const NO_PROVIDER = "#ded9cd";
 const NO_DATA = "#f6f5f1";
 const percentColor = d3.scaleThreshold([50, 65, 80, 90, 97], blues);
@@ -3181,7 +3182,7 @@ display(html`<div class="app">
 return {ui,TABS,tabButtons,showTab,aboutDialog,openAbout};
 }});
 
-define({id: "5d485a8f", inputs: ["Inputs","SERVICES","d3","states","Generators","Event","html","counties","landing","showTab","select","countyFeatures","loadShapes","withId","topojson","countyById","ui","openAbout"], outputs: ["serviceInput","minutesInput","levelInput","areaInput","service","minutes","level","area","setArea","locateButton","countyLabels","countyBox","countyOptions","finderStatus","statusTimer","say","goTo","featureContaining","goToCoordinates","pickCounty"], body: (Inputs,SERVICES,d3,states,Generators,Event,html,counties,landing,showTab,select,countyFeatures,loadShapes,withId,topojson,countyById,ui,openAbout) => {
+define({id: "c8e37cd6", inputs: ["Inputs","SERVICES","d3","states","Generators","Event","html","counties","landing","showTab","select","countyFeatures","loadShapes","withId","topojson","countyById","ui","openAbout"], outputs: ["serviceInput","minutesInput","levelInput","areaInput","service","minutes","level","area","setArea","locateButton","countyLabels","countyBox","countyOptions","finderStatus","statusTimer","say","goTo","featureContaining","goToCoordinates","pickCounty"], body: (Inputs,SERVICES,d3,states,Generators,Event,html,counties,landing,showTab,select,countyFeatures,loadShapes,withId,topojson,countyById,ui,openAbout) => {
 // Header: title, crisis line, find-your-area and the filters.
 const serviceInput = Inputs.select(SERVICES, {label: "Service", value: "any"});
 const minutesInput = Inputs.radio(new Map([["15 min", 15], ["30 min", 30]]), {label: "Drive", value: 15});
@@ -3289,6 +3290,7 @@ countyBox.addEventListener("keydown", (event) => {
 
 ui.header.replaceChildren(html`<div class="header-top">
     <div class="brand">
+      <div class="org">Virginia Tech Carillon School of Medicine</div>
       <h1>Mental Health Access Map</h1>
       <p>Who lives within a short drive of mental health care</p>
     </div>
@@ -3730,7 +3732,7 @@ ui.panes.places.replaceChildren(html`<div>
 return {COLUMNS,idColumn,pickedId,sortedRows,pickRow,tableWrap,tableMore,tableSearchBox,tableCount,renderTable,downloadButton,factorsLink};
 }});
 
-define({id: "1e90d0df", inputs: ["aboutDialog","html","whole","qa"], body: (aboutDialog,html,whole,qa) => {
+define({id: "cf2eb9aa", inputs: ["aboutDialog","html","whole","qa"], body: (aboutDialog,html,whole,qa) => {
 // About: method, limits and sources, kept out of the way.
 aboutDialog.replaceChildren(html`<div class="about-body">
   <button type="button" class="about-close" aria-label="Close">×</button>
@@ -3740,6 +3742,7 @@ aboutDialog.replaceChildren(html`<div class="about-body">
   <p><strong>Keep in mind.</strong> Listings date from March 2025 (DC: October 2024), so call before you go. A listing doesn't show capacity, insurance or eligibility. 0% means no listed provider in reach, not proof no care exists. Drive times assume a car. Puerto Rico and other territories are not shown. ${whole(qa.block_groups_no_drive_time_data)} remote Alaska neighborhoods have no drive-time data.</p>
   <p><strong>Your location.</strong> “Near me” works in your browser and is never saved or sent; the page then loads data for your county.</p>
   <p><strong>Sources.</strong> Provider listings: <a href="https://www.samhsa.gov" target="_blank" rel="noopener noreferrer">SAMHSA</a>, current search at <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>. Crisis support: <a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988 Lifeline</a>. County factors: <a href="https://www.census.gov/programs-surveys/acs" target="_blank" rel="noopener noreferrer">American Community Survey</a>. Map: OpenFreeMap, OpenStreetMap.</p>
+  <p><strong>Created by</strong> Virginia Tech Carillon School of Medicine.</p>
   <p class="small">${whole(qa.providers.rows_kept)} facilities · ${whole(qa.population)} people · not medical advice.</p>
 </div>`);
 aboutDialog.querySelector(".about-close").onclick = () => aboutDialog.close();
@@ -3748,7 +3751,7 @@ aboutDialog.onclick = (event) => {
 };
 }});
 
-define({id: "74bfd8e6", inputs: ["createAssistant","states","counties","stateById","countyById","qa","regionRows","html","AI_ENDPOINT","setArea","showTab","goTo","SERVICE_SHORT","serviceInput","minutesInput","areaInput","SERVICES","percent","whole","EXAMPLES","AbortSignal","ui"], outputs: ["answerQuestion","CRISIS","chatLog","chatInput","chatSend","chatPanel","chatButton","toggleChat","textP","bubble","chips","placeList","factsFor","ask"], body: (createAssistant,states,counties,stateById,countyById,qa,regionRows,html,AI_ENDPOINT,setArea,showTab,goTo,SERVICE_SHORT,serviceInput,minutesInput,areaInput,SERVICES,percent,whole,EXAMPLES,AbortSignal,ui) => {
+define({id: "bb9150a2", inputs: ["createAssistant","states","counties","stateById","countyById","qa","regionRows","html","AI_ENDPOINT","setArea","showTab","goTo","SERVICE_SHORT","serviceInput","minutesInput","areaInput","SERVICES","percent","whole","EXAMPLES","AbortSignal","ui"], outputs: ["answerQuestion","CRISIS","chatLog","chatInput","chatSend","chatPanel","chatButton","toggleChat","textP","bubble","chips","placeList","placeButtons","factsFor","ask"], body: (createAssistant,states,counties,stateById,countyById,qa,regionRows,html,AI_ENDPOINT,setArea,showTab,goTo,SERVICE_SHORT,serviceInput,minutesInput,areaInput,SERVICES,percent,whole,EXAMPLES,AbortSignal,ui) => {
 // The chat: a button in the corner that opens a small assistant panel.
 const answerQuestion = createAssistant({states, counties, stateById, countyById, qa, regionRows});
 const CRISIS = /suicid|kill (myself|me)|end my life|self[- ]?harm|hurt myself|want to die|自杀|轻生|伤害自己|不想活/i;
@@ -3807,6 +3810,23 @@ function placeList(result) {
   return [list];
 }
 
+// After an AI answer, places become small buttons so the numbers aren't shown twice.
+function placeButtons(result) {
+  const places = (result.items ?? []).filter((item) => item.place);
+  if (!places.length) return [];
+  return [html`<div class="chat-chips">${places.map((item) => {
+    const button = Object.assign(html`<button type="button" class="chat-chip place"></button>`, {textContent: `📍 ${item.label}`});
+    button.title = "Show on the map";
+    button.onclick = item.place.level === "state"
+      ? () => {
+          setArea(item.place.id);
+          showTab("providers");
+        }
+      : () => goTo(item.place);
+    return button;
+  })}</div>`];
+}
+
 // Facts the AI may use: the lookup's own answer, plus the current view. It is told to use nothing else.
 function factsFor(result) {
   const lines = [`Map view: ${SERVICE_SHORT[serviceInput.value]}, ${minutesInput.value} minute drive, area: ${areaInput.value ? stateById.get(areaInput.value).name : "United States"}.`];
@@ -3839,7 +3859,8 @@ async function ask(question) {
     });
     if (!response.ok) throw new Error(String(response.status));
     const {answer} = await response.json();
-    pending.replaceChildren(textP(answer || result.text), ...placeList(result));
+    if (answer) pending.replaceChildren(textP(answer), ...placeButtons(result));
+    else pending.replaceChildren(textP(result.text), ...placeList(result));
   } catch {
     // If the AI is busy or out of its free daily allowance, fall back to the lookup.
     pending.replaceChildren(textP(result.text), ...placeList(result), ...(result.suggestions ? [chips(EXAMPLES.slice(0, 4))] : []));
@@ -3856,7 +3877,7 @@ document.addEventListener("keydown", (event) => {
 });
 bubble("bot", [textP("Hi! Ask about access in a state or county, or which places have the lowest access."), chips(EXAMPLES.slice(0, 4))]);
 ui.chat.replaceChildren(chatButton, chatPanel);
-return {answerQuestion,CRISIS,chatLog,chatInput,chatSend,chatPanel,chatButton,toggleChat,textP,bubble,chips,placeList,factsFor,ask};
+return {answerQuestion,CRISIS,chatLog,chatInput,chatSend,chatPanel,chatButton,toggleChat,textP,bubble,chips,placeList,placeButtons,factsFor,ask};
 }});
 
 </script>
@@ -3866,9 +3887,9 @@ return {answerQuestion,CRISIS,chatLog,chatInput,chatSend,chatPanel,chatButton,to
 <main id="observablehq-main" class="observablehq">
 <link rel="stylesheet" href="./_npm/maplibre-gl@5.24.0/dist/maplibre-gl.css">
 <div class="page-loading">Loading the map…</div>
-<div class="observablehq observablehq--block"><!--:93a7c7c5:--></div>
+<div class="observablehq observablehq--block"><!--:1b51854e:--></div>
 <div class="observablehq observablehq--block"><!--:dff62a77:--></div>
-<div class="observablehq observablehq--block"><!--:5d485a8f:--></div>
+<div class="observablehq observablehq--block"><!--:c8e37cd6:--></div>
 <div class="observablehq observablehq--block"><!--:57253337:--></div>
 <div class="observablehq observablehq--block"><!--:3b8c5bae:--></div>
 <div class="observablehq observablehq--block"><!--:629d727b:--></div>
@@ -3882,8 +3903,8 @@ return {answerQuestion,CRISIS,chatLog,chatInput,chatSend,chatPanel,chatButton,to
 <div class="observablehq observablehq--block"><!--:9a46ca19:--></div>
 <div class="observablehq observablehq--block"><!--:837c2932:--></div>
 <div class="observablehq observablehq--block"><!--:32b0139e:--></div>
-<div class="observablehq observablehq--block"><!--:1e90d0df:--></div>
-<div class="observablehq observablehq--block"><!--:74bfd8e6:--></div>
+<div class="observablehq observablehq--block"><!--:cf2eb9aa:--></div>
+<div class="observablehq observablehq--block"><!--:bb9150a2:--></div>
 </main>
 <footer id="observablehq-footer">
 <div>Provider listings from <a href="https://www.samhsa.gov" target="_blank" rel="noopener noreferrer">SAMHSA</a>. Check current listings at <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>. In a crisis, call or text <a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988</a>. Not medical advice.</div>

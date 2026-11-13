@@ -7,7 +7,7 @@ const BASEMAP = "https://tiles.openfreemap.org/styles/positron";
 // A teardrop pin with its tip at (0, 0), 22px tall, and a cross in its head.
 const PIN_PATH = "M0,0 C-1.8,-4.6 -8,-8.2 -8,-14 A8,8 0 1 1 8,-14 C8,-8.2 1.8,-4.6 0,0 Z";
 const CROSS_PATH = "M-1.5,-18.5 h3 v3 h3 v3 h-3 v3 h-3 v-3 h-3 v-3 h3 Z";
-export const PIN_COLOR = "#d95926";
+export const PIN_COLOR = "#E5751F"; // Virginia Tech Burnt Orange
 export const pinIcon = (size = 16) =>
   `<svg width="${size * 0.75}" height="${size}" viewBox="-9 -23 18 24" aria-hidden="true"><path d="${PIN_PATH}" fill="${PIN_COLOR}" stroke="#fff" stroke-width="1.5"/><path d="${CROSS_PATH}" fill="#fff"/></svg>`;
 
@@ -102,7 +102,7 @@ export function createMap({features, boundaries, regions = null, onSelect, toolt
     const layers = map.getStyle().layers;
     const roadLayer = layers.find((l) => /road|highway|tunnel|bridge|railway|aeroway/.test(l.id))?.id;
     const labelLayer = layers.find((l) => l.type === "symbol")?.id;
-    for (const [name, color, scale] of [["pin", PIN_COLOR, 1], ["pin-active", "#0b0b0b", 1.45]]) {
+    for (const [name, color, scale] of [["pin", PIN_COLOR, 1], ["pin-active", "#861F41", 1.45]]) {
       const {image, pixelRatio} = pinImage(color, scale);
       map.addImage(name, image, {pixelRatio});
     }
@@ -284,15 +284,20 @@ export function createMap({features, boundaries, regions = null, onSelect, toolt
     if (event.key === "Escape" && activePoint) closeCard();
   });
 
-  // The page may lay the map out after it is created, so frame the area once it has a real size.
-  let framed = false;
-  const fitHome = () => map.fitBounds([[west, south], [east, north]], {padding: 24, duration: 0});
+  // The page may still be laying out when the map is created, so keep framing the area
+  // to the map's size until someone moves the map or a place is zoomed to.
+  let moved = false;
+  const fitHome = () => {
+    if (moved || waitingZoom || holder.clientWidth < 50 || holder.clientHeight < 50) return;
+    map.fitBounds([[west, south], [east, north]], {padding: 24, duration: 0});
+  };
+  map.on("movestart", (event) => {
+    if (event.originalEvent) moved = true;
+  });
+  map.once("load", fitHome);
   const observer = new ResizeObserver(() => {
     map.resize();
-    if (!framed && holder.clientWidth > 50 && holder.clientHeight > 50) {
-      framed = true;
-      if (!waitingZoom) fitHome();
-    }
+    fitHome();
   });
   observer.observe(frame);
 
@@ -320,6 +325,7 @@ export function createMap({features, boundaries, regions = null, onSelect, toolt
   frame.zoomToSelected = (id, points = []) => {
     const feature = byId.get(id);
     if (!feature) return;
+    moved = true;
     if (!ready) {
       waitingZoom = {id, points};
       return;
