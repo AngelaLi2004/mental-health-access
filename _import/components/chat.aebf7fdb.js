@@ -18,7 +18,9 @@ const textP = (text) => el("p", {textContent: text});
  * facts(result) -> text the AI may use
  * openPlace(place) -> show a place ({level, id}) on the map
  */
-export function createChat({answer, defaults, facts, openPlace, endpoint = "", examples = [], standalone = false}) {
+export function createChat({answer, defaults, facts, openPlace, endpoint = "", examples = [], standalone = false, tools = null}) {
+  // The conversation so far, so the AI can follow up on earlier questions.
+  const history = [];
   const log = el("div", {className: "chat-log"});
   log.setAttribute("aria-live", "polite");
   const input = el("input", {type: "text", className: "chat-input", placeholder: "Ask about a place…", maxLength: 300});
@@ -96,6 +98,18 @@ export function createChat({answer, defaults, facts, openPlace, endpoint = "", e
     const lookupOnly = () => [textP(result.text), ...placeList(result), ...(result.suggestions ? [chips(examples.slice(0, 4))] : [])];
     if (!endpoint) return bubble("bot", lookupOnly());
     const pending = bubble("bot", [textP("…")]);
+    if (tools) {
+      try {
+        const {reply, places} = await converse(text);
+        pending.replaceChildren(textP(reply), ...placeChips(places));
+      } catch {
+        // If the AI is busy or out of its free allowance, answer from the lookup and keep the thread going.
+        history.push({role: "assistant", content: result.text});
+        pending.replaceChildren(...lookupOnly());
+      }
+      log.scrollTop = log.scrollHeight;
+      return;
+    }
     try {
       const response = await fetch(endpoint, {
         method: "POST",
@@ -111,6 +125,64 @@ export function createChat({answer, defaults, facts, openPlace, endpoint = "", e
       pending.replaceChildren(...lookupOnly());
     }
     log.scrollTop = log.scrollHeight;
+  }
+
+  // The AI may ask for lookups (tools) before it answers; each one runs here on the map's data.
+  async function converse(text) {
+    const start = history.length;
+    history.push({role: "user", content: text});
+    const places = [];
+    try {
+      for (let step = 0; step < 6; step++) {
+        trimHistory();
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {"content-type": "application/json"},
+          body: JSON.stringify({messages: history}),
+          signal: AbortSignal.timeout(40000)
+        });
+        if (!response.ok) throw new Error(String(response.status));
+        const {message} = await response.json();
+        const calls = message?.tool_calls ?? [];
+        if (calls.length) {
+          history.push({role: "assistant", content: message.content ?? "", tool_calls: calls});
+          for (const call of calls) {
+            let args = {};
+            try {
+              args = JSON.parse(call.function?.arguments || "{}");
+            } catch {}
+            const result = await tools.run(call.function?.name, args);
+            places.push(...tools.placesIn(result));
+            history.push({role: "tool", tool_call_id: call.id, content: JSON.stringify(result).slice(0, 6000)});
+          }
+          continue;
+        }
+        const reply = String(message?.content ?? "").trim();
+        if (!reply) throw new Error("Empty answer");
+        history.push({role: "assistant", content: reply});
+        return {reply, places};
+      }
+      throw new Error("Too many lookups");
+    } catch (error) {
+      history.length = start;
+      history.push({role: "user", content: text});
+      throw error;
+    }
+  }
+
+  // Keep the conversation short enough to send: drop the oldest exchanges first.
+  function trimHistory() {
+    while (JSON.stringify(history).length > 24000) {
+      const next = history.findIndex((m, i) => i > 0 && m.role === "user");
+      if (next <= 0) break;
+      history.splice(0, next);
+    }
+  }
+
+  function placeChips(places) {
+    const seen = new Set();
+    const unique = places.filter((p) => !seen.has(p.place.id) && seen.add(p.place.id)).slice(0, 8);
+    return unique.length ? [el("div", {className: "chat-chips"}, unique.map((p) => placeButton(p, "chat-chip place", `📍 ${p.label}`)))] : [];
   }
 
   send.onclick = () => ask(input.value);

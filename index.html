@@ -19,7 +19,8 @@
 <link rel="modulepreload" href="./_import/components/map.b804c918.js">
 <link rel="modulepreload" href="./_import/components/assistant.72bef535.js">
 <link rel="modulepreload" href="./_import/components/ai-config.0c425e3b.js">
-<link rel="modulepreload" href="./_import/components/chat.f6e10e36.js">
+<link rel="modulepreload" href="./_import/components/chat.aebf7fdb.js">
+<link rel="modulepreload" href="./_import/components/tools.236a5817.js">
 <link rel="modulepreload" href="./_import/components/data.61880e46.js">
 <link rel="modulepreload" href="./_npm/d3@7.9.2/172963d6.js">
 <link rel="modulepreload" href="./_npm/htl@1.0.0/11521f02.js">
@@ -3073,8 +3074,8 @@ registerFile("./data/states.csv", {"name":"./data/states.csv","mimeType":"text/c
 registerFile("./data/states.topo.json", {"name":"./data/states.topo.json","mimeType":"application/json","path":"./_file/data/states.topo.77b4a353.json","lastModified":1793989747677,"size":142647});
 registerFile("./data/zips.json", {"name":"./data/zips.json","mimeType":"application/json","path":"./_file/data/zips.7f9108ec.json","lastModified":1794595915000,"size":1181291});
 
-define({id: "2396c34c", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","AI_ENDPOINT","createChat","SERVICES","SERVICE_SHORT","compact","downloadCsv","loadZips","withZips","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateById","countyById","REGION_STATES","regionOf","regionBorders","regionRows","blues","NO_PROVIDER","NO_DATA","percentColor","countColor","selected","select","landing","tableState","rankState","chatContext"], body: async (d3,FileAttachment,Mutable) => {
-const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {createChat}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, loadZips, withZips, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.b804c918.js"), import("./_import/components/assistant.72bef535.js"), import("./_import/components/ai-config.0c425e3b.js"), import("./_import/components/chat.f6e10e36.js"), import("./_import/components/data.61880e46.js")]);
+define({id: "4dfddb27", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","AI_ENDPOINT","createChat","createTools","SERVICES","SERVICE_SHORT","compact","downloadCsv","loadZips","withZips","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateById","countyById","REGION_STATES","regionOf","regionBorders","regionRows","blues","NO_PROVIDER","NO_DATA","percentColor","countColor","selected","select","landing","tableState","rankState","chatContext"], body: async (d3,FileAttachment,Mutable) => {
+const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {createChat}, {createTools}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, loadZips, withZips, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.b804c918.js"), import("./_import/components/assistant.72bef535.js"), import("./_import/components/ai-config.0c425e3b.js"), import("./_import/components/chat.aebf7fdb.js"), import("./_import/components/tools.236a5817.js"), import("./_import/components/data.61880e46.js")]);
 
 const states = d3.csvParse(await FileAttachment("./data/states.csv").text(), typed);
 const counties = d3.csvParse(await FileAttachment("./data/counties.csv").text(), typed);
@@ -3134,7 +3135,7 @@ const tableState = {};
 const rankState = {mode: "low"};
 // What the map is showing right now, kept up to date for the chat without rebuilding it.
 const chatContext = {current: null};
-return {topojson,createMap,pinIcon,createAssistant,EXAMPLES,AI_ENDPOINT,createChat,SERVICES,SERVICE_SHORT,compact,downloadCsv,loadZips,withZips,isEmergency,loadBlockgroups,loadShapes,offersService,percent,providersFor,safeWebsite,tractLabel,typed,whole,states,counties,qa,stateTopo,countyTopo,stateObject,countyObject,withId,stateFeatures,countyFeatures,stateById,countyById,REGION_STATES,regionOf,regionBorders,regionRows,blues,NO_PROVIDER,NO_DATA,percentColor,countColor,selected,select,landing,tableState,rankState,chatContext};
+return {topojson,createMap,pinIcon,createAssistant,EXAMPLES,AI_ENDPOINT,createChat,createTools,SERVICES,SERVICE_SHORT,compact,downloadCsv,loadZips,withZips,isEmergency,loadBlockgroups,loadShapes,offersService,percent,providersFor,safeWebsite,tractLabel,typed,whole,states,counties,qa,stateTopo,countyTopo,stateObject,countyObject,withId,stateFeatures,countyFeatures,stateById,countyById,REGION_STATES,regionOf,regionBorders,regionRows,blues,NO_PROVIDER,NO_DATA,percentColor,countColor,selected,select,landing,tableState,rankState,chatContext};
 }});
 
 define({id: "dff62a77", inputs: ["html","display"], outputs: ["ui","TABS","tabButtons","showTab","aboutDialog","openAbout"], body: (html,display) => {
@@ -3791,7 +3792,7 @@ aboutDialog.onclick = (event) => {
 };
 }});
 
-define({id: "50fd4ded", inputs: ["createAssistant","states","counties","stateById","countyById","qa","regionRows","serviceInput","minutesInput","SERVICE_SHORT","chatContext","whole","SERVICES","percent","createChat","withZips","setArea","showTab","goTo","AI_ENDPOINT","EXAMPLES","ui"], outputs: ["answerQuestion","factsFor","chat"], body: (createAssistant,states,counties,stateById,countyById,qa,regionRows,serviceInput,minutesInput,SERVICE_SHORT,chatContext,whole,SERVICES,percent,createChat,withZips,setArea,showTab,goTo,AI_ENDPOINT,EXAMPLES,ui) => {
+define({id: "2b7bad24", inputs: ["createAssistant","states","counties","stateById","countyById","qa","regionRows","serviceInput","minutesInput","SERVICE_SHORT","chatContext","whole","SERVICES","percent","createChat","withZips","setArea","showTab","goTo","AI_ENDPOINT","EXAMPLES","createTools","areaInput","ui"], outputs: ["answerQuestion","factsFor","chat"], body: (createAssistant,states,counties,stateById,countyById,qa,regionRows,serviceInput,minutesInput,SERVICE_SHORT,chatContext,whole,SERVICES,percent,createChat,withZips,setArea,showTab,goTo,AI_ENDPOINT,EXAMPLES,createTools,areaInput,ui) => {
 // The chat: a button in the corner that opens a small assistant panel.
 const answerQuestion = createAssistant({states, counties, stateById, countyById, qa, regionRows});
 // Facts the AI may use. Each figure is labeled with the place it belongs to, so the AI can't
@@ -3832,7 +3833,18 @@ const chat = createChat({
     }
   },
   endpoint: AI_ENDPOINT,
-  examples: EXAMPLES
+  examples: EXAMPLES,
+  // What the AI can look up: places, ZIPs, rankings, national figures, and what the map shows now.
+  tools: createTools({states, counties, stateById, countyById, qa, regionRows, view: () => {
+    const here = chatContext.current;
+    return {
+      service: SERVICE_SHORT[serviceInput.value], drive_minutes: +minutesInput.value,
+      area_shown: areaInput.value ? stateById.get(areaInput.value).name : "United States",
+      selected_place: here && here.level !== "nation"
+        ? {name: here.name, kind: here.level === "blockgroup" ? "neighborhood (census block group)" : here.level, in_reach: here.share, providers_in_reach: here.providers, residents: here.pop}
+        : null
+    };
+  }})
 });
 ui.chat.replaceChildren(chat.fab, chat.panel);
 return {answerQuestion,factsFor,chat};
@@ -3845,7 +3857,7 @@ return {answerQuestion,factsFor,chat};
 <main id="observablehq-main" class="observablehq">
 <link rel="stylesheet" href="./_npm/maplibre-gl@5.24.0/dist/maplibre-gl.css">
 <div class="page-loading">Loading the map…</div>
-<div class="observablehq observablehq--block"><!--:2396c34c:--></div>
+<div class="observablehq observablehq--block"><!--:4dfddb27:--></div>
 <div class="observablehq observablehq--block"><!--:dff62a77:--></div>
 <div class="observablehq observablehq--block"><!--:4777658e:--></div>
 <div class="observablehq observablehq--block"><!--:0451dec6:--></div>
@@ -3863,7 +3875,7 @@ return {answerQuestion,factsFor,chat};
 <div class="observablehq observablehq--block"><!--:837c2932:--></div>
 <div class="observablehq observablehq--block"><!--:32b0139e:--></div>
 <div class="observablehq observablehq--block"><!--:cf2eb9aa:--></div>
-<div class="observablehq observablehq--block"><!--:50fd4ded:--></div>
+<div class="observablehq observablehq--block"><!--:2b7bad24:--></div>
 </main>
 <footer id="observablehq-footer">
 <div>Provider listings from <a href="https://www.samhsa.gov" target="_blank" rel="noopener noreferrer">SAMHSA</a>. Check current listings at <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>. In a crisis, call or text <a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988</a>. Not medical advice.</div>
