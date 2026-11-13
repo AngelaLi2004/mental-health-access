@@ -9,6 +9,8 @@ const SERVICE_WORDS = [
 ];
 const SERVICE_TEXT = {any: "any mental health provider", emg: "emergency services (crisis team or walk-in)", cit: "a crisis intervention team", wi: "psychiatric emergency walk-in services"};
 const REGIONS = ["Northeast", "Midwest", "South", "West"];
+// Each figure names its service, so nothing is left for a reader (or the AI) to guess.
+const SERVICE_LABEL = {any: "Any provider", emg: "Emergency services", cit: "Crisis team", wi: "Emergency walk-in"};
 const REGION_ZH = {"东北": "Northeast", "中西部": "Midwest", "南部": "South", "西部": "West"};
 // Common Chinese names for states, matched longest first so 西弗吉尼亚 is not read as 弗吉尼亚.
 const STATE_ZH = {
@@ -36,8 +38,13 @@ export function createAssistant({states, counties, stateById, countyById, qa, re
     const found = {counties: [], states: [], regions: [], ambiguous: null};
     // Counties first, longest names first, so "Washington County" is not read as the state of Washington.
     const countyHits = countyIndex.filter((d) => lower.includes(d.lower)).sort((a, b) => b.lower.length - a.lower.length);
-    const countyNames = [...new Set(countyHits.map((d) => d.lower))];
-    for (const name of countyNames) rest = rest.split(name).join(" ");
+    // A name inside a longer one that was already matched ("York County" in "New York County") doesn't count.
+    const countyNames = [];
+    for (const name of new Set(countyHits.map((d) => d.lower))) {
+      if (!rest.includes(name)) continue;
+      countyNames.push(name);
+      rest = rest.split(name).join(" ");
+    }
     for (const d of stateNames) if (d.pattern.test(rest)) found.states.push(d);
     for (const match of question.matchAll(/\b([A-Z]{2})\b/g)) {
       const d = stateByAbbr.get(match[1]);
@@ -86,7 +93,7 @@ export function createAssistant({states, counties, stateById, countyById, qa, re
     const without = Math.max(0, row.pop_measured - row[`reach_${s.metric}`]);
     return {
       ...placeOf(row, level),
-      value: `${fmt.percent(row[s.metric])} within ${s.minutes} min (15 min: ${fmt.percent(row[`${s.service}_15`])}, 30 min: ${fmt.percent(row[`${s.service}_30`])}). ${fmt.whole(row[`p_${s.metric}`])} providers in reach; ${fmt.whole(without)} of ${fmt.whole(row.pop)} people have none within ${s.minutes} min.`
+      value: `${SERVICE_LABEL[s.service]}: ${fmt.percent(row[s.metric])} within ${s.minutes} min (15 min: ${fmt.percent(row[`${s.service}_15`])}, 30 min: ${fmt.percent(row[`${s.service}_30`])}). ${fmt.whole(row[`p_${s.metric}`])} providers in reach; ${fmt.whole(without)} of ${fmt.whole(row.pop)} people have none within ${s.minutes} min.`
     };
   }
 

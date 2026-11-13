@@ -1,4 +1,5 @@
 import * as d3 from "../../_npm/d3@7.9.2/172963d6.js";
+import {FileAttachment} from "../../_observablehq/stdlib.3a5bae2b.js";
 import {blockgroupFiles, linkFiles, providerFiles, shapeFiles} from "./files.4d5206cc.js";
 
 export const SERVICES = new Map([
@@ -109,4 +110,27 @@ export function downloadCsv(rows, filename) {
   const link = Object.assign(document.createElement("a"), {href: URL.createObjectURL(blob), download: filename});
   link.click();
   URL.revokeObjectURL(link.href);
+}
+
+// ZIP codes: each ZIP's interior point and county, from the Census 2024 Gazetteer. Loaded only when a ZIP is typed.
+export const loadZips = () => once("zips", () => FileAttachment({"name":"../../data/zips.json","mimeType":"application/json","path":"../../_file/data/zips.7f9108ec.json","lastModified":1794595915000,"size":1181291}, import.meta.url).json());
+
+// Swap any ZIP codes in a question for their county names, so the lookup can answer, and say what each ZIP matched.
+export async function withZips(text, countyById) {
+  const found = [...new Set([...text.matchAll(/\b(\d{5})\b/g)].map((m) => m[1]))];
+  if (!found.length) return {text, notes: []};
+  const zips = await loadZips();
+  let out = text;
+  const notes = [];
+  for (const zip of found) {
+    const hit = zips[zip];
+    const county = hit?.[2] ? countyById.get(hit[2]) : null;
+    if (!hit) notes.push(`ZIP ${zip} isn't a ZIP code area in the Census list.`);
+    else if (!county) notes.push(`ZIP ${zip} is outside this map, which covers the 50 states and DC.`);
+    else {
+      out = out.split(zip).join(`${county.name}, ${county.abbr}`);
+      notes.push(`ZIP ${zip} is in ${county.name}, ${county.abbr}; the figures below are for that whole county, not the ZIP alone.`);
+    }
+  }
+  return {text: out, notes};
 }

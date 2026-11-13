@@ -17,10 +17,10 @@
 <link rel="modulepreload" href="./_observablehq/stdlib.3a5bae2b.js">
 <link rel="modulepreload" href="./_npm/topojson-client@3.1.0/7fb99109.js">
 <link rel="modulepreload" href="./_import/components/map.b804c918.js">
-<link rel="modulepreload" href="./_import/components/assistant.09adc92b.js">
+<link rel="modulepreload" href="./_import/components/assistant.72bef535.js">
 <link rel="modulepreload" href="./_import/components/ai-config.0c425e3b.js">
-<link rel="modulepreload" href="./_import/components/chat.ac6ce98d.js">
-<link rel="modulepreload" href="./_import/components/data.15e2e638.js">
+<link rel="modulepreload" href="./_import/components/chat.f6e10e36.js">
+<link rel="modulepreload" href="./_import/components/data.61880e46.js">
 <link rel="modulepreload" href="./_npm/d3@7.9.2/172963d6.js">
 <link rel="modulepreload" href="./_npm/htl@1.0.0/11521f02.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.a43d632f.js">
@@ -3071,9 +3071,10 @@ registerFile("./data/shapes/55.json", {"name":"./data/shapes/55.json","mimeType"
 registerFile("./data/shapes/56.json", {"name":"./data/shapes/56.json","mimeType":"application/json","path":"./_file/data/shapes/56.189eceb5.json","lastModified":1793991220150,"size":402704});
 registerFile("./data/states.csv", {"name":"./data/states.csv","mimeType":"text/csv","path":"./_file/data/states.d4999400.csv","lastModified":1793989732142,"size":9228});
 registerFile("./data/states.topo.json", {"name":"./data/states.topo.json","mimeType":"application/json","path":"./_file/data/states.topo.77b4a353.json","lastModified":1793989747677,"size":142647});
+registerFile("./data/zips.json", {"name":"./data/zips.json","mimeType":"application/json","path":"./_file/data/zips.7f9108ec.json","lastModified":1794595915000,"size":1181291});
 
-define({id: "6cd786ab", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","AI_ENDPOINT","createChat","SERVICES","SERVICE_SHORT","compact","downloadCsv","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateById","countyById","REGION_STATES","regionOf","regionBorders","regionRows","blues","NO_PROVIDER","NO_DATA","percentColor","countColor","selected","select","landing","tableState","rankState","chatContext"], body: async (d3,FileAttachment,Mutable) => {
-const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {createChat}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.b804c918.js"), import("./_import/components/assistant.09adc92b.js"), import("./_import/components/ai-config.0c425e3b.js"), import("./_import/components/chat.ac6ce98d.js"), import("./_import/components/data.15e2e638.js")]);
+define({id: "2396c34c", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","AI_ENDPOINT","createChat","SERVICES","SERVICE_SHORT","compact","downloadCsv","loadZips","withZips","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateById","countyById","REGION_STATES","regionOf","regionBorders","regionRows","blues","NO_PROVIDER","NO_DATA","percentColor","countColor","selected","select","landing","tableState","rankState","chatContext"], body: async (d3,FileAttachment,Mutable) => {
+const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {createChat}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, loadZips, withZips, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.b804c918.js"), import("./_import/components/assistant.72bef535.js"), import("./_import/components/ai-config.0c425e3b.js"), import("./_import/components/chat.f6e10e36.js"), import("./_import/components/data.61880e46.js")]);
 
 const states = d3.csvParse(await FileAttachment("./data/states.csv").text(), typed);
 const counties = d3.csvParse(await FileAttachment("./data/counties.csv").text(), typed);
@@ -3133,7 +3134,7 @@ const tableState = {};
 const rankState = {mode: "low"};
 // What the map is showing right now, kept up to date for the chat without rebuilding it.
 const chatContext = {current: null};
-return {topojson,createMap,pinIcon,createAssistant,EXAMPLES,AI_ENDPOINT,createChat,SERVICES,SERVICE_SHORT,compact,downloadCsv,isEmergency,loadBlockgroups,loadShapes,offersService,percent,providersFor,safeWebsite,tractLabel,typed,whole,states,counties,qa,stateTopo,countyTopo,stateObject,countyObject,withId,stateFeatures,countyFeatures,stateById,countyById,REGION_STATES,regionOf,regionBorders,regionRows,blues,NO_PROVIDER,NO_DATA,percentColor,countColor,selected,select,landing,tableState,rankState,chatContext};
+return {topojson,createMap,pinIcon,createAssistant,EXAMPLES,AI_ENDPOINT,createChat,SERVICES,SERVICE_SHORT,compact,downloadCsv,loadZips,withZips,isEmergency,loadBlockgroups,loadShapes,offersService,percent,providersFor,safeWebsite,tractLabel,typed,whole,states,counties,qa,stateTopo,countyTopo,stateObject,countyObject,withId,stateFeatures,countyFeatures,stateById,countyById,REGION_STATES,regionOf,regionBorders,regionRows,blues,NO_PROVIDER,NO_DATA,percentColor,countColor,selected,select,landing,tableState,rankState,chatContext};
 }});
 
 define({id: "dff62a77", inputs: ["html","display"], outputs: ["ui","TABS","tabButtons","showTab","aboutDialog","openAbout"], body: (html,display) => {
@@ -3185,7 +3186,7 @@ display(html`<div class="app">
 return {ui,TABS,tabButtons,showTab,aboutDialog,openAbout};
 }});
 
-define({id: "c8e37cd6", inputs: ["Inputs","SERVICES","d3","states","Generators","Event","html","counties","landing","showTab","select","countyFeatures","loadShapes","withId","topojson","countyById","ui","openAbout"], outputs: ["serviceInput","minutesInput","levelInput","areaInput","service","minutes","level","area","setArea","locateButton","countyLabels","countyBox","countyOptions","finderStatus","statusTimer","say","goTo","featureContaining","goToCoordinates","pickCounty"], body: (Inputs,SERVICES,d3,states,Generators,Event,html,counties,landing,showTab,select,countyFeatures,loadShapes,withId,topojson,countyById,ui,openAbout) => {
+define({id: "4777658e", inputs: ["Inputs","SERVICES","d3","states","Generators","Event","html","counties","landing","showTab","select","countyFeatures","loadShapes","withId","topojson","countyById","loadZips","ui","openAbout"], outputs: ["serviceInput","minutesInput","levelInput","areaInput","service","minutes","level","area","setArea","locateButton","countyLabels","countyBox","countyOptions","finderStatus","statusTimer","say","goTo","featureContaining","goToCoordinates","pickZip","pickCounty"], body: (Inputs,SERVICES,d3,states,Generators,Event,html,counties,landing,showTab,select,countyFeatures,loadShapes,withId,topojson,countyById,loadZips,ui,openAbout) => {
 // Header: title, crisis line, find-your-area and the filters.
 const serviceInput = Inputs.select(SERVICES, {label: "Service", value: "any"});
 const minutesInput = Inputs.radio(new Map([["15 min", 15], ["30 min", 30]]), {label: "Drive", value: 15});
@@ -3206,7 +3207,7 @@ const setArea = (fips) => {
 
 const locateButton = html`<button class="locate" type="button" title="Your location stays in your browser">${Object.assign(document.createElement("span"), {innerHTML: '<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm9 3h-2.07A7 7 0 0 0 13 5.07V3h-2v2.07A7 7 0 0 0 5.07 11H3v2h2.07A7 7 0 0 0 11 18.93V21h2v-2.07A7 7 0 0 0 18.93 13H21v-2Zm-9 6a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/></svg>'})}<span>Near me</span></button>`;
 const countyLabels = new Map(counties.map((d) => [`${d.name}, ${d.abbr}`, d.county_fips]));
-const countyBox = html`<input type="search" id="county-search" list="county-options" placeholder="Search a county" autocomplete="off" aria-label="Search a county">`;
+const countyBox = html`<input type="search" id="county-search" list="county-options" placeholder="County or ZIP code" autocomplete="off" aria-label="Search a county or ZIP code">`;
 const countyOptions = html`<datalist id="county-options">${[...countyLabels.keys()].sort().map((label) => html`<option value=${label}>`)}</datalist>`;
 const finderStatus = html`<div class="finder-status" role="status" aria-live="polite"></div>`;
 let statusTimer;
@@ -3277,6 +3278,19 @@ locateButton.onclick = () => {
   );
 };
 
+// A 5-digit ZIP opens the neighborhood around the ZIP's center, the same way "Near me" does.
+async function pickZip() {
+  const zip = countyBox.value.trim();
+  if (!/^\d{5}$/.test(zip)) return false;
+  const hit = (await loadZips())[zip];
+  if (!hit) return say(`ZIP ${zip} wasn't found.`), true;
+  if (!hit[2]) return say(`ZIP ${zip} is outside this map (50 states and DC).`), true;
+  await goToCoordinates(hit[1], hit[0]);
+  say(`Showing ZIP ${zip}.`);
+  countyBox.blur();
+  return true;
+}
+
 function pickCounty() {
   const fips = countyLabels.get(countyBox.value.trim());
   if (!fips) return false;
@@ -3284,11 +3298,11 @@ function pickCounty() {
   countyBox.blur();
   return true;
 }
-countyBox.addEventListener("input", pickCounty);
-countyBox.addEventListener("keydown", (event) => {
+countyBox.addEventListener("input", () => pickCounty() || (/^\d{5}$/.test(countyBox.value.trim()) && pickZip()));
+countyBox.addEventListener("keydown", async (event) => {
   if (event.key !== "Enter") return;
   event.preventDefault();
-  if (!pickCounty()) say("Pick a county from the list, for example Cook County, IL.");
+  if (!pickCounty() && !(await pickZip())) say("Pick a county from the list, or type a 5-digit ZIP code.");
 });
 
 ui.header.replaceChildren(html`<div class="header-top">
@@ -3307,7 +3321,7 @@ ui.header.replaceChildren(html`<div class="header-top">
     <div class="filters">${serviceInput}${minutesInput}${levelInput}${areaInput}</div>
   </div>
   ${finderStatus}`);
-return {serviceInput,minutesInput,levelInput,areaInput,service,minutes,level,area,setArea,locateButton,countyLabels,countyBox,countyOptions,finderStatus,statusTimer,say,goTo,featureContaining,goToCoordinates,pickCounty};
+return {serviceInput,minutesInput,levelInput,areaInput,service,minutes,level,area,setArea,locateButton,countyLabels,countyBox,countyOptions,finderStatus,statusTimer,say,goTo,featureContaining,goToCoordinates,pickZip,pickCounty};
 }});
 
 define({id: "0451dec6", inputs: ["URLSearchParams","location","stateById","setArea","countyById","goTo"], outputs: ["linked"], body: (URLSearchParams,location,stateById,setArea,countyById,goTo) => {
@@ -3777,7 +3791,7 @@ aboutDialog.onclick = (event) => {
 };
 }});
 
-define({id: "a5b15db3", inputs: ["createAssistant","states","counties","stateById","countyById","qa","regionRows","serviceInput","minutesInput","SERVICE_SHORT","chatContext","whole","SERVICES","percent","createChat","setArea","showTab","goTo","AI_ENDPOINT","EXAMPLES","ui"], outputs: ["answerQuestion","factsFor","chat"], body: (createAssistant,states,counties,stateById,countyById,qa,regionRows,serviceInput,minutesInput,SERVICE_SHORT,chatContext,whole,SERVICES,percent,createChat,setArea,showTab,goTo,AI_ENDPOINT,EXAMPLES,ui) => {
+define({id: "50fd4ded", inputs: ["createAssistant","states","counties","stateById","countyById","qa","regionRows","serviceInput","minutesInput","SERVICE_SHORT","chatContext","whole","SERVICES","percent","createChat","withZips","setArea","showTab","goTo","AI_ENDPOINT","EXAMPLES","ui"], outputs: ["answerQuestion","factsFor","chat"], body: (createAssistant,states,counties,stateById,countyById,qa,regionRows,serviceInput,minutesInput,SERVICE_SHORT,chatContext,whole,SERVICES,percent,createChat,withZips,setArea,showTab,goTo,AI_ENDPOINT,EXAMPLES,ui) => {
 // The chat: a button in the corner that opens a small assistant panel.
 const answerQuestion = createAssistant({states, counties, stateById, countyById, qa, regionRows});
 // Facts the AI may use. Each figure is labeled with the place it belongs to, so the AI can't
@@ -3786,7 +3800,7 @@ function factsFor(result) {
   const s = serviceInput.value, m = +minutesInput.value;
   const lines = [`Service: ${SERVICE_SHORT[s]}. Drive time: ${m} minutes.`];
   const matched = (result.items ?? []).length > 0;
-  lines.push(matched ? `LOOKUP RESULT for the question: ${result.text}` : "LOOKUP RESULT: no state, county or ranking in the question matched the map data.");
+  lines.push(matched ? `LOOKUP RESULT for the question: ${result.text}` : `LOOKUP RESULT: no state, county or ranking in the question matched the map data. Lookup note: ${result.text}`);
   for (const item of result.items ?? []) lines.push(`- ${item.label}: ${item.value}`);
   const here = chatContext.current;
   if (here && here.level !== "nation") {
@@ -3800,7 +3814,12 @@ function factsFor(result) {
   return lines.join("\n").slice(0, 3500);
 }
 const chat = createChat({
-  answer: (text, defaults) => answerQuestion(text, defaults, {percent, whole}),
+  // ZIP codes in a question are swapped for their county first, and the answer says which county.
+  answer: async (text, defaults) => {
+    const zip = await withZips(text, countyById);
+    const result = answerQuestion(zip.text, defaults, {percent, whole});
+    return zip.notes.length ? {...result, text: `${zip.notes.join(" ")} ${result.text}`} : result;
+  },
   defaults: () => ({service: serviceInput.value, minutes: minutesInput.value}),
   facts: factsFor,
   // A state opens as its own area; a county opens zoomed in with its providers.
@@ -3826,9 +3845,9 @@ return {answerQuestion,factsFor,chat};
 <main id="observablehq-main" class="observablehq">
 <link rel="stylesheet" href="./_npm/maplibre-gl@5.24.0/dist/maplibre-gl.css">
 <div class="page-loading">Loading the map…</div>
-<div class="observablehq observablehq--block"><!--:6cd786ab:--></div>
+<div class="observablehq observablehq--block"><!--:2396c34c:--></div>
 <div class="observablehq observablehq--block"><!--:dff62a77:--></div>
-<div class="observablehq observablehq--block"><!--:c8e37cd6:--></div>
+<div class="observablehq observablehq--block"><!--:4777658e:--></div>
 <div class="observablehq observablehq--block"><!--:0451dec6:--></div>
 <div class="observablehq observablehq--block"><!--:57253337:--></div>
 <div class="observablehq observablehq--block"><!--:3b8c5bae:--></div>
@@ -3844,7 +3863,7 @@ return {answerQuestion,factsFor,chat};
 <div class="observablehq observablehq--block"><!--:837c2932:--></div>
 <div class="observablehq observablehq--block"><!--:32b0139e:--></div>
 <div class="observablehq observablehq--block"><!--:cf2eb9aa:--></div>
-<div class="observablehq observablehq--block"><!--:a5b15db3:--></div>
+<div class="observablehq observablehq--block"><!--:50fd4ded:--></div>
 </main>
 <footer id="observablehq-footer">
 <div>Provider listings from <a href="https://www.samhsa.gov" target="_blank" rel="noopener noreferrer">SAMHSA</a>. Check current listings at <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>. In a crisis, call or text <a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988</a>. Not medical advice.</div>

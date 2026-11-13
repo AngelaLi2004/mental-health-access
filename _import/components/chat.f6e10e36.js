@@ -13,7 +13,7 @@ const el = (tag, props = {}, children = []) => {
 const textP = (text) => el("p", {textContent: text});
 
 /**
- * answer(text, defaults) -> lookup result {text, items?, ordered?, suggestions?}
+ * answer(text, defaults) -> lookup result {text, items?, ordered?, suggestions?}, or a promise of one
  * defaults() -> {service, minutes}
  * facts(result) -> text the AI may use
  * openPlace(place) -> show a place ({level, id}) on the map
@@ -92,7 +92,7 @@ export function createChat({answer, defaults, facts, openPlace, endpoint = "", e
         el("a", {href: "https://988lifeline.org", target: "_blank", rel: "noopener noreferrer", textContent: "988lifeline.org"})
       ]);
     }
-    const result = answer(text, defaults());
+    const result = await answer(text, defaults());
     const lookupOnly = () => [textP(result.text), ...placeList(result), ...(result.suggestions ? [chips(examples.slice(0, 4))] : [])];
     if (!endpoint) return bubble("bot", lookupOnly());
     const pending = bubble("bot", [textP("…")]);
