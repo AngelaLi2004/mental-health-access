@@ -3062,7 +3062,7 @@ registerFile("./data/shapes/55.json", {"name":"./data/shapes/55.json","mimeType"
 registerFile("./data/shapes/56.json", {"name":"./data/shapes/56.json","mimeType":"application/json","path":"./_file/data/shapes/56.189eceb5.json","lastModified":1793991220150,"size":402704});
 registerFile("./data/states.csv", {"name":"./data/states.csv","mimeType":"text/csv","path":"./_file/data/states.d4999400.csv","lastModified":1793989732142,"size":9228});
 
-define({id: "882302fc", inputs: ["d3","FileAttachment","location","display","html"], outputs: ["createAssistant","EXAMPLES","createChat","AI_ENDPOINT","SERVICES","SERVICE_SHORT","percent","typed","whole","states","counties","qa","stateById","countyById","REGION_STATES","regionRows","embedded","mapUrl","answerQuestion","chat"], body: async (d3,FileAttachment,location,display,html) => {
+define({id: "88b47aee", inputs: ["d3","FileAttachment","location","display","html"], outputs: ["createAssistant","EXAMPLES","createChat","AI_ENDPOINT","SERVICES","SERVICE_SHORT","percent","typed","whole","states","counties","qa","stateById","countyById","REGION_STATES","regionRows","embedded","mapUrl","answerQuestion","chat"], body: async (d3,FileAttachment,location,display,html) => {
 const [{createAssistant, EXAMPLES}, {createChat}, {AI_ENDPOINT}, {SERVICES, SERVICE_SHORT, percent, typed, whole}] = await Promise.all([import("./_import/components/assistant.09adc92b.js"), import("./_import/components/chat.ac6ce98d.js"), import("./_import/components/ai-config.0c425e3b.js"), import("./_import/components/data.15e2e638.js")]);
 
 const states = d3.csvParse(await FileAttachment("./data/states.csv").text(), typed);
@@ -3095,9 +3095,10 @@ const chat = createChat({
   answer: (text, defaults) => answerQuestion(text, defaults, {percent, whole}),
   defaults: () => ({service: "any", minutes: 15}),
   facts: (result) => [
-    `Lookup result: ${result.text}`,
+    (result.items ?? []).length ? `LOOKUP RESULT for the question: ${result.text}` : "LOOKUP RESULT: no state, county or ranking in the question matched the map data.",
     ...(result.items ?? []).map((item) => `- ${item.label}: ${item.value}`),
-    ...[...SERVICES.values()].map((s) => `US ${SERVICE_SHORT[s]}: ${percent(qa.national[`${s}_15`])} within 15 min, ${percent(qa.national[`${s}_30`])} within 30 min.`)
+    "PLACE SELECTED ON THE MAP: none (this is the standalone chat).",
+    ...[...SERVICES.values()].map((s) => `UNITED STATES AS A WHOLE (not any one state): ${SERVICE_SHORT[s]} ${percent(qa.national[`${s}_15`])} within 15 min, ${percent(qa.national[`${s}_30`])} within 30 min.`)
   ].join("\n").slice(0, 3500),
   openPlace: (place) => window.open(mapUrl(place), embedded ? "_blank" : "_self", "noopener"),
   endpoint: AI_ENDPOINT,
@@ -3124,7 +3125,7 @@ return {createAssistant,EXAMPLES,createChat,AI_ENDPOINT,SERVICES,SERVICE_SHORT,p
 <div id="observablehq-center">
 <main id="observablehq-main" class="observablehq">
 <div class="page-loading">Loading…</div>
-<div class="observablehq observablehq--block"><!--:882302fc:--></div>
+<div class="observablehq observablehq--block"><!--:88b47aee:--></div>
 </main>
 <footer id="observablehq-footer">
 <div>Provider listings from <a href="https://www.samhsa.gov" target="_blank" rel="noopener noreferrer">SAMHSA</a>. Check current listings at <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>. In a crisis, call or text <a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988</a>. Not medical advice.</div>
