@@ -18,7 +18,7 @@
 <link rel="modulepreload" href="./_npm/topojson-client@3.1.0/7fb99109.js">
 <link rel="modulepreload" href="./_import/components/map.42c46386.js">
 <link rel="modulepreload" href="./_import/components/assistant.09adc92b.js">
-<link rel="modulepreload" href="./_import/components/ai-config.a127f554.js">
+<link rel="modulepreload" href="./_import/components/ai-config.0c425e3b.js">
 <link rel="modulepreload" href="./_import/components/data.15e2e638.js">
 <link rel="modulepreload" href="./_npm/d3@7.9.2/172963d6.js">
 <link rel="modulepreload" href="./_npm/htl@1.0.0/11521f02.js">
@@ -3072,7 +3072,7 @@ registerFile("./data/states.csv", {"name":"./data/states.csv","mimeType":"text/c
 registerFile("./data/states.topo.json", {"name":"./data/states.topo.json","mimeType":"application/json","path":"./_file/data/states.topo.77b4a353.json","lastModified":1793989747677,"size":142647});
 
 define({id: "1b51854e", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","AI_ENDPOINT","SERVICES","SERVICE_SHORT","compact","downloadCsv","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateById","countyById","REGION_STATES","regionOf","regionBorders","regionRows","blues","NO_PROVIDER","NO_DATA","percentColor","countColor","selected","select","landing","tableState","rankState"], body: async (d3,FileAttachment,Mutable) => {
-const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.42c46386.js"), import("./_import/components/assistant.09adc92b.js"), import("./_import/components/ai-config.a127f554.js"), import("./_import/components/data.15e2e638.js")]);
+const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.42c46386.js"), import("./_import/components/assistant.09adc92b.js"), import("./_import/components/ai-config.0c425e3b.js"), import("./_import/components/data.15e2e638.js")]);
 
 const states = d3.csvParse(await FileAttachment("./data/states.csv").text(), typed);
 const counties = d3.csvParse(await FileAttachment("./data/counties.csv").text(), typed);
