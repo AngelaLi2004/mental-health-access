@@ -323,9 +323,12 @@ export function createMap({features, boundaries, regions = null, onSelect, toolt
     openCard(point);
   };
   // Frames a place, with room around it to see the towns and roads nearby, and any providers passed in.
-  frame.zoomToSelected = (id, points = []) => {
+  // With {onlyIfNeeded: true} (used for clicks on the map), the map stays put when the place is
+  // already in view at a useful size, so clicking around never yanks the view somewhere else.
+  frame.zoomToSelected = (id, points = [], {onlyIfNeeded = false} = {}) => {
     const feature = byId.get(id);
     if (!feature) return;
+    if (onlyIfNeeded && ready && fitsView(feature)) return;
     moved = true;
     if (!ready) {
       waitingZoom = {id, points};
@@ -346,6 +349,16 @@ export function createMap({features, boundaries, regions = null, onSelect, toolt
       maxZoom: points.length ? 13 : 11.5, duration: 700
     });
   };
+  // True when the whole place is on screen and fills a fair share of it.
+  function fitsView(feature) {
+    const [[w, s], [e, n]] = d3.geoBounds(feature);
+    const view = map.getBounds();
+    const inside = w >= view.getWest() && e <= view.getEast() && s >= view.getSouth() && n <= view.getNorth();
+    if (!inside) return false;
+    const a = map.project([w, n]), b = map.project([e, s]);
+    const share = Math.max(Math.abs(b.x - a.x) / holder.clientWidth, Math.abs(b.y - a.y) / holder.clientHeight);
+    return share > 0.12;
+  }
   frame.dispose = () => {
     observer.disconnect();
     map.remove();

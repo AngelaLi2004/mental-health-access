@@ -7,18 +7,19 @@
 <title>Mental Health Access Map</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
-<link rel="preload" as="style" href="./_import/style.ee4e0a76.css">
+<link rel="preload" as="style" href="./_import/style.e5047181.css">
 <link rel="preload" as="style" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
-<link rel="stylesheet" type="text/css" href="./_import/style.ee4e0a76.css">
+<link rel="stylesheet" type="text/css" href="./_import/style.e5047181.css">
 <link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
 <link rel="modulepreload" href="./_observablehq/client.8e48e80b.js">
 <link rel="modulepreload" href="./_observablehq/runtime.13bc3751.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.3a5bae2b.js">
 <link rel="modulepreload" href="./_npm/topojson-client@3.1.0/7fb99109.js">
-<link rel="modulepreload" href="./_import/components/map.1b911d8e.js">
+<link rel="modulepreload" href="./_import/components/map.b804c918.js">
 <link rel="modulepreload" href="./_import/components/assistant.09adc92b.js">
 <link rel="modulepreload" href="./_import/components/ai-config.0c425e3b.js">
+<link rel="modulepreload" href="./_import/components/chat.ac6ce98d.js">
 <link rel="modulepreload" href="./_import/components/data.15e2e638.js">
 <link rel="modulepreload" href="./_npm/d3@7.9.2/172963d6.js">
 <link rel="modulepreload" href="./_npm/htl@1.0.0/11521f02.js">
@@ -3071,8 +3072,8 @@ registerFile("./data/shapes/56.json", {"name":"./data/shapes/56.json","mimeType"
 registerFile("./data/states.csv", {"name":"./data/states.csv","mimeType":"text/csv","path":"./_file/data/states.d4999400.csv","lastModified":1793989732142,"size":9228});
 registerFile("./data/states.topo.json", {"name":"./data/states.topo.json","mimeType":"application/json","path":"./_file/data/states.topo.77b4a353.json","lastModified":1793989747677,"size":142647});
 
-define({id: "1b51854e", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","AI_ENDPOINT","SERVICES","SERVICE_SHORT","compact","downloadCsv","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateById","countyById","REGION_STATES","regionOf","regionBorders","regionRows","blues","NO_PROVIDER","NO_DATA","percentColor","countColor","selected","select","landing","tableState","rankState"], body: async (d3,FileAttachment,Mutable) => {
-const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.1b911d8e.js"), import("./_import/components/assistant.09adc92b.js"), import("./_import/components/ai-config.0c425e3b.js"), import("./_import/components/data.15e2e638.js")]);
+define({id: "3527500c", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","AI_ENDPOINT","createChat","SERVICES","SERVICE_SHORT","compact","downloadCsv","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateById","countyById","REGION_STATES","regionOf","regionBorders","regionRows","blues","NO_PROVIDER","NO_DATA","percentColor","countColor","selected","select","landing","tableState","rankState"], body: async (d3,FileAttachment,Mutable) => {
+const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {createChat}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.b804c918.js"), import("./_import/components/assistant.09adc92b.js"), import("./_import/components/ai-config.0c425e3b.js"), import("./_import/components/chat.ac6ce98d.js"), import("./_import/components/data.15e2e638.js")]);
 
 const states = d3.csvParse(await FileAttachment("./data/states.csv").text(), typed);
 const counties = d3.csvParse(await FileAttachment("./data/counties.csv").text(), typed);
@@ -3130,7 +3131,7 @@ const landing = {place: null, zoom: null};
 // Remembers table and ranking settings while the page updates around them.
 const tableState = {};
 const rankState = {mode: "low"};
-return {topojson,createMap,pinIcon,createAssistant,EXAMPLES,AI_ENDPOINT,SERVICES,SERVICE_SHORT,compact,downloadCsv,isEmergency,loadBlockgroups,loadShapes,offersService,percent,providersFor,safeWebsite,tractLabel,typed,whole,states,counties,qa,stateTopo,countyTopo,stateObject,countyObject,withId,stateFeatures,countyFeatures,stateById,countyById,REGION_STATES,regionOf,regionBorders,regionRows,blues,NO_PROVIDER,NO_DATA,percentColor,countColor,selected,select,landing,tableState,rankState};
+return {topojson,createMap,pinIcon,createAssistant,EXAMPLES,AI_ENDPOINT,createChat,SERVICES,SERVICE_SHORT,compact,downloadCsv,isEmergency,loadBlockgroups,loadShapes,offersService,percent,providersFor,safeWebsite,tractLabel,typed,whole,states,counties,qa,stateTopo,countyTopo,stateObject,countyObject,withId,stateFeatures,countyFeatures,stateById,countyById,REGION_STATES,regionOf,regionBorders,regionRows,blues,NO_PROVIDER,NO_DATA,percentColor,countColor,selected,select,landing,tableState,rankState};
 }});
 
 define({id: "dff62a77", inputs: ["html","display"], outputs: ["ui","TABS","tabButtons","showTab","aboutDialog","openAbout"], body: (html,display) => {
@@ -3307,6 +3308,18 @@ ui.header.replaceChildren(html`<div class="header-top">
 return {serviceInput,minutesInput,levelInput,areaInput,service,minutes,level,area,setArea,locateButton,countyLabels,countyBox,countyOptions,finderStatus,statusTimer,say,goTo,featureContaining,goToCoordinates,pickCounty};
 }});
 
+define({id: "0451dec6", inputs: ["URLSearchParams","location","stateById","setArea","countyById","goTo"], outputs: ["linked"], body: (URLSearchParams,location,stateById,setArea,countyById,goTo) => {
+// Open a place named in the link, e.g. ?place=county:17031 or ?place=state:17 (used by the chat page).
+const linked = new URLSearchParams(location.search).get("place")?.match(/^(state|county|blockgroup):(\d{2,12})$/);
+if (linked) {
+  const [, linkLevel, linkId] = linked;
+  if (linkLevel === "state" && stateById.has(linkId)) setArea(linkId);
+  else if (linkLevel === "county" && countyById.has(linkId)) goTo({level: "county", id: linkId});
+  else if (linkLevel === "blockgroup" && linkId.length === 12) goTo({level: "blockgroup", id: linkId});
+}
+return {linked};
+}});
+
 define({id: "57253337", inputs: ["landing","level","area","select"], outputs: ["arriving"], body: (landing,level,area,select) => {
 // A new view or area clears any place picked in the old one, unless "find my area" is landing there.
 const arriving = landing.place;
@@ -3419,17 +3432,24 @@ invalidation.then(() => mapView.dispose());
 return {tipFor,tipContext,mapClick,pinDetails,mapView};
 }});
 
-define({id: "70db31f9", inputs: ["geography","tipContext","metric","blockgroupById","mapClick","setArea","area","selected","select","showTab","mapView","landing","mapProviders","NO_DATA","NO_PROVIDER","countColor","stateById","countyById","percentColor","stateFeatures","countyFeatures","focus"], outputs: ["kind","fill","spotlight"], body: (geography,tipContext,metric,blockgroupById,mapClick,setArea,area,selected,select,showTab,mapView,landing,mapProviders,NO_DATA,NO_PROVIDER,countColor,stateById,countyById,percentColor,stateFeatures,countyFeatures,focus) => {
+define({id: "173c9655", inputs: ["geography","tipContext","metric","blockgroupById","mapClick","setArea","area","levelInput","Event","selected","select","showTab","mapView","landing","mapProviders","NO_DATA","NO_PROVIDER","countColor","stateById","countyById","percentColor","stateFeatures","countyFeatures","focus"], outputs: ["kind","fill","spotlight"], body: (geography,tipContext,metric,blockgroupById,mapClick,setArea,area,levelInput,Event,selected,select,showTab,mapView,landing,mapProviders,NO_DATA,NO_PROVIDER,countColor,stateById,countyById,percentColor,stateFeatures,countyFeatures,focus) => {
 // Paint the current measure and wire up clicks. This never rebuilds the map.
 const kind = geography.startsWith("county") ? "county" : geography.startsWith("blockgroup") ? "blockgroup" : "state";
 tipContext.current = {metric, kind, bgs: blockgroupById};
+// Clicking never toggles a place off (use Clear for that), and never moves the map if the place is already in view.
 mapClick.current = (feature) => {
   if (geography === "state-pick") return setArea(feature.id);
-  if (kind === "state") return setArea(feature.id === area ? null : feature.id);
-  const picking = selected?.id !== feature.id;
-  select(picking ? {level: kind, id: feature.id} : null);
-  if (picking) showTab("providers");
-  if (picking && kind === "county") mapView.zoomToSelected(feature.id);
+  if (kind === "state") {
+    if (feature.id !== area) return setArea(feature.id);
+    // A second click on the chosen state opens its counties.
+    levelInput.value = "county";
+    levelInput.dispatchEvent(new Event("input", {bubbles: true}));
+    return;
+  }
+  if (selected?.id === feature.id) return;
+  select({level: kind, id: feature.id});
+  showTab("providers");
+  if (kind === "county") mapView.zoomToSelected(feature.id, [], {onlyIfNeeded: true});
 };
 if (kind === "state" && area && mapView.zoomedTo !== area) {
   mapView.zoomedTo = area;
@@ -3460,7 +3480,10 @@ mapView.update({
   spotlight,
   selected: kind === "blockgroup" ? selected?.id ?? null : null,
   points: focus && focus.level !== "state" ? mapProviders : [],
-  prompt: geography === "state-pick" ? "Click a state to see its neighborhoods" : kind === "state" && !area ? "Click a state" : kind !== "state" && !selected ? "Click a place to see providers" : null
+  prompt: geography === "state-pick" ? "Click a state to see its neighborhoods"
+    : kind === "state" ? (area ? "Click the state again to see its counties" : "Click a state")
+    : !selected ? (kind === "county" ? "Click a county to see providers" : "Click a neighborhood to see providers")
+    : null
 });
 return {kind,fill,spotlight};
 }});
@@ -3751,82 +3774,9 @@ aboutDialog.onclick = (event) => {
 };
 }});
 
-define({id: "bb9150a2", inputs: ["createAssistant","states","counties","stateById","countyById","qa","regionRows","html","AI_ENDPOINT","setArea","showTab","goTo","SERVICE_SHORT","serviceInput","minutesInput","areaInput","SERVICES","percent","whole","EXAMPLES","AbortSignal","ui"], outputs: ["answerQuestion","CRISIS","chatLog","chatInput","chatSend","chatPanel","chatButton","toggleChat","textP","bubble","chips","placeList","placeButtons","factsFor","ask"], body: (createAssistant,states,counties,stateById,countyById,qa,regionRows,html,AI_ENDPOINT,setArea,showTab,goTo,SERVICE_SHORT,serviceInput,minutesInput,areaInput,SERVICES,percent,whole,EXAMPLES,AbortSignal,ui) => {
+define({id: "2e5e1deb", inputs: ["createAssistant","states","counties","stateById","countyById","qa","regionRows","SERVICE_SHORT","serviceInput","minutesInput","areaInput","SERVICES","percent","createChat","whole","setArea","showTab","goTo","AI_ENDPOINT","EXAMPLES","ui"], outputs: ["answerQuestion","factsFor","chat"], body: (createAssistant,states,counties,stateById,countyById,qa,regionRows,SERVICE_SHORT,serviceInput,minutesInput,areaInput,SERVICES,percent,createChat,whole,setArea,showTab,goTo,AI_ENDPOINT,EXAMPLES,ui) => {
 // The chat: a button in the corner that opens a small assistant panel.
 const answerQuestion = createAssistant({states, counties, stateById, countyById, qa, regionRows});
-const CRISIS = /suicid|kill (myself|me)|end my life|self[- ]?harm|hurt myself|want to die|自杀|轻生|伤害自己|不想活/i;
-const chatLog = html`<div class="chat-log" aria-live="polite"></div>`;
-const chatInput = html`<input type="text" class="chat-input" placeholder="Ask about a place…" aria-label="Ask a question" maxlength="300">`;
-const chatSend = html`<button type="button" class="chat-send" aria-label="Send">➤</button>`;
-const chatPanel = html`<div class="chat-panel" role="dialog" aria-label="Ask about the data" hidden>
-  <div class="chat-head">
-    <div><strong>Ask about the data</strong><span>${AI_ENDPOINT ? "AI answers from this map's data" : "Answers from this map's data"}</span></div>
-    ${Object.assign(html`<button type="button" class="chat-close" aria-label="Close">×</button>`, {onclick: () => toggleChat(false)})}
-  </div>
-  ${chatLog}
-  <div class="chat-row">${chatInput}${chatSend}</div>
-  <div class="chat-foot">${AI_ENDPOINT ? "Questions go to an AI service to write the answer. Not medical advice." : "Not medical advice."} In a crisis, call or text 988.</div>
-</div>`;
-const chatButton = html`<button type="button" class="chat-fab" aria-label="Ask about the data"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm3 6.5a1.5 1.5 0 1 0 0 .01Zm5 0a1.5 1.5 0 1 0 0 .01Zm5 0a1.5 1.5 0 1 0 0 .01Z"/></svg><span>Ask</span></button>`;
-function toggleChat(open = chatPanel.hidden) {
-  chatPanel.hidden = !open;
-  chatButton.hidden = open;
-  if (open) chatInput.focus();
-}
-chatButton.onclick = () => toggleChat(true);
-
-const textP = (text) => Object.assign(document.createElement("p"), {textContent: text});
-function bubble(role, children) {
-  const box = html`<div class=${`chat-bubble ${role}`}></div>`;
-  box.append(...children);
-  chatLog.append(box);
-  chatLog.scrollTop = chatLog.scrollHeight;
-  return box;
-}
-function chips(list) {
-  return html`<div class="chat-chips">${list.map((example) => Object.assign(html`<button type="button" class="chat-chip"></button>`, {textContent: example, onclick: () => ask(example)}))}</div>`;
-}
-function placeList(result) {
-  if (!result.items?.length) return [];
-  const list = document.createElement(result.ordered ? "ol" : "ul");
-  for (const item of result.items) {
-    const li = document.createElement("li");
-    if (item.place) {
-      const button = Object.assign(document.createElement("button"), {type: "button", className: "chat-place", textContent: item.label});
-      // A state opens as its own area; a county opens zoomed in with its providers.
-      button.onclick = item.place.level === "state"
-        ? () => {
-            setArea(item.place.id);
-            showTab("providers");
-          }
-        : () => goTo(item.place);
-      li.append(button);
-    } else {
-      li.append(Object.assign(document.createElement("strong"), {textContent: item.label}));
-    }
-    if (item.value) li.append(document.createTextNode(` ${item.value}`));
-    list.append(li);
-  }
-  return [list];
-}
-
-// After an AI answer, places become small buttons so the numbers aren't shown twice.
-function placeButtons(result) {
-  const places = (result.items ?? []).filter((item) => item.place);
-  if (!places.length) return [];
-  return [html`<div class="chat-chips">${places.map((item) => {
-    const button = Object.assign(html`<button type="button" class="chat-chip place"></button>`, {textContent: `📍 ${item.label}`});
-    button.title = "Show on the map";
-    button.onclick = item.place.level === "state"
-      ? () => {
-          setArea(item.place.id);
-          showTab("providers");
-        }
-      : () => goTo(item.place);
-    return button;
-  })}</div>`];
-}
-
 // Facts the AI may use: the lookup's own answer, plus the current view. It is told to use nothing else.
 function factsFor(result) {
   const lines = [`Map view: ${SERVICE_SHORT[serviceInput.value]}, ${minutesInput.value} minute drive, area: ${areaInput.value ? stateById.get(areaInput.value).name : "United States"}.`];
@@ -3835,49 +3785,24 @@ function factsFor(result) {
   for (const s of SERVICES.values()) lines.push(`US ${SERVICE_SHORT[s]}: ${percent(qa.national[`${s}_15`])} within 15 min, ${percent(qa.national[`${s}_30`])} within 30 min.`);
   return lines.join("\n").slice(0, 3500);
 }
-
-async function ask(question) {
-  const text = question.trim();
-  if (!text) return;
-  chatInput.value = "";
-  bubble("user", [textP(text)]);
-  if (CRISIS.test(text)) {
-    return bubble("bot crisis", [
-      textP("If you're thinking about suicide or hurting yourself, please reach out now. Call or text 988 (Suicide & Crisis Lifeline), any time. If you're in immediate danger, call 911."),
-      Object.assign(html`<a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988lifeline.org</a>`)
-    ]);
-  }
-  const result = answerQuestion(text, {service: serviceInput.value, minutes: minutesInput.value}, {percent, whole});
-  if (!AI_ENDPOINT) return bubble("bot", [textP(result.text), ...placeList(result), ...(result.suggestions ? [chips(EXAMPLES.slice(0, 4))] : [])]);
-  const pending = bubble("bot", [textP("…")]);
-  try {
-    const response = await fetch(AI_ENDPOINT, {
-      method: "POST",
-      headers: {"content-type": "application/json"},
-      body: JSON.stringify({question: text, facts: factsFor(result)}),
-      signal: AbortSignal.timeout(20000)
-    });
-    if (!response.ok) throw new Error(String(response.status));
-    const {answer} = await response.json();
-    if (answer) pending.replaceChildren(textP(answer), ...placeButtons(result));
-    else pending.replaceChildren(textP(result.text), ...placeList(result));
-  } catch {
-    // If the AI is busy or out of its free daily allowance, fall back to the lookup.
-    pending.replaceChildren(textP(result.text), ...placeList(result), ...(result.suggestions ? [chips(EXAMPLES.slice(0, 4))] : []));
-  }
-  chatLog.scrollTop = chatLog.scrollHeight;
-}
-
-chatSend.onclick = () => ask(chatInput.value);
-chatInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") ask(chatInput.value);
+const chat = createChat({
+  answer: (text, defaults) => answerQuestion(text, defaults, {percent, whole}),
+  defaults: () => ({service: serviceInput.value, minutes: minutesInput.value}),
+  facts: factsFor,
+  // A state opens as its own area; a county opens zoomed in with its providers.
+  openPlace: (place) => {
+    if (place.level === "state") {
+      setArea(place.id);
+      showTab("providers");
+    } else {
+      goTo(place);
+    }
+  },
+  endpoint: AI_ENDPOINT,
+  examples: EXAMPLES
 });
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && !chatPanel.hidden) toggleChat(false);
-});
-bubble("bot", [textP("Hi! Ask about access in a state or county, or which places have the lowest access."), chips(EXAMPLES.slice(0, 4))]);
-ui.chat.replaceChildren(chatButton, chatPanel);
-return {answerQuestion,CRISIS,chatLog,chatInput,chatSend,chatPanel,chatButton,toggleChat,textP,bubble,chips,placeList,placeButtons,factsFor,ask};
+ui.chat.replaceChildren(chat.fab, chat.panel);
+return {answerQuestion,factsFor,chat};
 }});
 
 </script>
@@ -3887,15 +3812,16 @@ return {answerQuestion,CRISIS,chatLog,chatInput,chatSend,chatPanel,chatButton,to
 <main id="observablehq-main" class="observablehq">
 <link rel="stylesheet" href="./_npm/maplibre-gl@5.24.0/dist/maplibre-gl.css">
 <div class="page-loading">Loading the map…</div>
-<div class="observablehq observablehq--block"><!--:1b51854e:--></div>
+<div class="observablehq observablehq--block"><!--:3527500c:--></div>
 <div class="observablehq observablehq--block"><!--:dff62a77:--></div>
 <div class="observablehq observablehq--block"><!--:c8e37cd6:--></div>
+<div class="observablehq observablehq--block"><!--:0451dec6:--></div>
 <div class="observablehq observablehq--block"><!--:57253337:--></div>
 <div class="observablehq observablehq--block"><!--:3b8c5bae:--></div>
 <div class="observablehq observablehq--block"><!--:629d727b:--></div>
 <div class="observablehq observablehq--block"><!--:65600792:--></div>
 <div class="observablehq observablehq--block"><!--:f9d5ee14:--></div>
-<div class="observablehq observablehq--block"><!--:70db31f9:--></div>
+<div class="observablehq observablehq--block"><!--:173c9655:--></div>
 <div class="observablehq observablehq--block"><!--:a6d00c5b:--></div>
 <div class="observablehq observablehq--block"><!--:75f1c177:--></div>
 <div class="observablehq observablehq--block"><!--:af775de0:--></div>
@@ -3904,7 +3830,7 @@ return {answerQuestion,CRISIS,chatLog,chatInput,chatSend,chatPanel,chatButton,to
 <div class="observablehq observablehq--block"><!--:837c2932:--></div>
 <div class="observablehq observablehq--block"><!--:32b0139e:--></div>
 <div class="observablehq observablehq--block"><!--:cf2eb9aa:--></div>
-<div class="observablehq observablehq--block"><!--:bb9150a2:--></div>
+<div class="observablehq observablehq--block"><!--:2e5e1deb:--></div>
 </main>
 <footer id="observablehq-footer">
 <div>Provider listings from <a href="https://www.samhsa.gov" target="_blank" rel="noopener noreferrer">SAMHSA</a>. Check current listings at <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>. In a crisis, call or text <a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988</a>. Not medical advice.</div>
