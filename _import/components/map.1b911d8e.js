@@ -98,7 +98,8 @@ export function createMap({features, boundaries, regions = null, onSelect, toolt
   let hovered = null;
   let waitingZoom = null;
 
-  map.on("load", () => {
+  // Add the data layers as soon as the basemap style is ready, without waiting for every map tile.
+  map.once("style.load", () => {
     const layers = map.getStyle().layers;
     const roadLayer = layers.find((l) => /road|highway|tunnel|bridge|railway|aeroway/.test(l.id))?.id;
     const labelLayer = layers.find((l) => l.type === "symbol")?.id;
@@ -294,7 +295,7 @@ export function createMap({features, boundaries, regions = null, onSelect, toolt
   map.on("movestart", (event) => {
     if (event.originalEvent) moved = true;
   });
-  map.once("load", fitHome);
+  map.once("style.load", fitHome);
   const observer = new ResizeObserver(() => {
     map.resize();
     fitHome();
