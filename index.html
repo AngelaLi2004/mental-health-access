@@ -7,16 +7,16 @@
 <title>Mental Health Access Map</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
-<link rel="preload" as="style" href="./_import/style.e5047181.css">
+<link rel="preload" as="style" href="./_import/style.ce687783.css">
 <link rel="preload" as="style" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
-<link rel="stylesheet" type="text/css" href="./_import/style.e5047181.css">
+<link rel="stylesheet" type="text/css" href="./_import/style.ce687783.css">
 <link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
 <link rel="modulepreload" href="./_observablehq/client.8e48e80b.js">
 <link rel="modulepreload" href="./_observablehq/runtime.13bc3751.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.3a5bae2b.js">
 <link rel="modulepreload" href="./_npm/topojson-client@3.1.0/7fb99109.js">
-<link rel="modulepreload" href="./_import/components/map.b804c918.js">
+<link rel="modulepreload" href="./_import/components/map.c270d805.js">
 <link rel="modulepreload" href="./_import/components/assistant.72bef535.js">
 <link rel="modulepreload" href="./_import/components/ai-config.0c425e3b.js">
 <link rel="modulepreload" href="./_import/components/chat.aebf7fdb.js">
@@ -3074,8 +3074,8 @@ registerFile("./data/states.csv", {"name":"./data/states.csv","mimeType":"text/c
 registerFile("./data/states.topo.json", {"name":"./data/states.topo.json","mimeType":"application/json","path":"./_file/data/states.topo.77b4a353.json","lastModified":1793989747677,"size":142647});
 registerFile("./data/zips.json", {"name":"./data/zips.json","mimeType":"application/json","path":"./_file/data/zips.7f9108ec.json","lastModified":1794595915000,"size":1181291});
 
-define({id: "4dfddb27", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","AI_ENDPOINT","createChat","createTools","SERVICES","SERVICE_SHORT","compact","downloadCsv","loadZips","withZips","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateById","countyById","REGION_STATES","regionOf","regionBorders","regionRows","blues","NO_PROVIDER","NO_DATA","percentColor","countColor","selected","select","landing","tableState","rankState","chatContext"], body: async (d3,FileAttachment,Mutable) => {
-const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {createChat}, {createTools}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, loadZips, withZips, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.b804c918.js"), import("./_import/components/assistant.72bef535.js"), import("./_import/components/ai-config.0c425e3b.js"), import("./_import/components/chat.aebf7fdb.js"), import("./_import/components/tools.236a5817.js"), import("./_import/components/data.61880e46.js")]);
+define({id: "e7717035", inputs: ["d3","FileAttachment","Mutable"], outputs: ["topojson","createMap","pinIcon","createAssistant","EXAMPLES","AI_ENDPOINT","createChat","createTools","SERVICES","SERVICE_SHORT","compact","downloadCsv","loadZips","withZips","isEmergency","loadBlockgroups","loadShapes","offersService","percent","providersFor","safeWebsite","tractLabel","typed","whole","states","counties","qa","stateTopo","countyTopo","stateObject","countyObject","withId","stateFeatures","countyFeatures","stateMesh","stateById","countyById","REGION_STATES","regionOf","regionBorders","regionRows","blues","NO_PROVIDER","NO_DATA","percentColor","countColor","selected","select","landing","tableState","rankState","chatContext"], body: async (d3,FileAttachment,Mutable) => {
+const [topojson, {createMap, pinIcon}, {createAssistant, EXAMPLES}, {AI_ENDPOINT}, {createChat}, {createTools}, {SERVICES, SERVICE_SHORT, compact, downloadCsv, loadZips, withZips, isEmergency, loadBlockgroups, loadShapes, offersService, percent, providersFor, safeWebsite, tractLabel, typed, whole}] = await Promise.all([import("./_npm/topojson-client@3.1.0/7fb99109.js"), import("./_import/components/map.c270d805.js"), import("./_import/components/assistant.72bef535.js"), import("./_import/components/ai-config.0c425e3b.js"), import("./_import/components/chat.aebf7fdb.js"), import("./_import/components/tools.236a5817.js"), import("./_import/components/data.61880e46.js")]);
 
 const states = d3.csvParse(await FileAttachment("./data/states.csv").text(), typed);
 const counties = d3.csvParse(await FileAttachment("./data/counties.csv").text(), typed);
@@ -3088,6 +3088,7 @@ const countyObject = countyTopo.objects[Object.keys(countyTopo.objects)[0]];
 const withId = (features) => features.map((f) => ({...f, id: f.properties.GEOID}));
 const stateFeatures = withId(topojson.feature(stateTopo, stateObject).features);
 const countyFeatures = withId(topojson.feature(countyTopo, countyObject).features);
+const stateMesh = topojson.mesh(stateTopo, stateObject, (a, b) => a !== b);
 const stateById = new Map(states.map((d) => [d.state_fips, d]));
 const countyById = new Map(counties.map((d) => [d.county_fips, d]));
 
@@ -3135,10 +3136,10 @@ const tableState = {};
 const rankState = {mode: "low"};
 // What the map is showing right now, kept up to date for the chat without rebuilding it.
 const chatContext = {current: null};
-return {topojson,createMap,pinIcon,createAssistant,EXAMPLES,AI_ENDPOINT,createChat,createTools,SERVICES,SERVICE_SHORT,compact,downloadCsv,loadZips,withZips,isEmergency,loadBlockgroups,loadShapes,offersService,percent,providersFor,safeWebsite,tractLabel,typed,whole,states,counties,qa,stateTopo,countyTopo,stateObject,countyObject,withId,stateFeatures,countyFeatures,stateById,countyById,REGION_STATES,regionOf,regionBorders,regionRows,blues,NO_PROVIDER,NO_DATA,percentColor,countColor,selected,select,landing,tableState,rankState,chatContext};
+return {topojson,createMap,pinIcon,createAssistant,EXAMPLES,AI_ENDPOINT,createChat,createTools,SERVICES,SERVICE_SHORT,compact,downloadCsv,loadZips,withZips,isEmergency,loadBlockgroups,loadShapes,offersService,percent,providersFor,safeWebsite,tractLabel,typed,whole,states,counties,qa,stateTopo,countyTopo,stateObject,countyObject,withId,stateFeatures,countyFeatures,stateMesh,stateById,countyById,REGION_STATES,regionOf,regionBorders,regionRows,blues,NO_PROVIDER,NO_DATA,percentColor,countColor,selected,select,landing,tableState,rankState,chatContext};
 }});
 
-define({id: "dff62a77", inputs: ["html","display"], outputs: ["ui","TABS","tabButtons","showTab","aboutDialog","openAbout"], body: (html,display) => {
+define({id: "3c62c4de", inputs: ["html","display"], outputs: ["ui","TABS","tabButtons","showTab","openAbout"], body: (html,display) => {
 // The page is one screen: a header, the map, and a side panel with tabs. Later code fills these slots.
 const ui = {
   header: html`<header class="app-header"></header>`,
@@ -3148,11 +3149,12 @@ const ui = {
   panes: {
     providers: html`<div class="pane" role="tabpanel" id="pane-providers"></div>`,
     rankings: html`<div class="pane" role="tabpanel" id="pane-rankings" hidden></div>`,
-    places: html`<div class="pane" role="tabpanel" id="pane-places" hidden></div>`
+    places: html`<div class="pane" role="tabpanel" id="pane-places" hidden></div>`,
+    about: html`<div class="pane about-body" role="tabpanel" id="pane-about" hidden></div>`
   },
   chat: html`<div class="chat-slot"></div>`
 };
-const TABS = [["providers", "Providers"], ["rankings", "Rankings"], ["places", "All places"]];
+const TABS = [["providers", "Providers"], ["rankings", "Rankings"], ["places", "All places"], ["about", "About"]];
 const tabButtons = new Map(TABS.map(([key, label]) => {
   const button = html`<button type="button" role="tab" id=${`tab-${key}`} aria-controls=${`pane-${key}`} aria-selected=${key === "providers" ? "true" : "false"}>${label}</button>`;
   button.onclick = () => showTab(key);
@@ -3164,8 +3166,8 @@ function showTab(key) {
     ui.panes[name].hidden = name !== key;
   }
 }
-const aboutDialog = html`<dialog class="about"></dialog>`;
-const openAbout = () => aboutDialog.showModal();
+// About is a tab in the side panel, so the map stays usable while you read it.
+const openAbout = () => showTab("about");
 display(html`<div class="app">
   ${ui.header}
   <div class="app-body">
@@ -3182,9 +3184,8 @@ display(html`<div class="app">
     </aside>
   </div>
   ${ui.chat}
-  ${aboutDialog}
 </div>`);
-return {ui,TABS,tabButtons,showTab,aboutDialog,openAbout};
+return {ui,TABS,tabButtons,showTab,openAbout};
 }});
 
 define({id: "5552f0d6", inputs: ["Inputs","SERVICES","d3","states","Generators","Event","html","counties","landing","showTab","select","countyFeatures","loadShapes","withId","topojson","countyById","loadZips","ui","openAbout"], outputs: ["serviceInput","minutesInput","levelInput","areaInput","service","minutes","level","area","setArea","locateButton","countyLabels","countyBox","countyOptions","finderStatus","statusTimer","say","goTo","featureContaining","goToCoordinates","pickZip","pickCounty"], body: (Inputs,SERVICES,d3,states,Generators,Event,html,counties,landing,showTab,select,countyFeatures,loadShapes,withId,topojson,countyById,loadZips,ui,openAbout) => {
@@ -3398,30 +3399,34 @@ ui.stats.replaceChildren(numbers ? html`<div>
 return {summary,numbers,tile};
 }});
 
-define({id: "65600792", inputs: ["level","area","stateFeatures","regionBorders","countyFeatures","topojson","stateTopo","stateObject","loadShapes","countyObject","withId","countyTopo"], outputs: ["geography","shapes"], body: async (level,area,stateFeatures,regionBorders,countyFeatures,topojson,stateTopo,stateObject,loadShapes,countyObject,withId,countyTopo) => {
-// One map per geography, so changing the service or drive time keeps your pan and zoom.
-const geography = level === "state" ? "state"
-  : level === "county" ? (area ? `county-${area}` : "county-us")
-  : area ? `blockgroup-${area}` : "state-pick";
+define({id: "fcbff8cc", inputs: ["level","area","stateFeatures","regionBorders","countyFeatures","stateMesh","loadShapes","countyObject","withId","topojson","countyTopo"], outputs: ["geography","shapes"], body: async (level,area,stateFeatures,regionBorders,countyFeatures,stateMesh,loadShapes,countyObject,withId,topojson,countyTopo) => {
+// What the map shows: all states; all US counties; or one state's neighborhoods with the other
+// states' counties around them in gray. Choosing a state zooms to it but never hides the rest.
+const geography = level === "county" ? "county" : level === "blockgroup" && area ? `blockgroup-${area}` : "state";
 const shapes = await (async () => {
-  if (geography === "state" || geography === "state-pick") return {features: stateFeatures, boundaries: null, regions: regionBorders};
-  if (geography.startsWith("county")) {
-    const features = area ? countyFeatures.filter((f) => f.id.startsWith(area)) : countyFeatures;
-    return {features, boundaries: area ? null : topojson.mesh(stateTopo, stateObject, (a, b) => a !== b), regions: area ? null : regionBorders};
-  }
+  if (geography === "state") return {features: stateFeatures, regions: regionBorders};
+  if (geography === "county") return {features: countyFeatures, boundaries: stateMesh, regions: regionBorders};
   const topo = await loadShapes(area);
   const object = topo.objects[Object.keys(topo.objects)[0]];
   const inState = {...countyObject, geometries: countyObject.geometries.filter((g) => g.properties.GEOID.startsWith(area))};
-  return {features: withId(topojson.feature(topo, object).features), boundaries: topojson.mesh(countyTopo, inState)};
+  return {
+    features: withId(topojson.feature(topo, object).features),
+    boundaries: topojson.mesh(countyTopo, inState),
+    context: countyFeatures.filter((f) => !f.id.startsWith(area))
+  };
 })();
 return {geography,shapes};
 }});
 
-define({id: "f9d5ee14", inputs: ["tractLabel","whole","stateById","countyById","percent","createMap","shapes","ui","invalidation"], outputs: ["tipFor","tipContext","mapClick","pinDetails","mapView"], body: (tractLabel,whole,stateById,countyById,percent,createMap,shapes,ui,invalidation) => {
-function tipFor(point, feature) {
+define({id: "a7651ecf", inputs: ["countyById","tractLabel","whole","stateById","percent","createMap","ui","invalidation"], outputs: ["tipFor","tipContext","mapClick","contextClick","pinDetails","mapView"], body: (countyById,tractLabel,whole,stateById,percent,createMap,ui,invalidation) => {
+function tipFor(point, feature, isContext = false) {
   const line = (text, tag = "div") => Object.assign(document.createElement(tag), {textContent: text});
   if (point) return [line(point.name1, "strong"), line(`${point.city ?? ""}, ${point.state ?? ""} · click for details`)];
   const id = feature.id;
+  if (isContext) {
+    const row = countyById.get(id);
+    return [line(row ? `${row.name}, ${row.abbr}` : "", "strong"), line("Click to see its neighborhoods")];
+  }
   const {metric: m, kind, bgs} = tipContext.current;
   if (kind === "blockgroup") {
     const row = bgs.get(id);
@@ -3435,43 +3440,65 @@ function tipFor(point, feature) {
 }
 const tipContext = {current: {metric: "any_15", kind: "state", bgs: new Map()}};
 const mapClick = {current: () => {}};
+const contextClick = {current: () => {}};
 // Filled in by the provider list, which knows how to describe a provider.
 const pinDetails = {current: () => document.createElement("div")};
+// The one map for the whole visit; views only swap its layers, so the camera never resets.
 const mapView = createMap({
-  features: shapes.features,
-  boundaries: shapes.boundaries,
-  regions: shapes.regions ?? null,
   tooltip: tipFor,
   pointDetails: (point) => pinDetails.current(point),
-  onSelect: (feature) => mapClick.current(feature)
+  onSelect: (feature) => mapClick.current(feature),
+  onContext: (feature) => contextClick.current(feature)
 });
 ui.mapSlot.replaceChildren(mapView);
 invalidation.then(() => mapView.dispose());
-return {tipFor,tipContext,mapClick,pinDetails,mapView};
+return {tipFor,tipContext,mapClick,contextClick,pinDetails,mapView};
 }});
 
-define({id: "173c9655", inputs: ["geography","tipContext","metric","blockgroupById","mapClick","setArea","area","levelInput","Event","selected","select","showTab","mapView","landing","mapProviders","NO_DATA","NO_PROVIDER","countColor","stateById","countyById","percentColor","stateFeatures","countyFeatures","focus"], outputs: ["kind","fill","spotlight"], body: (geography,tipContext,metric,blockgroupById,mapClick,setArea,area,levelInput,Event,selected,select,showTab,mapView,landing,mapProviders,NO_DATA,NO_PROVIDER,countColor,stateById,countyById,percentColor,stateFeatures,countyFeatures,focus) => {
-// Paint the current measure and wire up clicks. This never rebuilds the map.
-const kind = geography.startsWith("county") ? "county" : geography.startsWith("blockgroup") ? "blockgroup" : "state";
+define({id: "851dfb20", inputs: ["mapView","geography","shapes"], body: (mapView,geography,shapes) => {
+if (mapView.geography !== geography) {
+  mapView.geography = geography;
+  mapView.setLayers(shapes);
+}
+}});
+
+define({id: "459c50dd", inputs: ["geography","level","area","tipContext","metric","blockgroupById","mapClick","setArea","levelInput","Event","selected","goTo","select","showTab","mapView","contextClick","landing","stateFeatures","mapProviders","NO_DATA","NO_PROVIDER","countColor","stateById","countyById","percentColor","countyFeatures","focus","tractLabel"], outputs: ["kind","picking","fill","spotlight","crumbItems"], body: (geography,level,area,tipContext,metric,blockgroupById,mapClick,setArea,levelInput,Event,selected,goTo,select,showTab,mapView,contextClick,landing,stateFeatures,mapProviders,NO_DATA,NO_PROVIDER,countColor,stateById,countyById,percentColor,countyFeatures,focus,tractLabel) => {
+// Paint the current measure, wire up clicks, and move the camera smoothly when the area changes.
+const kind = geography === "county" ? "county" : geography.startsWith("blockgroup") ? "blockgroup" : "state";
+const picking = level === "blockgroup" && !area;
 tipContext.current = {metric, kind, bgs: blockgroupById};
-// Clicking never toggles a place off (use Clear for that), and never moves the map if the place is already in view.
+// Clicking never toggles a place off (use Clear or the breadcrumb), and never moves the map if the place is already in view.
 mapClick.current = (feature) => {
-  if (geography === "state-pick") return setArea(feature.id);
   if (kind === "state") {
-    if (feature.id !== area) return setArea(feature.id);
-    // A second click on the chosen state opens its counties.
+    if (picking || feature.id !== area) return setArea(feature.id);
+    // A second click on the chosen state opens its counties, without moving the map.
     levelInput.value = "county";
     levelInput.dispatchEvent(new Event("input", {bubbles: true}));
     return;
   }
   if (selected?.id === feature.id) return;
+  // A county in another state switches the area to that state.
+  if (kind === "county" && feature.id.slice(0, 2) !== area) return goTo({level: "county", id: feature.id});
   select({level: kind, id: feature.id});
   showTab("providers");
   if (kind === "county") mapView.zoomToSelected(feature.id, [], {onlyIfNeeded: true});
 };
-if (kind === "state" && area && mapView.zoomedTo !== area) {
-  mapView.zoomedTo = area;
-  mapView.zoomToSelected(area);
+// A gray county around a state's neighborhoods: switch to its state and look at that county.
+contextClick.current = (feature) => {
+  mapView.pendingFocus = feature;
+  setArea(feature.id.slice(0, 2));
+};
+// Camera: follow the area as it changes, unless something more specific is about to be framed.
+if (mapView.lastArea !== area) {
+  const previous = mapView.lastArea;
+  mapView.lastArea = area;
+  if (mapView.pendingFocus) {
+    mapView.zoomToFeature(mapView.pendingFocus, [], {onlyIfNeeded: true});
+    mapView.pendingFocus = null;
+  } else if (!landing.zoom) {
+    if (area) mapView.zoomToFeature(stateFeatures.find((f) => f.id === area), [], {padding: 0.06});
+    else if (previous !== undefined) mapView.flyHome();
+  }
 }
 // Frame a place that "find my area", a ranking or the assistant just landed on, with its providers in view.
 if (landing.zoom && selected?.id === landing.zoom) {
@@ -3489,21 +3516,41 @@ const fill = kind === "blockgroup"
       const value = (kind === "state" ? stateById : countyById).get(feature.id)?.[metric];
       return value == null ? NO_DATA : percentColor(value);
     };
-// The place in focus is spotlit: a chosen state, a chosen county, or the county around a chosen neighborhood.
-const spotlight = kind === "state"
-  ? (geography === "state-pick" || !area ? null : stateFeatures.find((f) => f.id === area))
-  : selected ? countyFeatures.find((f) => f.id === selected.id.slice(0, 5)) ?? null : null;
+// The place in focus is spotlit: the chosen county, the county around a chosen neighborhood, or else the chosen state.
+const spotlight = selected && selected.level !== "state"
+  ? countyFeatures.find((f) => f.id === selected.id.slice(0, 5)) ?? null
+  : kind !== "blockgroup" && area ? stateFeatures.find((f) => f.id === area) ?? null : null;
 mapView.update({
   fill,
   spotlight,
   selected: kind === "blockgroup" ? selected?.id ?? null : null,
   points: focus && focus.level !== "state" ? mapProviders : [],
-  prompt: geography === "state-pick" ? "Click a state to see its neighborhoods"
+  prompt: picking ? "Click a state to see its neighborhoods"
     : kind === "state" ? (area ? "Click the state again to see its counties" : "Click a state")
-    : !selected ? (kind === "county" ? "Click a county to see providers" : "Click a neighborhood to see providers")
+    : !selected ? (kind === "county" ? "Click a county to see providers" : "Click a neighborhood · gray areas switch state")
     : null
 });
-return {kind,fill,spotlight};
+// Breadcrumb: where you are, with a way back up at every step.
+const crumbItems = [{label: "United States", onClick: () => {
+  setArea(null);
+  mapView.flyHome();
+}}];
+if (area) crumbItems.push({label: stateById.get(area).name, onClick: () => {
+  select(null);
+  mapView.zoomToFeature(stateFeatures.find((f) => f.id === area), [], {padding: 0.06});
+}});
+if (selected && selected.level !== "state") {
+  const countyId = selected.id.slice(0, 5);
+  const county = countyById.get(countyId);
+  crumbItems.push({label: county?.name ?? countyId, onClick: () => {
+    if (selected.level === "county") return;
+    select(null);
+    mapView.zoomToFeature(countyFeatures.find((f) => f.id === countyId));
+  }});
+  if (selected.level === "blockgroup") crumbItems.push({label: tractLabel(selected.id), onClick: () => {}});
+}
+mapView.setCrumbs(crumbItems);
+return {kind,picking,fill,spotlight,crumbItems};
 }});
 
 define({id: "a6d00c5b", inputs: ["focus","providersFor","offersService","service","minutes"], outputs: ["reachable","matching","mapProviders"], body: async (focus,providersFor,offersService,service,minutes) => {
@@ -3773,11 +3820,10 @@ ui.panes.places.replaceChildren(html`<div>
 return {COLUMNS,idColumn,pickedId,sortedRows,pickRow,tableWrap,tableMore,tableSearchBox,tableCount,renderTable,downloadButton,factorsLink};
 }});
 
-define({id: "62f293fb", inputs: ["aboutDialog","html","whole","qa"], body: (aboutDialog,html,whole,qa) => {
+define({id: "30cf1346", inputs: ["ui","html","whole","qa"], body: (ui,html,whole,qa) => {
 // About: method, limits and sources, kept out of the way.
-aboutDialog.replaceChildren(html`<div class="about-body">
-  <button type="button" class="about-close" aria-label="Close">×</button>
-  <h2>About this map</h2>
+ui.panes.about.replaceChildren(html`<div>
+  <div class="pane-head"><h2>About this map</h2></div>
   <p><strong>What it shows.</strong> For each neighborhood (census block group), whether a mental health provider listed by SAMHSA is within a 15 or 30 minute drive. County and state figures are the share of residents in those neighborhoods. Providers across a state line count.</p>
   <p><strong>Services.</strong> “Emergency services” means a crisis intervention team or psychiatric emergency walk-in services. A crisis intervention team works with police; reaching the facility is not the same as a team coming to you.</p>
   <p><strong>Keep in mind.</strong> Listings date from March 2025 (DC: October 2024), so call before you go. A listing doesn't show capacity, insurance or eligibility. 0% means no listed provider in reach, not proof no care exists. Drive times assume a car. Puerto Rico and other territories are not shown. ${whole(qa.block_groups_no_drive_time_data)} remote Alaska neighborhoods have no drive-time data.</p>
@@ -3786,10 +3832,6 @@ aboutDialog.replaceChildren(html`<div class="about-body">
   <p><strong>Created by</strong> Virginia Tech Carilion School of Medicine.</p>
   <p class="small">${whole(qa.providers.rows_kept)} facilities · ${whole(qa.population)} people · not medical advice.</p>
 </div>`);
-aboutDialog.querySelector(".about-close").onclick = () => aboutDialog.close();
-aboutDialog.onclick = (event) => {
-  if (event.target === aboutDialog) aboutDialog.close();
-};
 }});
 
 define({id: "2b7bad24", inputs: ["createAssistant","states","counties","stateById","countyById","qa","regionRows","serviceInput","minutesInput","SERVICE_SHORT","chatContext","whole","SERVICES","percent","createChat","withZips","setArea","showTab","goTo","AI_ENDPOINT","EXAMPLES","createTools","areaInput","ui"], outputs: ["answerQuestion","factsFor","chat"], body: (createAssistant,states,counties,stateById,countyById,qa,regionRows,serviceInput,minutesInput,SERVICE_SHORT,chatContext,whole,SERVICES,percent,createChat,withZips,setArea,showTab,goTo,AI_ENDPOINT,EXAMPLES,createTools,areaInput,ui) => {
@@ -3857,16 +3899,17 @@ return {answerQuestion,factsFor,chat};
 <main id="observablehq-main" class="observablehq">
 <link rel="stylesheet" href="./_npm/maplibre-gl@5.24.0/dist/maplibre-gl.css">
 <div class="page-loading">Loading the map…</div>
-<div class="observablehq observablehq--block"><!--:4dfddb27:--></div>
-<div class="observablehq observablehq--block"><!--:dff62a77:--></div>
+<div class="observablehq observablehq--block"><!--:e7717035:--></div>
+<div class="observablehq observablehq--block"><!--:3c62c4de:--></div>
 <div class="observablehq observablehq--block"><!--:5552f0d6:--></div>
 <div class="observablehq observablehq--block"><!--:0451dec6:--></div>
 <div class="observablehq observablehq--block"><!--:57253337:--></div>
 <div class="observablehq observablehq--block"><!--:3b8c5bae:--></div>
 <div class="observablehq observablehq--block"><!--:8c587ebf:--></div>
-<div class="observablehq observablehq--block"><!--:65600792:--></div>
-<div class="observablehq observablehq--block"><!--:f9d5ee14:--></div>
-<div class="observablehq observablehq--block"><!--:173c9655:--></div>
+<div class="observablehq observablehq--block"><!--:fcbff8cc:--></div>
+<div class="observablehq observablehq--block"><!--:a7651ecf:--></div>
+<div class="observablehq observablehq--block"><!--:851dfb20:--></div>
+<div class="observablehq observablehq--block"><!--:459c50dd:--></div>
 <div class="observablehq observablehq--block"><!--:a6d00c5b:--></div>
 <div class="observablehq observablehq--block"><!--:75f1c177:--></div>
 <div class="observablehq observablehq--block"><!--:af775de0:--></div>
@@ -3874,7 +3917,7 @@ return {answerQuestion,factsFor,chat};
 <div class="observablehq observablehq--block"><!--:9a46ca19:--></div>
 <div class="observablehq observablehq--block"><!--:837c2932:--></div>
 <div class="observablehq observablehq--block"><!--:32b0139e:--></div>
-<div class="observablehq observablehq--block"><!--:62f293fb:--></div>
+<div class="observablehq observablehq--block"><!--:30cf1346:--></div>
 <div class="observablehq observablehq--block"><!--:2b7bad24:--></div>
 </main>
 <footer id="observablehq-footer">
