@@ -51,7 +51,7 @@
 <link rel="modulepreload" href="./_npm/d3-timer@3.0.2/ea7e7cf7.js">
 <link rel="modulepreload" href="./_npm/d3-transition@3.0.2/f861168f.js">
 <link rel="modulepreload" href="./_npm/d3-zoom@3.0.1/c1f09323.js">
-<meta name="description" content="Who can reach mental health care within a 15 or 30 minute drive, by state, county and block group. Virginia Tech Carillon School of Medicine."><meta name="author" content="Virginia Tech Carillon School of Medicine"><meta name="theme-color" content="#861F41">
+<meta name="description" content="Who can reach mental health care within a 15 or 30 minute drive, by state, county and block group. Virginia Tech Carilion School of Medicine."><meta name="author" content="Virginia Tech Carilion School of Medicine"><meta name="theme-color" content="#861F41">
 <script type="module">
 
 import {define} from "./_observablehq/client.8e48e80b.js";
@@ -3064,7 +3064,7 @@ registerFile("./data/shapes/56.json", {"name":"./data/shapes/56.json","mimeType"
 registerFile("./data/states.csv", {"name":"./data/states.csv","mimeType":"text/csv","path":"./_file/data/states.d4999400.csv","lastModified":1793989732142,"size":9228});
 registerFile("./data/zips.json", {"name":"./data/zips.json","mimeType":"application/json","path":"./_file/data/zips.7f9108ec.json","lastModified":1794595915000,"size":1181291});
 
-define({id: "c8f4a620", inputs: ["d3","FileAttachment","location","display","html"], outputs: ["createAssistant","EXAMPLES","createChat","createTools","AI_ENDPOINT","SERVICES","SERVICE_SHORT","percent","typed","whole","withZips","states","counties","qa","stateById","countyById","REGION_STATES","regionRows","embedded","mapUrl","answerQuestion","chat"], body: async (d3,FileAttachment,location,display,html) => {
+define({id: "bfff8b69", inputs: ["d3","FileAttachment","location","display","html"], outputs: ["createAssistant","EXAMPLES","createChat","createTools","AI_ENDPOINT","SERVICES","SERVICE_SHORT","percent","typed","whole","withZips","states","counties","qa","stateById","countyById","REGION_STATES","regionRows","embedded","mapUrl","answerQuestion","chat"], body: async (d3,FileAttachment,location,display,html) => {
 const [{createAssistant, EXAMPLES}, {createChat}, {createTools}, {AI_ENDPOINT}, {SERVICES, SERVICE_SHORT, percent, typed, whole, withZips}] = await Promise.all([import("./_import/components/assistant.72bef535.js"), import("./_import/components/chat.aebf7fdb.js"), import("./_import/components/tools.236a5817.js"), import("./_import/components/ai-config.0c425e3b.js"), import("./_import/components/data.61880e46.js")]);
 
 const states = d3.csvParse(await FileAttachment("./data/states.csv").text(), typed);
@@ -3117,7 +3117,7 @@ const chat = createChat({
 display(html`<div class=${embedded ? "chat-page embedded" : "chat-page"}>
   <header class="chat-page-head">
     <div>
-      <div class="org">Virginia Tech Carillon School of Medicine</div>
+      <div class="org">Virginia Tech Carilion School of Medicine</div>
       <h1>Mental Health Access Assistant</h1>
     </div>
     <a class="map-link" href="./" target=${embedded ? "_blank" : "_self"}>Open the map →</a>
@@ -3133,7 +3133,7 @@ return {createAssistant,EXAMPLES,createChat,createTools,AI_ENDPOINT,SERVICES,SER
 <div id="observablehq-center">
 <main id="observablehq-main" class="observablehq">
 <div class="page-loading">Loading…</div>
-<div class="observablehq observablehq--block"><!--:c8f4a620:--></div>
+<div class="observablehq observablehq--block"><!--:bfff8b69:--></div>
 </main>
 <footer id="observablehq-footer">
 <div>Provider listings from <a href="https://www.samhsa.gov" target="_blank" rel="noopener noreferrer">SAMHSA</a>. Check current listings at <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>. In a crisis, call or text <a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988</a>. Not medical advice.</div>

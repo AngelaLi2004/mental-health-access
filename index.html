@@ -58,7 +58,7 @@
 <link rel="modulepreload" href="./_npm/d3-timer@3.0.2/ea7e7cf7.js">
 <link rel="modulepreload" href="./_npm/d3-transition@3.0.2/f861168f.js">
 <link rel="modulepreload" href="./_npm/d3-zoom@3.0.1/c1f09323.js">
-<meta name="description" content="Who can reach mental health care within a 15 or 30 minute drive, by state, county and block group. Virginia Tech Carillon School of Medicine."><meta name="author" content="Virginia Tech Carillon School of Medicine"><meta name="theme-color" content="#861F41">
+<meta name="description" content="Who can reach mental health care within a 15 or 30 minute drive, by state, county and block group. Virginia Tech Carilion School of Medicine."><meta name="author" content="Virginia Tech Carilion School of Medicine"><meta name="theme-color" content="#861F41">
 <script type="module">
 
 import {define} from "./_observablehq/client.8e48e80b.js";
@@ -3187,7 +3187,7 @@ display(html`<div class="app">
 return {ui,TABS,tabButtons,showTab,aboutDialog,openAbout};
 }});
 
-define({id: "4777658e", inputs: ["Inputs","SERVICES","d3","states","Generators","Event","html","counties","landing","showTab","select","countyFeatures","loadShapes","withId","topojson","countyById","loadZips","ui","openAbout"], outputs: ["serviceInput","minutesInput","levelInput","areaInput","service","minutes","level","area","setArea","locateButton","countyLabels","countyBox","countyOptions","finderStatus","statusTimer","say","goTo","featureContaining","goToCoordinates","pickZip","pickCounty"], body: (Inputs,SERVICES,d3,states,Generators,Event,html,counties,landing,showTab,select,countyFeatures,loadShapes,withId,topojson,countyById,loadZips,ui,openAbout) => {
+define({id: "5552f0d6", inputs: ["Inputs","SERVICES","d3","states","Generators","Event","html","counties","landing","showTab","select","countyFeatures","loadShapes","withId","topojson","countyById","loadZips","ui","openAbout"], outputs: ["serviceInput","minutesInput","levelInput","areaInput","service","minutes","level","area","setArea","locateButton","countyLabels","countyBox","countyOptions","finderStatus","statusTimer","say","goTo","featureContaining","goToCoordinates","pickZip","pickCounty"], body: (Inputs,SERVICES,d3,states,Generators,Event,html,counties,landing,showTab,select,countyFeatures,loadShapes,withId,topojson,countyById,loadZips,ui,openAbout) => {
 // Header: title, crisis line, find-your-area and the filters.
 const serviceInput = Inputs.select(SERVICES, {label: "Service", value: "any"});
 const minutesInput = Inputs.radio(new Map([["15 min", 15], ["30 min", 30]]), {label: "Drive", value: 15});
@@ -3308,7 +3308,7 @@ countyBox.addEventListener("keydown", async (event) => {
 
 ui.header.replaceChildren(html`<div class="header-top">
     <div class="brand">
-      <div class="org">Virginia Tech Carillon School of Medicine</div>
+      <div class="org">Virginia Tech Carilion School of Medicine</div>
       <h1>Mental Health Access Map</h1>
       <p>Who lives within a short drive of mental health care</p>
     </div>
@@ -3773,7 +3773,7 @@ ui.panes.places.replaceChildren(html`<div>
 return {COLUMNS,idColumn,pickedId,sortedRows,pickRow,tableWrap,tableMore,tableSearchBox,tableCount,renderTable,downloadButton,factorsLink};
 }});
 
-define({id: "cf2eb9aa", inputs: ["aboutDialog","html","whole","qa"], body: (aboutDialog,html,whole,qa) => {
+define({id: "62f293fb", inputs: ["aboutDialog","html","whole","qa"], body: (aboutDialog,html,whole,qa) => {
 // About: method, limits and sources, kept out of the way.
 aboutDialog.replaceChildren(html`<div class="about-body">
   <button type="button" class="about-close" aria-label="Close">×</button>
@@ -3783,7 +3783,7 @@ aboutDialog.replaceChildren(html`<div class="about-body">
   <p><strong>Keep in mind.</strong> Listings date from March 2025 (DC: October 2024), so call before you go. A listing doesn't show capacity, insurance or eligibility. 0% means no listed provider in reach, not proof no care exists. Drive times assume a car. Puerto Rico and other territories are not shown. ${whole(qa.block_groups_no_drive_time_data)} remote Alaska neighborhoods have no drive-time data.</p>
   <p><strong>Your location.</strong> “Near me” works in your browser and is never saved or sent; the page then loads data for your county.</p>
   <p><strong>Sources.</strong> Provider listings: <a href="https://www.samhsa.gov" target="_blank" rel="noopener noreferrer">SAMHSA</a>, current search at <a href="https://findtreatment.gov" target="_blank" rel="noopener noreferrer">FindTreatment.gov</a>. Crisis support: <a href="https://988lifeline.org" target="_blank" rel="noopener noreferrer">988 Lifeline</a>. County factors: <a href="https://www.census.gov/programs-surveys/acs" target="_blank" rel="noopener noreferrer">American Community Survey</a>. Map: OpenFreeMap, OpenStreetMap.</p>
-  <p><strong>Created by</strong> Virginia Tech Carillon School of Medicine.</p>
+  <p><strong>Created by</strong> Virginia Tech Carilion School of Medicine.</p>
   <p class="small">${whole(qa.providers.rows_kept)} facilities · ${whole(qa.population)} people · not medical advice.</p>
 </div>`);
 aboutDialog.querySelector(".about-close").onclick = () => aboutDialog.close();
@@ -3859,7 +3859,7 @@ return {answerQuestion,factsFor,chat};
 <div class="page-loading">Loading the map…</div>
 <div class="observablehq observablehq--block"><!--:4dfddb27:--></div>
 <div class="observablehq observablehq--block"><!--:dff62a77:--></div>
-<div class="observablehq observablehq--block"><!--:4777658e:--></div>
+<div class="observablehq observablehq--block"><!--:5552f0d6:--></div>
 <div class="observablehq observablehq--block"><!--:0451dec6:--></div>
 <div class="observablehq observablehq--block"><!--:57253337:--></div>
 <div class="observablehq observablehq--block"><!--:3b8c5bae:--></div>
@@ -3874,7 +3874,7 @@ return {answerQuestion,factsFor,chat};
 <div class="observablehq observablehq--block"><!--:9a46ca19:--></div>
 <div class="observablehq observablehq--block"><!--:837c2932:--></div>
 <div class="observablehq observablehq--block"><!--:32b0139e:--></div>
-<div class="observablehq observablehq--block"><!--:cf2eb9aa:--></div>
+<div class="observablehq observablehq--block"><!--:62f293fb:--></div>
 <div class="observablehq observablehq--block"><!--:2b7bad24:--></div>
 </main>
 <footer id="observablehq-footer">
